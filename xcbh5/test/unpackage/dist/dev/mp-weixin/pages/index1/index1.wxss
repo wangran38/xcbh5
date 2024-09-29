@@ -1,0 +1,168 @@
+
+.me-container {
+	height: 100vh;
+	overflow: hidden;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0rpx 40rpx 0 40rpx;
+	color: white;
+	z-index: 1;
+	background-color: #f8f8f8;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	align-items: center;
+	position: relative;
+}
+.me-container::after {
+	content: "";
+	width: 140%;
+	height: 200px;
+	position: absolute;
+	left: -20%;
+	top: 0;
+	z-index: -1;
+	border-radius: 0 0 50% 50%;
+	background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+.top {
+	
+	margin: 10% auto;
+	position: absolute;
+	font-size: 56px;
+	font-weight: bold;
+	text-align: center;
+	/*字体粗细*/
+	/* -webkit-text-stroke: 1px #aa55ff; */
+	-webkit-text-stroke: 1px white;
+	/*描边*/
+	-webkit-text-fill-color: transparent;
+	margin-top: 150rpx;
+}
+.region {
+	width: 650rpx;
+	height: 280px;
+	/* margin: auto auto; */
+	margin-top: 300rpx;
+	padding: 20rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	/* align-items: center;	 */
+	background: rgba(255, 255, 255, 1);
+	/* background-color: white; */
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.nation {
+	height: 100rpx;
+	width: 100%;
+	text-align: center;
+	line-height: 100rpx;
+	display: flex;
+	flex-direction: row;
+	/* background-color: darkred; */
+	border-bottom: 1px solid #ccc;
+	color: black;
+}
+.china {
+	flex: 1;
+	border-right: 1px solid #ccc;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+.overseas {
+	flex: 1;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+.active {
+	font-weight: bold;
+	border-bottom: 2px solid #007aff;
+}
+.area {
+	height: 150rpx;
+	display: flex;
+	flex-direction: row;
+	/* justify-content: space-between; */
+	align-items: center;
+	/* margin: 0 20rpx; */
+	/* padding: 0 20rpx; */
+	/* margin-top: 30rpx; */
+	border-bottom: 1px solid #ccc;
+	/* background-color: white; */
+}
+.area>text {
+	height: 150rpx;
+	width: 200rpx;
+	line-height: 150rpx;
+	text-align: left;
+	color: black;
+	font-size: 28rpx;
+	box-sizing: border-box;
+	border-right: 1px solid #ccc;
+	/* background-color: antiquewhite; */
+}
+.picker {
+	height: 150rpx;
+	width: 100%;
+	color: black;
+	line-height: 150rpx;
+	text-align: center;
+	box-sizing: border-box;
+	font-size: 30rpx;
+	padding: 0 10rpx;
+	overflow: hidden;
+	/* 隐藏超出部分 */
+}
+.picker-text {
+	white-space: nowrap;
+	/* 禁止换行 */
+	overflow: hidden;
+	/* 隐藏超出部分 */
+	text-overflow: ellipsis;
+	/* 超出部分显示省略号 */
+	line-height: 150rpx;
+	text-align: center;
+	box-sizing: border-box;
+	font-size: 30rpx;
+	padding: 0 10rpx;
+}
+.Address {
+	height: 150rpx;
+	display: flex;
+	flex-direction: row;
+	/* justify-content: space-between; */
+	align-items: center;
+	/* margin: 0 20rpx; */
+	/* padding: 0 20rpx; */
+	border-bottom: 1px solid #ccc;
+	/* background-color: red; */
+}
+.Address>text {
+	height: 150rpx;
+	width: 200rpx;
+	line-height: 150rpx;
+	text-align: left;
+	color: black;
+	font-size: 28rpx;
+	box-sizing: border-box;
+	border-right: 1px solid #ccc;
+	/* background-color: yellow; */
+}
+.save {
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 34rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	text-align: center;
+	border-radius: 20 rpx;
+	background-color: #007aff;
+	margin: auto 10rpx;
+}
+

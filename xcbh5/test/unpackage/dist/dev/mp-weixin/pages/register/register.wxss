@@ -1,0 +1,46 @@
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 40rpx;
+}
+.header {
+	font-size: 48rpx;
+	margin-bottom: 40rpx;
+}
+.input-group {
+	width: 90%;
+	margin-bottom: 40rpx;
+}
+.button-group {
+	width: 90%;
+	text-align: center;
+}
+.login-button {
+	width: 100%;
+	padding: 10rpx;
+	background-color: blue;
+	color: white;
+	font-size: 28rpx;
+	border: none;
+	border-radius: 10rpx;
+	cursor: pointer;
+}
+.login-button:active {
+	background-color: darkblue;
+}
+.error-message {
+	color: red;
+	font-size: 24rpx;
+}
+.error-message.valid {
+	color: green;
+	/* 正确提示的绿色 */
+}
+.error-message.invalid {
+	color: red;
+	/* 错误提示的红色 */
+}
+

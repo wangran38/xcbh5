@@ -1,0 +1,293 @@
+
+.me-container {
+	overflow: hidden;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 80rpx 40rpx 0 40rpx;
+	color: white;
+	z-index: 1;
+	background-color: #f8f8f8;
+	position: relative;
+}
+.me-container::after {
+	content: "";
+	width: 140%;
+	height: 200px;
+	position: absolute;
+	left: -20%;
+	top: 0;
+	z-index: -1;
+	border-radius: 0 0 50% 50%;
+	background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+.user {
+	height: 140rpx;
+	display: flex;
+	flex-direction: row;
+	/* justify-content: space-between; */
+	text-align: center;
+	/* border: 1px solid #ccc; */
+	/* background-color: white; */
+	background-color: transparent;
+}
+.user-info {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	/* justify-content: flex-start; */
+	margin: 0 20rpx;
+	width: 100%;
+}
+.settings-icon {
+	margin-left: auto;
+	/* 将设置图标推到最右侧 */
+}
+.user-img {
+	width: 110rpx;
+	height: 110rpx;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	overflow: hidden;
+	/* margin: auto auto; */
+	/* background-color: #00aaff; */
+}
+.user-img>image {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.user-name {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	margin: auto 30rpx;
+}
+.nickname-container {
+	display: flex;
+	margin-top: 10rpx;
+}
+.nickname-input {
+	flex: 1;
+	height: 60rpx;
+	/* border: 1rpx solid #ccc; */
+	border-radius: 10rpx;
+	padding: 0 10rpx;
+	margin-right: 10rpx;
+	font-size: 30rpx;
+	font-weight: 600;
+}
+.lottery {
+	width: 100%;
+	height: 100rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: black;
+	text-align: center;
+	border: 1rpx solid #ccc;
+	background-color: white;
+	box-sizing: border-box;
+	border-top: none;
+	border-top-left-radius: 20rpx;
+	border-top-right-radius: 20rpx;
+}
+.lottery-info {
+	display: flex;
+	align-items: center;
+	margin-left: 20rpx;
+}
+.lottery>.item {
+	width: 40rpx;
+	height: 100rpx;
+	text-align: center;
+	line-height: 100rpx;
+	color: rgb(229, 229, 229);
+	margin-right: 12rpx;
+}
+.prize {
+	width: 100%;
+	height: 100rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: black;
+	text-align: center;
+	border: 1rpx solid #ccc;
+	background-color: white;
+	box-sizing: border-box;
+	border-top: none;
+	/* border-bottom-left-radius: 20rpx; */
+	/* border-bottom-right-radius: 20rpx; */
+}
+.prize-info {
+	display: flex;
+	align-items: center;
+	margin-left: 20rpx;
+}
+.prize>.item {
+	width: 40rpx;
+	height: 100rpx;
+	text-align: center;
+	line-height: 100rpx;
+	color: rgb(229, 229, 229);
+	margin-right: 12rpx;
+}
+.MyPoints{
+	width: 100%;
+	height: 100rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: black;
+	text-align: center;
+	border: 1rpx solid #ccc;
+	background-color: white;
+	box-sizing: border-box;
+	border-top: none;
+	border-bottom-left-radius: 20rpx;
+	border-bottom-right-radius: 20rpx;
+}
+.MyPoints-info {
+	display: flex;
+	align-items: center;
+	margin-left: 20rpx;
+}
+.MyPoints>.item {
+	width: 40rpx;
+	height: 100rpx;
+	text-align: center;
+	line-height: 100rpx;
+	color: rgb(229, 229, 229);
+	margin-right: 12rpx;
+}
+.My-Order {
+	height: 200rpx;
+	width: 100%;
+	margin-top: 5%;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 20rpx;
+}
+.Order-top {
+	height: 60rpx;
+	width: 100%;
+	line-height: 60rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	border-bottom: 1rpx solid #ccc;
+	color: black;
+}
+.Order-bottom {
+	height: 140rpx;
+	flex: 5;
+	display: flex;
+	flex-direction: row;
+}
+.item-title {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/* padding-top: 20rpx; */
+	/* padding-bottom: 20rpx; */
+	color: black;
+	box-sizing: border-box;
+	/* background-color: #4facfe; */
+	/* height: 80%; */
+}
+.tool {
+	height: 180rpx;
+	width: 100%;
+	margin-top: 5%;
+	background-color: white;
+	border: 1rpx solid #ccc;
+	display: flex;
+	flex-direction: column;
+	border-radius: 20rpx;
+}
+.Apply {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: black;
+	padding: 0 20rpx;
+	border-bottom: 1rpx solid #ccc;
+}
+.Signout {
+	margin-top: 20rpx;
+	background-color: #007aff;
+	color: white;
+}
+.user-edit {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: black;
+	padding: 0 20rpx;
+}
+.login-button {
+	display: flex;
+	align-items: center;
+	-webkit-appearance: none;
+	        appearance: none;
+	background-color: #fff;
+	border-radius: 24px;
+	font-size: 16px;
+	font-weight: 500;
+	height: 40px;
+	justify-content: center;
+	letter-spacing: .25px;
+	line-height: 40rpx;
+	max-width: 100%;
+	overflow: visible;
+}
+.Integral{
+	color: rgb(58,58,60);
+	width: 100%;
+	height: 100rpx;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	margin-bottom: 3%;
+	border-radius: 20rpx;
+	border: 1px solid #ccc;
+}
+.Total-spending{
+	width: 33%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid #ccc;
+}
+.Points-available{
+	width: 34%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid #ccc;
+}
+.Freeze-points{
+	width: 33%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+

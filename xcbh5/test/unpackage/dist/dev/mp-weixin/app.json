@@ -1,0 +1,74 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/select/select",
+    "pages/sVegetables/sVegetables",
+    "pages/user/user",
+    "pages/ShopDetails/ShopDetails",
+    "pages/Apply/Apply",
+    "pages/Buy/Buy",
+    "pages/publish/publish",
+    "pages/release/release",
+    "pages/user-edit/user-edit",
+    "pages/stalllist/stalllist",
+    "pages/index1/index1",
+    "pages/coupons/coupons",
+    "pages/lottery/lottery",
+    "pages/rules/rules",
+    "pages/jackpot/jackpot",
+    "pages/orders/orders",
+    "pages/Stalls-dishes/Stalls-dishes",
+    "pages/Listed-Dishes/Listed-Dishes",
+    "pages/usecoupons/usecoupons",
+    "pages/Clock/Clock",
+    "pages/clock-records/clock-records",
+    "pages/MyPoints-records/MyPoints-records",
+    "pages/Ownerorders/Ownerorders",
+    "pages/wallet/wallet",
+    "pages/Points/Points",
+    "pages/pointspayouts/pointspayouts",
+    "pages/Settrecords/Settrecords"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#333333",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "selectedIconPath": "static/image/area_s.png",
+        "iconPath": "static/image/area.png",
+        "pagePath": "pages/index1/index1",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "static/image/home_s.png",
+        "iconPath": "static/image/home.png",
+        "pagePath": "pages/index/index",
+        "text": "买菜"
+      },
+      {
+        "selectedIconPath": "static/image/selling_s.png",
+        "iconPath": "static/image/selling.png",
+        "pagePath": "pages/sVegetables/sVegetables",
+        "text": "卖菜"
+      },
+      {
+        "selectedIconPath": "static/image/user_s.png",
+        "iconPath": "static/image/user.png",
+        "pagePath": "pages/user/user",
+        "text": "我的"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {}
+}
