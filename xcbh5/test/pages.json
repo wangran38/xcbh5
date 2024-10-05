@@ -1,0 +1,250 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "买菜"
+		// "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
+      "path": "pages/register/register",
+      "style": {
+        "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "pages/select/select",
+      "style": {
+        "navigationBarTitleText": "选择登录"
+      }
+    },
+    {
+      "path": "pages/sVegetables/sVegetables",
+      "style": {
+        "navigationBarTitleText": "卖菜"
+      }
+    },
+    {
+      "path": "pages/user/user",
+      "style": {
+        "navigationBarTitleText": "个人中心"
+      }
+    },
+    {
+    	"path" : "pages/ShopDetails/ShopDetails",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "摊主详情"
+    	}
+    },
+    {
+    	"path" : "pages/Apply/Apply",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "摊主申请"
+    	}
+    },
+    {
+    	"path" : "pages/Buy/Buy",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "提交订单"
+    	}
+    },
+    {
+    	"path" : "pages/publish/publish",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "菜品新增"
+    	}
+    },
+    {
+    	"path" : "pages/release/release",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "发布"
+    	}
+    },
+    {
+    	"path" : "pages/user-edit/user-edit",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "信息编辑"
+    	}
+    },
+    {
+    	"path" : "pages/stalllist/stalllist",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "摊位列表"
+    	}
+    },
+    {
+    	"path" : "pages/index1/index1",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "首页"
+    	}
+    },
+    {
+    	"path" : "pages/coupons/coupons",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "奖品"
+    	}
+    },
+    {
+    	"path" : "pages/lottery/lottery",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "抽奖"
+    	}
+    },
+    {
+    	"path" : "pages/rules/rules",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "抽奖规则"
+    	}
+    },
+    {
+    	"path" : "pages/jackpot/jackpot",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "中奖页"
+    	}
+    },
+    {
+    	"path" : "pages/orders/orders",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "订单"
+    	}
+    },
+    {
+    	"path" : "pages/Stalls-dishes/Stalls-dishes",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "菜品"
+    	}
+    },
+    {
+    	"path" : "pages/Listed-Dishes/Listed-Dishes",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "上架菜品"
+    	}
+    },
+    {
+    	"path" : "pages/usecoupons/usecoupons",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "使用优惠卷"
+    	}
+    },
+    {
+    	"path" : "pages/Clock/Clock",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "签到"
+    	}
+    },
+    {
+    	"path" : "pages/clock-records/clock-records",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "打卡记录"
+    	}
+    },
+    {
+    	"path" : "pages/MyPoints-records/MyPoints-records",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "我的积分"
+    	}
+    },
+    {
+    	"path" : "pages/Ownerorders/Ownerorders",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "摊主订单"
+    	}
+    },
+    {
+    	"path" : "pages/wallet/wallet",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "钱包"
+    	}
+    },
+    {
+    	"path" : "pages/Points/Points",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "积分钱包"
+    	}
+    },
+    {
+    	"path" : "pages/pointspayouts/pointspayouts",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "积分提现"
+    	}
+    },
+    {
+    	"path" : "pages/Settrecords/Settrecords",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "积分结算记录"
+    	}
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "app-plus": {
+      // "background": "#efeff4"
+	  "titleNView": false //禁用原生导航栏 
+    }
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#333333",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+	  {
+	    "selectedIconPath": "static/image/area_s.png",
+	    "iconPath": "static/image/area.png",
+	    "pagePath": "pages/index1/index1",
+	    "text": "首页"
+	  },
+      {
+        "selectedIconPath": "static/image/home_s.png",
+        "iconPath": "static/image/home.png",
+        "pagePath": "pages/index/index",
+        "text": "买菜"
+      },
+      {
+        "selectedIconPath": "static/image/selling_s.png",
+        "iconPath": "static/image/selling.png",
+        "pagePath": "pages/sVegetables/sVegetables",
+        "text": "卖菜"
+      },
+      {
+        "selectedIconPath": "static/image/user_s.png",
+        "iconPath": "static/image/user.png",
+        "pagePath": "pages/user/user",
+        "text": "我的"
+      }
+    ]
+  }
+}

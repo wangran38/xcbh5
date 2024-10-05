@@ -78,7 +78,7 @@
 	/* width: 250rpx; */
 	height: 100%;
 	color: #808080;
-	font-size: ;
+	font-size: 25rpx;
 }
 .picture {
 	width: 250rpx;

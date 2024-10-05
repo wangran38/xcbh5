@@ -56,7 +56,8 @@
 			</view>
 
 			<view class="address">
-				<text>地址：{{ shopDetails.address}}</text>
+				<!-- <text>地址：{{ shopDetails.address}}</text> -->
+				<text>地址：{{ shopDetails.address ? shopDetails.address : '' }}</text>
 				<uni-icons type="location-filled" size="20" style="margin-right: 10rpx;"></uni-icons>
 			</view>
 
@@ -331,6 +332,7 @@
 		/* justify-content: center; */
 		align-items: center;
 		box-sizing: border-box;
+		padding: 0 20rpx;
 	}
 
 	.nlef {
@@ -347,7 +349,7 @@
 	}
 
 	.nrig {
-		width: 70rpx;
+		width: 50rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;

@@ -62,6 +62,7 @@
 	line-height: 100rpx;
 	font-size: 34rpx;
 	color: #666666;
+	/* background-color: #007aff; */
 }
 .input-text {
 	height: 80rpx;

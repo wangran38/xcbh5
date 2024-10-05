@@ -5,15 +5,17 @@
 			<view class="current ">{{ currentMarketName }}</view>
 		</view>
 		<view class="search">
-			<uni-icons type="search" size="20" color="#999" class="search-icon"></uni-icons>
-			<input class="uni-input" placeholder="请输入搜索条件" v-model="searchParams.title">
-			<button class="searchbt" @click="reloadData">搜索</button>
+			<view class="sousuokuang">
+				<uni-icons type="search" size="20" color="#999" class="search-icon"></uni-icons>
+				<input class="uni-input" placeholder="请输入搜索条件" v-model="searchParams.title">
+				<button class="searchbt" @click="reloadData">搜索</button>
+			</view>
+			
 			<uni-icons class="buycar" type="scan" size="30" @click="scan"></uni-icons>
 		</view>
 
 		<view class="uni-margin-wrap">
 			<scroll-view class="swiper" scroll-x="true" scroll-y="false" show-scrollbar="false">
-				
 				<view v-for="item in categories" :key="item.id"  class="swiper-item" @click="filterByCategory(item.id)">
 					<view class="item-title">
 						<!-- <uni-icons type="cart" size="35"></uni-icons> -->
@@ -24,7 +26,10 @@
 				</view>
 			</scroll-view>
 		</view>
-
+		
+		
+		
+		
 		<scroll-view class="Stallholder" scroll-y="true" @scrolltolower="handleScrollToLower"
 			:style="{ height: '100vh' }">
 			<view class="Stallholder-content">
@@ -217,29 +222,48 @@
 		color: black;
 		margin-right: 30rpx;
 	}
+	
 	.search {
-		position: relative;
+		width: 100%;
+		/* position: relative; */
 		display: flex;
 		align-items: center;
 	}
-
+	.sousuokuang{
+		width: 86%;
+		/* position: relative; */
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid #FF3030;
+		border-radius: 20rpx;
+		padding: 10rpx 10rpx;
+	}
 	.search-icon {
-		position: absolute;
+		height: 60rpx;
+		width: 10%;
+		line-height: 60rpx;
+		/* position: absolute; */
 		left: 10rpx;
+		/* background-color: #1296db; */
 	}
 
 	.uni-input {
-		width: calc(100% - 140rpx);
-		height: 80rpx;
-		border: 1px solid #FF3030;
-		border-radius: 20rpx;
-		padding-left: 50rpx;
+		width: 70% ;
+		height: 60rpx;
+		line-height: 60rpx;
+		/* height: 80rpx; */
+		/* padding-left: 60rpx; */
 		padding-right: 100rpx;
+		/* box-sizing: border-box; */
+		/* background-color: #FF3030; */
 	}
 
 	.searchbt {
-		position: absolute;
-		right: 100rpx;
+		/* position: absolute; */
+		/* right: 95rpx; */
+		margin-left: ;
 		height: 60rpx;
 		line-height: 60rpx;
 		text-align: center;
@@ -252,21 +276,26 @@
 	}
 
 	.buycar {
-		margin: 0 10rpx;
+		flex: 1;
+		/* width: 100rpx; */
+		/* margin: 0 10rpx; */
+		margin-left: auto;
 		height: 80rpx;
 		line-height: 80rpx;
 		text-align: center;
 	}
 
 	.uni-margin-wrap {
-		height: 150rpx;
+		height: 120rpx;
 	}
 
 	.swiper {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 		overflow-x: scroll;
-		height: 150rpx;
+		height: 100%;
 		white-space: nowrap;
 	}
 
@@ -274,18 +303,17 @@
 		display: inline-block;
 		height: 100%;
 		width: 120rpx;
-		line-height: 100%;
+		/* line-height: 100%; */
 		margin: 0 20rpx;
 		text-align: center;
+		vertical-align: middle;
 	}
 
 	.item-title {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		display: inline-block;
 		box-sizing: border-box;
-		padding-top: 40rpx;
+		vertical-align: middle;
+		line-height: 120rpx; 
 	}
 
 	.classify {
@@ -340,11 +368,12 @@
 	.standimg {
 		/* height: 300rpx; */
 		width: 100%;
+		border-radius: 20rpx;
 		/* background-color: #1296db; */
 	}
 
 	.standtitle {
-		width: 100%;
+		width: 90%;
 		height: 100rpx;
 		line-height: 70rpx;
 		/* background-color: white; */
@@ -353,6 +382,7 @@
 		white-space: nowrap; /* 强制不换行 */
 		text-overflow: ellipsis; /* 显示省略号 */
 		font-size: 30rpx;
+		/* background-color: aqua; */
 		
 	}
 

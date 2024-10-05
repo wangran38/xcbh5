@@ -4,7 +4,7 @@
 			<view class="avatar">
 				<view class="title">头像</view>
 				<view class="avatar-box" @click="chooseImage">
-					<image :src="user.Headimgurl" class="avatar-image" mode="aspectFill"></image>
+					<image :src="user.Headimgurl  || 'http://h5.xcbdsc.com/static/morentouxiang.jpg'" class="avatar-image" mode="aspectFill"></image>
 				</view>
 			</view>
 
@@ -43,11 +43,11 @@
 
 <script>
 	import {
-		api
+		api,UPLOAD_URL 
 	} from '../../api/index.js'; // 确保路径正确
 	import {
 		useUpload
-	} from "@/hooks/useUpload"
+	} from "@/hooks/useUpload";
 	export default {
 		data() {
 			return {
@@ -62,6 +62,7 @@
 			}
 		},
 		onLoad() {
+			console.log('UPLOAD_URL:', UPLOAD_URL);
 			// 从本地存储中获取 token
 			const token = uni.getStorageSync('token');
 			if (!token) {
@@ -102,23 +103,23 @@
 			chooseImage() {
 				uni.chooseImage({
 					count: 1,
-					sizeType: ['original', 'compressed'],
+					sizeType: ['compressed','original'],
 					sourceType: ['album', 'camera'],
 					success: (res) => {
+						// console.log(res.data.path);
 						const tempFilePaths = res.tempFilePaths;
 						if (tempFilePaths.length > 0) {
 							console.log(tempFilePaths);
-							const {
-								upload,
-								request
-							} = useUpload({
+							const {upload,request} = useUpload({
 								uploadPath: '/group1/upload',
 								tempFilePaths: tempFilePaths[0]
 							})
 
 							upload().then((res) => {
-								this.user.Headimgurl = res
-							})
+								var obj = JSON.parse(res);
+								// console.log(obj.data);
+								this.user.Headimgurl = UPLOAD_URL+obj.data.path
+							})		
 							// api.uploadImage(tempFilePaths[0])
 							// 	.then(data => {
 							// 		this.user.headimgurl = data.url; // 更新头像 URL
@@ -240,6 +241,7 @@
 		line-height: 100rpx;
 		font-size: 34rpx;
 		color: #666666;
+		/* background-color: #007aff; */
 	}
 
 	.input-text {

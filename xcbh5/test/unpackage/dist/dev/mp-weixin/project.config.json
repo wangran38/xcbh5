@@ -7,8 +7,8 @@
   "setting": {
     "urlCheck": false,
     "es6": false,
-    "postcss": false,
-    "minified": false,
+    "postcss": true,
+    "minified": true,
     "newFeature": true,
     "bigPackageSizeSupport": true,
     "ignoreUploadUnusedFiles": true,
@@ -22,24 +22,7 @@
   "libVersion": "3.5.1",
   "appid": "wx6823c63b646d3ca3",
   "projectname": "乡愁宝内测",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
-    }
-  },
+  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

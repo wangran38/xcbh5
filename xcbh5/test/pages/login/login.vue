@@ -67,7 +67,7 @@ export default {
           uni.switchTab({ url: '/pages/index/index' });
         } else {
           uni.showToast({
-            title: response.message || '登录失败',
+            title: response.msg || '登录失败',
             icon: 'none'
           });
         }

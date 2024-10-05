@@ -111,6 +111,7 @@
 	/* justify-content: center; */
 	align-items: center;
 	box-sizing: border-box;
+	padding: 0 20rpx;
 }
 .nlef.data-v-d1da77c0 {
 	width: 140rpx;
@@ -124,7 +125,7 @@
 	font-size: 28rpx;
 }
 .nrig.data-v-d1da77c0 {
-	width: 70rpx;
+	width: 50rpx;
 	display: flex;
 	align-items: center;
 	justify-content: center;

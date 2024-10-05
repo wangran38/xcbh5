@@ -381,8 +381,7 @@
 		background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 	}
 
-	.top {
-		
+	.top {	
 		margin: 10% auto;
 		position: absolute;
 		font-size: 56px;
@@ -398,7 +397,7 @@
 
 	.region {
 		width: 650rpx;
-		height: 280px;
+		height: 520rpx;
 		/* margin: auto auto; */
 		margin-top: 300rpx;
 		padding: 20rpx;

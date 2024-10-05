@@ -57,7 +57,7 @@
 
 <script>
 	import {
-		api
+		api,UPLOAD_URL 
 	} from '../../api/index.js';
 	import {
 		useUpload
@@ -112,7 +112,7 @@
 			uploadcuisine() {
 				uni.chooseImage({
 					count: 1,
-					sizeType: ['original', 'compressed'],
+					sizeType: ['compressed','original'],
 					sourceType: ['album', 'camera'],
 					success: (res) => {
 						// const tempFilePaths = res.tempFilePaths;
@@ -128,10 +128,18 @@
 								uploadPath: '/group1/upload',
 								tempFilePaths: tempFilePaths[0]
 							})
-
+							
+							// upload().then((res) => {
+							// 	console.log(res);
+							// 	this.imglogo = res;
+							// 	this.isImageSelected = true;
+							// 	this.imageUploaded = true; // 更新图片上传状态
+							// })
+							
 							upload().then((res) => {
-								console.log(res);
-								this.imglogo = res;
+								var obj = JSON.parse(res);
+								// console.log(obj.data);
+								this.imglogo = UPLOAD_URL +obj.data.path
 								this.isImageSelected = true;
 								this.imageUploaded = true; // 更新图片上传状态
 							})
@@ -303,7 +311,7 @@
 		/* width: 250rpx; */
 		height: 100%;
 		color: #808080;
-		font-size: ;
+		font-size: 25rpx;
 	}
 	.picture {
 		width: 250rpx;

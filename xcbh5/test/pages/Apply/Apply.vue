@@ -70,7 +70,7 @@
 					file-extname="png,jpg" :limit="9" @select="select" @progress="progress" @success="success"
 					@fail="fail" 点击上传图片
 					/> -->
-				<button class="BLpicker" @tap="chooseImage">{{ isImageSelected ? '已选择' : '选择图片' }}</button>
+				<view class="BLpicker" @tap="chooseImage">{{ isImageSelected ? '已选择' : '选择图片' }}</view>
 			</view>
 
 			<view class="illustrate">
@@ -86,7 +86,7 @@
 
 <script>
 	import {
-		api
+		api,UPLOAD_URL 
 	} from '../../api/index.js';
 	import {
 		useUpload
@@ -276,7 +276,7 @@
 			chooseImage() {
 				uni.chooseImage({
 					count: 1,
-					sizeType: ['original', 'compressed'],
+					sizeType: ['compressed','original'],
 					sourceType: ['album', 'camera'],
 					success: (res) => {
 						// const tempFilePaths = res.tempFilePaths;
@@ -293,10 +293,16 @@
 								tempFilePaths: tempFilePaths[0]
 							})
 
+							// upload().then((res) => {
+							// 	console.log(res);
+							// 	this.logo = res;
+							// 	this.isImageSelected = true;
+							// })
 							upload().then((res) => {
-								console.log(res);
-								this.logo = res;
-								this.isImageSelected = true;
+								var obj = JSON.parse(res);
+								// console.log(obj.data);
+								this.logo = UPLOAD_URL+obj.data.path;
+									this.isImageSelected = true;
 							})
 							// api.uploadImage(tempFilePaths[0])
 							// 	.then(data => {
@@ -351,7 +357,7 @@
 						// 清空表单或进行其他操作
 					} else {
 						uni.showToast({
-							title: '提交失败',
+							title: response.msg || '提交失败',
 							icon: 'none'
 						});
 					}
