@@ -1,34 +1,33 @@
 <template>
 	<view class="box" @click="show=false">
 		<image :src="item.imglogo" mode="aspectFill" @click="openBigImg(item.imglogo)"></image>
-		<view class="regard">
+		<view class="regard" >
 			<view class="typetitle">
-				<text class="ellipsis">{{item.commodity_name}}</text>
-				<uni-icons type="right" size="14" color="#ccc"></uni-icons>
-			</view>
-			<view class="label">
-				<view class="one" @click="goToSuyuan(item)">
-					溯源
+				<view>
+					<text class="ellipsis">{{item.commodity_name}}</text>
+					<uni-icons type="right" size="14" color="#ccc"></uni-icons>
 				</view>
+				<view @click="viewDetail" style="color: white; display: flex; align-items: center; justify-content: center; background-color: #ffd100; font-size:30rpx;padding: 30rpx; border-radius: 30rpx; font-weight: 400;">详情</view>
 			</view>
+			<view class="one" @click.stop="goToSuyuan(item)">溯源</view>
 			<view class="price">
 				<text>¥ {{item.price.toFixed(2)}} 元/{{item.weight_name}}</text>
 				<view class="quantity">
-					<view class="btn1" @click="reduce">-</view>
+					<view class="btn1" @click.stop="reduce">-</view>
 					<view class="count1" @click.stop="showInput" :catchtouchmove="null">
 						<text v-if="!show">{{getTempCount(item.id)}}</text>
 						<textarea :adjust-position="false" v-if="show" v-model="count" @blur="overInput"
 							:auto-height="false" fixed class="input" :focus="show" @input="changeTextarea"
 							adjust-position="true"></textarea>
 					</view>
-					<view class="btn2" @click="add">+</view>
+					<view class="btn2" @click.stop="add">+</view>
 				</view>
 			</view>
 		</view>
-		<view v-if="OpenImg" class="dialog-mask-img">
+		<view v-if="OpenImg" class="dialog-mask-img" @click="OpenImg = false">
 			<view class="showImg">
 				<uni-icons mode="scaleToFill" type="closeempty" style="position: absolute; right: 5rpx; top: 10rpx;"
-					size="25" @click="OpenImg = false"></uni-icons>
+					size="20px" @click="OpenImg = false"></uni-icons>
 				<image :src="selectImgUrl" mode="scaleToFill"></image>
 			</view>
 		</view>
@@ -55,10 +54,16 @@
 			};
 		},
 		methods: {
+			viewDetail(){
+				// console.log(this.item)
+				uni.navigateTo({
+					url:`/pages/commodityDetail/commodityDetail?query=${JSON.stringify(this.item)}`
+				})
+			},
 			// 放大图片
 			openBigImg(url) {
-				this.OpenImg = true
-				this.selectImgUrl = url
+				// this.OpenImg = true
+				// this.selectImgUrl = url
 			},
 			changeTextarea(e) {
 
@@ -70,6 +75,7 @@
 			},
 			// 减一
 			reduce() {
+				console.log(this.item)
 				this.subItem(this.item)
 				this.count = ''
 			},
@@ -109,7 +115,7 @@
 			},
 			goToSuyuan(item) {
 				uni.navigateTo({
-					url: `/subPackages/aHouseholder/lookTraceability/lookTraceability?commodity_id=${item.id}`
+					url: `/subPackages/aHouseholder/lookTraceability/lookTraceability?commodity_id=${item.id}`,
 				})
 			},
 
@@ -164,8 +170,12 @@
 	}
 
 	.box {
+		padding: 5rpx;
+		background-color: white;
 		display: flex;
 		height: 216rpx;
+		border-radius: 10px;  /* 圆角卡片 */
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);/* 阴影效果 */
 	}
 
 	image {
@@ -184,6 +194,9 @@
 	}
 
 	.typetitle {
+		display: flex;
+		justify-content: space-between;
+		/* align-items: center; */
 		height: 100rpx;
 		width: 100%;
 		line-height: 100rpx;
@@ -214,17 +227,22 @@
 	}
 
 	.one {
-		font-size: 30rpx;
-		padding: 20rpx;
-		width: 18%;
-		height: 100%;
+		text-align: center;
+		width: 70rpx;
+		height: 20rpx;
+		font-weight: bold;
+		font-size: 25rpx;
 		display: flex;
-		justify-content: center;
 		align-items: center;
-		border: 0.5rpx solid red;
-		color: red;
-		margin-right: 10rpx;
-		z-index: 10
+		padding: 20rpx;
+		background-color: #ffd100;
+		
+		border-color: orange;
+		color: #fff;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		border-top-right-radius: 30rpx;
+		border-bottom-right-radius: 30rpx;
 	}
 
 	.price {
@@ -258,13 +276,15 @@
 
 	.btn1,
 	.btn2 {
-		font-size: 40rpx;
+		font-size: 60rpx;
 		width: 50rpx;
 		height: 50rpx;
 		background-color: #007aff;
 		color: white;
 		text-align: center;
-		line-height: 45rpx;
+		display: flex;
+		align-items: center;
+		justify-content:center;
 		border-radius: 50%;
 		margin: 0 10rpx;
 	}

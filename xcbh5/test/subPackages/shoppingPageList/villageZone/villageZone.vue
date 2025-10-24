@@ -193,6 +193,7 @@
 			},
 
 			goToDynamics(item) {
+				console.log(item)
 				uni.navigateTo({
 					url: `/pages/dynamics/dynamics?id=${item.id}`
 				})

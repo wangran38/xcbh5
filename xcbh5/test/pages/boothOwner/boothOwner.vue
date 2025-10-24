@@ -86,12 +86,12 @@
 							上架菜品
 						</view>
 					</view>
-					<view class="item" @click="goToRouter('/subPackages/aHouseholder/Traceability/Traceability')">
+<!-- 					<view class="item" @click="goToRouter('/subPackages/aHouseholder/Traceability/Traceability')">
 						<uni-icons type="plus" size="30"></uni-icons>
 						<view class="add-dishes">
 							溯源补充
 						</view>
-					</view>
+					</view> -->
 					<!-- <view class="item">
 						<uni-icons type="plus" size="30"></uni-icons>
 						<view class="add-dishes">

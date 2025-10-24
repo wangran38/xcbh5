@@ -5,7 +5,7 @@
 			:style="{ height: '100vh' }">
 			<view class="disheslist">
 				<view class="type" v-for="item in pageData" :key="item.id">
-					<image class="type-image" v-if="isloaded"  lazy-load :src="item.imglogo "></image>
+					<image class="type-image" v-if="isloaded" lazy-load :src="item.imglogo "></image>
 
 					<view class="regard">
 						<view class="typetitle">
@@ -21,6 +21,7 @@
 							@click="item.isshow === 1 && off(item.id)">
 							{{ item.isshow === 1 ? '下架' : '已下架' }}
 						</view>
+
 					</view>
 				</view>
 				<view v-if="pageLoading" class="loading">加载中...</view>
@@ -43,7 +44,7 @@
 				pageData: [],
 				// token: '',
 				// shopId: 0,
-				isloaded:false
+				isloaded: false
 			}
 		},
 		onLoad() {
@@ -57,9 +58,17 @@
 		mixins: [usePage],
 		methods: {
 			async fetchData(params) {
-				const response = await api.myShoplist({ ...params ,isshow: 1 })
+				const response = await api.myShoplist({
+					...params,
+					isshow: 1
+				})
 				return response.data
 
+			},
+			goToRoute(path) {
+				uni.navigateTo({
+					url: path
+				})
 			},
 			async off(itemId) {
 				try {
@@ -76,11 +85,11 @@
 						});
 						// this.reloadData(); // 重新加载数据
 						// 更新下架的菜品的状态
-						          const itemIndex = this.pageData.findIndex(item => item.id === itemId);
-						          if (itemIndex !== -1) {
-						            this.pageData[itemIndex].isshow = 0;  // 更新状态为已下架
-						          }
-								  this.reloadData(); 
+						const itemIndex = this.pageData.findIndex(item => item.id === itemId);
+						if (itemIndex !== -1) {
+							this.pageData[itemIndex].isshow = 0; // 更新状态为已下架
+						}
+						this.reloadData();
 					} else {
 						uni.showToast({
 							title: response.msg || '操作失败',
@@ -153,26 +162,24 @@
 		color: black;
 		font-size: 30rpx;
 		font-weight: 600;
-		/* display: flex; */
-		/* flex-direction: column; */
-		/* background-color: bisque; */
-		/* justify-content: space-around; */
+		/* 		display: flex;
+		flex-direction: column;
+		justify-content: space-around; */
 		margin-left: 20rpx;
-		/* 将子元素放置在容器的顶部和底部 */
-
 	}
 
 	.function {
 		display: flex;
 		height: 100%;
-		width:150rpx;
-		/* margin-left: auto; */
+		width: 150rpx;
 		margin-right: 0;
 		justify-content: end;
 		align-items: center;
 	}
 
 	.rigicon {
+		margin: 5rpx;
+		padding: 18rpx;
 		height: 70rpx;
 		width: 110rpx;
 		background-color: #007aff;
@@ -181,10 +188,14 @@
 		align-items: center;
 		border-radius: 30rpx;
 	}
+
 	.disabled {
-	  background-color: #d3d3d3; /* 灰色背景 */
-	  cursor: not-allowed; /* 更改鼠标样式为禁用状态 */
+		background-color: #d3d3d3;
+		/* 灰色背景 */
+		cursor: not-allowed;
+		/* 更改鼠标样式为禁用状态 */
 	}
+
 	.loading {
 		text-align: center;
 		padding: 20rpx;

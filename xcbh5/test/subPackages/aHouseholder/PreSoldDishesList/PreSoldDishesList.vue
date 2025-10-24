@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- 分类导航 -->
-<!-- 		<view class="nav-bar">
+		<!-- 		<view class="nav-bar">
 			<view v-for="(item, index) in navItems" :key="index"
 				:class="['nav-item', activeNav === index ? 'active' : '']" @click="switchNav(index)">
 				{{item}}
@@ -28,11 +28,11 @@
 								<text>{{initDate(item.sellbegintime)}}</text>
 							</view>
 						</view> -->
-<!-- 						<view style="font-size: 28rpx;color: red;">市场价:<text
+						<!-- 						<view style="font-size: 28rpx;color: red;">市场价:<text
 								style="text-decoration:line-through">{{item.price}}</text></view>
 						<view style="font-size: 28rpx;">预卖价:{{item.presaleprice}}</view> -->
 						<view class="action-bar" v-if="!formData.id" style="text-align: center;">
-							<view >
+							<view>
 								<button class="delete-btn" @click="showDeleteConfirm(item.id)">
 									<uni-icons type="trash" size="18" color="#fff" />
 								</button>
@@ -45,13 +45,26 @@
 								上市
 							</view>
 							<view>
-								<button class="delete-btn" @click="additionalinformation(item)" style="background-color: #57fffa;">
+								<button class="delete-btn" @click="additionalinformation(item)"
+									style="background-color: #57fffa;">
 									<uni-icons type="staff" size="18" color="#fff" />
 								</button>
 								朋友圈
 							</view>
+							<view>
+								<button class="delete-btn" @click="origin(item)" style="background-color: #aaaa00;">
+									<uni-icons type="staff" size="18" color="#fff" />
+								</button>
+								溯源
+							</view>
+							<view>
+								<button class="delete-btn" @click="editItem(item)" style="background-color: #ffe4de;">
+									<uni-icons type="staff" size="18" color="#fff" />
+								</button>
+								编辑
+							</view>
 
-<!-- 							<view>
+							<!-- 							<view>
 								<button class="delete-btn" @click="editItem(item)" style="background-color: #55ffff;">
 									<uni-icons type="compose" size="18" color="#fff" />
 								</button>
@@ -72,7 +85,9 @@
 				</view>
 			</view>
 		</scroll-view>
-
+		
+		
+		<view  v-if="vegetables.length<=0" style="text-align: center;font-size: 40rpx; font-weight:bold; margin-top: 100px;">暂无菜品</view>
 		<!-- 删除确认弹窗 -->
 		<uni-popup ref="deletePopup" type="dialog">
 			<uni-popup-dialog mode="base" title="确认删除" content="确定要删除这个预卖菜品？" @confirm="confirmDelete"
@@ -99,22 +114,27 @@
 					// 禽畜数据
 				],
 				formData: {
+					farmersgoods_id: null,
 					page: 1,
 					limit: 30
 				},
 			}
 		},
 		mixins: [myMixin],
-		onLoad({
-			query
-		}) {
-			if (query) {
-				this.formData.id = query
-			}
+		onShow() {
+			// if (query) {
+			// 	this.formData.id = query
+			// }
 			this.getData()
 		},
 		methods: {
-			additionalinformation(){
+			origin(item) {
+				console.log(item)
+				uni.navigateTo({
+					url: `/subPackages/aHouseholder/Traceability/Traceability?id=${item.id}&goodsname=${item.goodsname}&type=2`
+				})
+			},
+			additionalinformation() {
 				uni.navigateTo({
 					url: "/pages/additionalinformation/additionalinformation"
 				})

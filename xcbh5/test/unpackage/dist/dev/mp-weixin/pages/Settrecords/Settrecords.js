@@ -102,20 +102,24 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.pageData, function (item, __i0__) {
+  var g0 = !_vm.isLoading && _vm.pageData.length === 0
+  var l0 = _vm.__map(_vm.pageData, function (item, index) {
     var $orig = _vm.__get_orig(item)
-    var m0 = _vm.formatDate(item.Created)
-    var m1 = _vm.getStatusLabel(item.status)
+    var g1 = _vm.formatDate(item.Created).split(" ")
+    var g2 = _vm.formatDate(item.Created).split(" ")
+    var m0 = _vm.getStatusLabel(item.status)
     return {
       $orig: $orig,
+      g1: g1,
+      g2: g2,
       m0: m0,
-      m1: m1,
     }
   })
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
+        g0: g0,
         l0: l0,
       },
     }
@@ -207,15 +211,31 @@ var _usePage = _interopRequireDefault(__webpack_require__(/*! @/hooks/usePage */
 //
 //
 //
-// 根据你的项目路径引入
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
-      pageData: []
+      pageData: [],
+      isLoading: false
     };
   },
   onShow: function onShow() {
-    // this.token = uni.getStorageSync('token');
     this.reloadData();
   },
   mixins: [_usePage.default],
@@ -251,7 +271,6 @@ var _default = {
           return '已结算';
         default:
           return '';
-        // 默认不填写
       }
     }
   }

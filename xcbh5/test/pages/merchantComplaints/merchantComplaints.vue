@@ -180,8 +180,8 @@
 
 <style lang="scss" scoped>
 	.complaint-container {
-		background: linear-gradient(180deg, #F8FFF9 0%, #FFFFFF 100%);
-		min-height: 100vh;
+		background: linear-gradient(180deg, #2979ff 0%, #FFFFFF 100%);
+		min-height: 100vh; 
 		padding: 40rpx 30rpx;
 	}
 
@@ -192,13 +192,13 @@
 			display: block;
 			font-size: 44rpx;
 			font-weight: 600;
-			color: #2C3E50;
+			color: white;
 			margin-bottom: 16rpx;
 		}
 
 		.subtitle {
 			font-size: 26rpx;
-			color: #7A9D7E;
+			color: white;
 		}
 	}
 
@@ -262,7 +262,7 @@
 	}
 
 	.content-input {
-		width: 100%;
+		// width: 100%;
 		height: 240rpx;
 		padding: 24rpx;
 		background: #F8F9FA;
@@ -351,8 +351,10 @@
 		margin-top: 64rpx;
 
 		.submit-btn {
-			background: #007aff;
-			;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: #007aff;;
 			color: white;
 			height: 96rpx;
 			border-radius: 64rpx;

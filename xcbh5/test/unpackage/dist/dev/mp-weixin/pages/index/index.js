@@ -103,10 +103,10 @@ var components
 try {
   components = {
     uniIcons: function () {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 788))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 820))
     },
     uniLoadMore: function () {
-      return Promise.all(/*! import() | uni_modules/uni-load-more/components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-load-more/components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue */ 796))
+      return Promise.all(/*! import() | uni_modules/uni-load-more/components/uni-load-more/uni-load-more */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-load-more/components/uni-load-more/uni-load-more")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-load-more/components/uni-load-more/uni-load-more.vue */ 828))
     },
   }
 } catch (e) {
@@ -249,9 +249,26 @@ var _usePage = _interopRequireDefault(__webpack_require__(/*! @/hooks/usePage */
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var floatBall = function floatBall() {
   __webpack_require__.e(/*! require.ensure | components/float-ball/float-ball */ "components/float-ball/float-ball").then((function () {
-    return resolve(__webpack_require__(/*! @/components/float-ball/float-ball.vue */ 807));
+    return resolve(__webpack_require__(/*! @/components/float-ball/float-ball.vue */ 839));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
@@ -260,6 +277,8 @@ var _default = {
   },
   data: function data() {
     return {
+      prompt: true,
+      showNotice: false,
       menuItems: [],
       tabs: [{
         id: 0,
@@ -339,10 +358,13 @@ var _default = {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              res = uni.getStorageSync('userSelection');
-              console.log(_this.marketName, res.marketName);
+              res = uni.getStorageSync('userSelection'); // console.log(this.marketName, res.marketName)
               if (_this.marketName != res.marketName) {
                 _this.initPage();
+              }
+              // 
+              if (!uni.getStorageSync('prompt')) {
+                _this.showNotice = true;
               }
             case 3:
             case "end":
@@ -354,6 +376,13 @@ var _default = {
   },
   mixins: [_usePage.default],
   methods: {
+    changePrompt: function changePrompt(e) {
+      this.prompt = !this.prompt;
+    },
+    handleClose: function handleClose() {
+      this.showNotice = false;
+      uni.setStorageSync('prompt', this.prompt);
+    },
     goToshoppingPageList: function goToshoppingPageList(item) {
       if (item.path) {
         console.log(item.path);

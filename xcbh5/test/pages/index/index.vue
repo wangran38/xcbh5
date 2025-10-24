@@ -1,5 +1,23 @@
 <template>
 	<view class="container">
+		<!-- 公告弹框：通过showNotice控制显示/隐藏 -->
+		<view class="notice-modal" v-if="showNotice">
+			<view class="notice-modal__mask" @click="handleClose"></view>
+			<view class="notice-modal__box">
+				<text class="notice-modal__title">重要公告</text>
+				<scroll-view class="notice-modal__content" scroll-y >
+					<text class="notice-modal__content-text">
+						亲爱的用户：\n 	通知\n 	因“农链天下”系统升级建设，自2025年10月9日起暂停一周一次的免费赠送积分活动，恢复时间待定。在此之前的赠送积分不影响正常使用，特此通知！ 	
+					</text>
+				</scroll-view>
+				<view style="margin-bottom: 10rpx; font-size: 25rpx;">不再提示<radio :checked="prompt"  @click="changePrompt" style="margin-left: 10rpx;"/></view>
+				<button class="notice-modal__confirm" @click="handleClose" hover-class="notice-modal__confirm--hover">
+					我知道了
+				</button>
+			</view>
+		</view>
+
+
 		<!-- 定位模块 -->
 		<view class="location-header">
 			<view class="location-info" @click="toindex1">
@@ -22,9 +40,8 @@
 
 		<!-- 分类导航 -->
 		<!-- <view style="border-bottom: 3rpx solid lightblue; width: 90rpx; margin: 5rpx;">活动页面</view> -->
-		<scroll-view class="category-nav" scroll-x  :scroll-with-animation="true">
-			<view v-for="item in tabs" :key="item.id" class="nav-item"
-				@click="goToshoppingPageList(item)">
+		<scroll-view class="category-nav" scroll-x :scroll-with-animation="true">
+			<view v-for="item in tabs" :key="item.id" class="nav-item" @click="goToshoppingPageList(item)">
 				<text class="nav-text">{{ item.title }}</text>
 				<view v-if="selectedCategoryId === item.id" class="nav-indicator" />
 			</view>
@@ -32,7 +49,7 @@
 
 		<!-- <view style="border-bottom: 3rpx solid lightblue; width: 90rpx; margin: 5rpx;">菜品分类</view> -->
 		<scroll-view class="category-filter" scroll-x>
-			
+
 			<view v-for="item in categories" :key="item.id" class="filter-item"
 				:class="{active: item.id === selectedCategoryId}" @click="filterByCategory(item.id)">
 				<text class="filter-text">{{ item.title }}</text>
@@ -40,7 +57,7 @@
 		</scroll-view>
 
 		<!-- 摊位列表 -->
-		<scroll-view class="stall-list"  scroll-y="true" scroll-x="false" @scrolltolower="handleScrollToLower">
+		<scroll-view class="stall-list" scroll-y="true" scroll-x="false" @scrolltolower="handleScrollToLower">
 			<view class="stall-grid">
 				<view v-for="item in pageData" :key="item.id" class="stall-card"
 					@click="navigateToShopDetails(item.id)">
@@ -86,6 +103,8 @@
 		},
 		data() {
 			return {
+				prompt:true,
+				showNotice: false,
 				menuItems: [],
 				tabs: [{
 						id: 0,
@@ -151,7 +170,7 @@
 				isHighAccuracy: true,
 				highAccuracy: true,
 				type: 'gcj02',
-				success:(res)=> {
+				success: (res) => {
 					uni.setStorageSync('userlocation', JSON.stringify(res));
 					console.log(res)
 				}
@@ -159,13 +178,24 @@
 		},
 		async onShow() {
 			let res = uni.getStorageSync('userSelection')
-			console.log(this.marketName, res.marketName)
+			// console.log(this.marketName, res.marketName)
 			if (this.marketName != res.marketName) {
 				this.initPage()
+			}
+			// 
+			if (!uni.getStorageSync('prompt')){
+				this.showNotice = true
 			}
 		},
 		mixins: [usePage],
 		methods: {
+			changePrompt(e){
+				this.prompt = !this.prompt
+			},
+			handleClose() {
+				this.showNotice = false
+				uni.setStorageSync('prompt',this.prompt)
+			},
 			goToshoppingPageList(item) {
 				if (item.path) {
 					console.log(item.path)
@@ -269,7 +299,7 @@
 				uni.scanCode({
 					onlyFromCamera: false,
 					success: async (res) => {
-						if (res.result){
+						if (res.result) {
 							// 核销
 							let data = await api.receiving({
 								out_trade_no: res.result
@@ -285,13 +315,13 @@
 									title: '核销失败'
 								})
 							}
-						}else{
+						} else {
 							console.log(res.path)
 							uni.navigateTo({
-								url:'/'+res.path
+								url: '/' + res.path
 							})
 						}
-					
+
 					},
 					fail: function(error) {
 						console.error('扫码失败:', error);
@@ -305,6 +335,238 @@
 
 
 <style lang="scss">
+	/deep/ .uni-radio-input{
+		margin-left: 10rpx;
+		width: 25rpx;
+		height: 25rpx;
+		background-color: #1677ff;
+		color: #fff;
+	}
+	/* 弹框外层容器：全屏覆盖 */
+	.notice-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999;
+		/* 确保在最上层（覆盖导航栏、tabbar） */
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 30rpx;
+		box-sizing: border-box;
+	}
+
+	/* 遮罩层 */
+	.notice-modal__mask {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(2px);
+		/* 背景模糊（多端兼容） */
+	}
+
+	/* 弹框主体 */
+	.notice-modal__box {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		max-width: 600rpx;
+		/* 最大宽度限制 */
+		background-color: #fff;
+		border-radius: 24rpx;
+		box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.15);
+		padding: 40rpx 30rpx;
+		box-sizing: border-box;
+	}
+
+	/* 关闭按钮 */
+	.notice-modal__close {
+		position: absolute;
+		top: 20rpx;
+		right: 20rpx;
+		font-size: 36rpx;
+		color: #999;
+		width: 50rpx;
+		height: 50rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.notice-modal__close:active {
+		color: #ff4d4f;
+		/* 点击态颜色 */
+	}
+
+	/* 标题 */
+	.notice-modal__title {
+		display: block;
+		font-size: 30rpx;
+		font-weight: bold;
+		color: #333;
+		text-align: center;
+		margin-bottom: 30rpx;
+	}
+
+	/* 内容滚动区 */
+	.notice-modal__content {
+		font-size: 26rpx;
+		color: #666;
+		line-height: 1.8;
+		margin-bottom: 40rpx;
+		padding-right: 10rpx;
+		/* 预留滚动条空间 */
+	}
+
+	/* 内容文本（处理换行） */
+	.notice-modal__content-text {
+		font-size: 30rpx;
+		white-space: pre-wrap;
+		/* 保留\n换行和空格 */
+	}
+
+	/* 确认按钮 */
+	.notice-modal__confirm {
+		width: 100%;
+		height: 88rpx;
+		line-height: 88rpx;
+		background-color: #1677ff;
+		color: #fff;
+		border-radius: 16rpx;
+		font-size: 28rpx;
+		font-weight: 500;
+		/* 清除Uniapp默认按钮样式 */
+		border: none;
+		padding: 0;
+	}
+
+	/* 按钮点击态 */
+	.notice-modal__confirm--hover {
+		background-color: #0f62d9;
+	}
+
+	/* 清除按钮默认伪元素 */
+	::v-deep .notice-modal__confirm::after {
+		border: none;
+	}
+
+	/* 公告弹框外层：固定定位全屏覆盖，小程序用 rpx 适配多端 */
+	.notice-modal {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999;
+		/* 确保在最上层，避免被导航栏/tabbar 遮挡 */
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+
+	/* 遮罩层：半透明+背景模糊，小程序支持 backdrop-filter */
+	.notice-modal__mask {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(2px);
+	}
+
+	/* 弹框主体：白色背景+圆角+阴影，用 rpx 适配不同屏幕 */
+	.notice-modal__box {
+		position: relative;
+		z-index: 1;
+		width: 85vw;
+		max-width: 500rpx;
+		/* 小程序最大宽度限制 */
+		background-color: #fff;
+		border-radius: 24rpx;
+		box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.15);
+		padding: 32rpx;
+		box-sizing: border-box;
+	}
+
+	/* 关闭按钮：右上角，适配小程序点击区域 */
+	.notice-modal__close {
+		position: absolute;
+		top: 24rpx;
+		right: 24rpx;
+		font-size: 32rpx;
+		color: #999;
+		cursor: pointer;
+		width: 40rpx;
+		height: 40rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.notice-modal__close:active {
+		color: #ff4d4f;
+		/* 小程序用 active 代替 hover */
+	}
+
+	/* 公告标题：加粗+居中 */
+	.notice-modal__title {
+		display: block;
+		font-size: 28rpx;
+		font-weight: 600;
+		color: #333;
+		text-align: center;
+		margin-bottom: 24rpx;
+	}
+
+	/* 内容滚动容器：小程序 scroll-view 必须设置固定高度 */
+	.notice-modal__content {
+		font-size: 24rpx;
+		color: #666;
+		line-height: 1.8;
+		margin-bottom: 32rpx;
+		/* 滚动条样式优化（小程序支持） */
+		scrollbar-width: thin;
+		scrollbar-color: #eee transparent;
+	}
+
+	/* 内容文本：处理换行（小程序 \n 需用 text 标签包裹） */
+	.notice-modal__content-text {
+		white-space: pre-wrap;
+		/* 保留换行和空格 */
+	}
+
+	/* 确认按钮：自定义样式，覆盖小程序默认按钮样式 */
+	.notice-modal__confirm-btn {
+		width: 100%;
+		height: 80rpx;
+		background-color: #1890ff;
+		color: #fff;
+		border-radius: 16rpx;
+		font-size: 26rpx;
+		font-weight: 500;
+		/* 清除小程序默认按钮边框和背景 */
+		border: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	/* 按钮点击态（小程序 hover-class） */
+	.notice-modal__btn-hover {
+		background-color: #096dd9;
+	}
+
+	/* 清除小程序 button 默认内边距 */
+	.notice-modal__confirm-btn::after {
+		border: none;
+	}
+
 	.container {
 		padding: 0 20rpx;
 	}
@@ -379,9 +641,10 @@
 	/* 分类导航样式 */
 	.category-nav {
 		white-space: nowrap;
+
 		.nav-item {
 			box-shadow: 10rpx 10rpx 16rpx rgba(0, 0, 0, 0.06);
-			
+
 			background: linear-gradient(135deg, #ff6a00, #ff8229);
 			border-radius: 5%;
 			margin: 10rpx;

@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniIcons: function () {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 788))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 820))
     },
   }
 } catch (e) {
@@ -126,10 +126,31 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
-    _vm.e0 = function ($event) {
+    _vm.e0 = function (e) {
+      return (_vm.form.password = e.detail.value)
+    }
+    _vm.e1 = function (e) {
+      return (_vm.form.password = e.detail.value)
+    }
+    _vm.e2 = function ($event) {
+      _vm.showPassword = !_vm.showPassword
+    }
+    _vm.e3 = function (e) {
+      return (_vm.form.confirm = e.detail.value)
+    }
+    _vm.e4 = function (e) {
+      return (_vm.form.confirm = e.detail.value)
+    }
+    _vm.e5 = function ($event) {
+      _vm.showConfirmPassword = !_vm.showConfirmPassword
+    }
+    _vm.e6 = function (e) {
+      return (_vm.form.fromid = e.detail.value)
+    }
+    _vm.e7 = function ($event) {
       _vm.agreements.service = !_vm.agreements.service
     }
-    _vm.e1 = function ($event) {
+    _vm.e8 = function ($event) {
       _vm.agreements.privacy = !_vm.agreements.privacy
     }
   }
@@ -236,14 +257,26 @@ var _index = __webpack_require__(/*! ../../api/index.js */ 49);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
       form: {
         username: '',
         password: '',
-        confirm: ''
+        confirm: '',
+        fromid: '' // 邀请码
       },
+
       phoneError: '',
       passwordError: '',
       confirmPasswordError: '',
@@ -257,10 +290,30 @@ var _default = {
       showConfirmPassword: true
     };
   },
-  watch: {
-    'form.username': 'validatePhoneNumber',
-    'form.password': 'validatePassword'
+  // watch: {
+  // 	'form.username': 'validatePhoneNumber',
+  // 	'form.password': 'validatePassword'
+  // },
+  onLoad: function onLoad(query) {
+    try {
+      var scene = decodeURIComponent(query.scene);
+      if (scene) {
+        this.form.fromid = scene;
+      } else {
+        this.form.fromid = 0;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    // console.log(scene)
+    // uni.showToast({
+    // 	title:scene
+    // })
+
+    // console.log("参数测试")
   },
+
   methods: {
     goTouserServiceAgreement: function goTouserServiceAgreement() {
       uni.navigateTo({
@@ -301,18 +354,20 @@ var _default = {
                 });
                 return _context.abrupt("return");
               case 7:
-                if (!(_this.form.password.length !== 6)) {
-                  _context.next = 10;
+                // 校验密码是否为6位
+                console.log(_this.form.password);
+                if (!(_this.form.password.length < 6)) {
+                  _context.next = 11;
                   break;
                 }
                 uni.showToast({
                   icon: 'error',
-                  title: '密码必须为6位'
+                  title: '密码必须为6位或者大于6位'
                 });
                 return _context.abrupt("return");
-              case 10:
+              case 11:
                 if (!(_this.form.password !== _this.form.confirm)) {
-                  _context.next = 13;
+                  _context.next = 14;
                   break;
                 }
                 uni.showToast({
@@ -320,9 +375,9 @@ var _default = {
                   title: '两次密码输入不一致'
                 });
                 return _context.abrupt("return");
-              case 13:
+              case 14:
                 if (!(!_this.agreements.service || !_this.agreements.privacy)) {
-                  _context.next = 16;
+                  _context.next = 17;
                   break;
                 }
                 uni.showToast({
@@ -330,11 +385,11 @@ var _default = {
                   title: '请勾选服务协议和隐私协议'
                 });
                 return _context.abrupt("return");
-              case 16:
-                _context.prev = 16;
-                _context.next = 19;
-                return _index.api.register(_this.form.username, _this.form.password, _this.form.confirm);
-              case 19:
+              case 17:
+                _context.prev = 17;
+                _context.next = 20;
+                return _index.api.register(_this.form.username, _this.form.password, _this.form.confirm, Number(_this.form.fromid));
+              case 20:
                 response = _context.sent;
                 if (response.code === 200) {
                   token = response.data;
@@ -355,22 +410,22 @@ var _default = {
                     title: response.msg || '注册失败，请重试'
                   });
                 }
-                _context.next = 27;
+                _context.next = 28;
                 break;
-              case 23:
-                _context.prev = 23;
-                _context.t0 = _context["catch"](16);
+              case 24:
+                _context.prev = 24;
+                _context.t0 = _context["catch"](17);
                 uni.showToast({
                   icon: 'none',
                   title: '网络错误，请稍后重试'
                 });
                 console.error('Registration Error:', _context.t0);
-              case 27:
+              case 28:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[16, 23]]);
+        }, _callee, null, [[17, 24]]);
       }))();
     },
     checkBox: function checkBox(value) {

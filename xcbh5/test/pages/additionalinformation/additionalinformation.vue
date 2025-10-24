@@ -47,7 +47,7 @@
 				<view class="panel-body">
 					<button class="action-button" @click="selectImage">
 						<uni-icons type="camera" size="20" color="#fff" />
-						<text>上传照片或视频</text>
+						<text>上传照片</text>
 					</button>
 					<view class="delete-icon" @click="editPanelClosePopup">×</view>
 
@@ -124,9 +124,6 @@
 		api,
 		UPLOAD_URL
 	} from '../../api/index.js';
-	import {
-		useUpload
-	} from "@/hooks/useUpload"
 	import {
 		myMixin
 	} from '@/utils/public.js'
@@ -312,17 +309,35 @@
 				// 	count: 1
 				// })
 				// this.tempImage = res.tempFilePaths[0]
-				uni.chooseMedia({
+				
+				uni.chooseImage({
 					count: 9,
 					mediaType: 'mix',
 					sourceType: ['album', 'camera'],
 					maxDuration: 30,
 					camera: 'back',
-					success: (res) => {
-						this.fileList = [...this.fileList, ...res.tempFiles]
-						// console.log(this.fileList)
+					mediaType: ['image'],
+					success: res => {
+						let newImageArray = res.tempFiles.map(item=>{
+							return {
+								...item,
+								fileType:'image'
+							}
+						})
+						this.fileList = [...this.fileList, ...newImageArray]
 					}
 				})
+				// uni.chooseMedia({
+				// 	count: 9,
+				// 	mediaType: 'mix',
+				// 	sourceType: ['album', 'camera'],
+				// 	maxDuration: 30,
+				// 	camera: 'back',
+				// 	success: (res) => {
+				// 		this.fileList = [...this.fileList, ...res.tempFiles]
+				// 		// console.log(this.fileList)
+				// 	}
+				// })
 			},
 			saveContent() {
 

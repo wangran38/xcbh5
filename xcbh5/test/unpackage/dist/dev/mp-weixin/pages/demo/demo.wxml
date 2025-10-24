@@ -1,1 +1,1 @@
-<view><button data-event-opts="{{[['tap',[['openMessage',['$event']]]]]}}" bindtap="__e">订阅消息</button></view>
+<canvas style="width:700rpx;height:600rpx;" canvas-id="pureCanvas" class="data-v-eae40a34"></canvas>

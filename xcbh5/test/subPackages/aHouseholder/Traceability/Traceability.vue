@@ -1,1162 +1,715 @@
 <template>
-  <view class="traceability-page">
-    <!-- 顶部状态与标题 -->
-    <view class="header-container">
-      <view class="progress-bar">
-        <view class="progress-value" :style="{ width: formCompletionRate + '%' }"></view>
-      </view>
-      <view class="header-content">
-        <text class="header-title">菜品溯源信息</text>
-        <text class="header-subtitle">填写越完整，消费者越放心</text>
-      </view>
-    </view>
-    
-    <!-- 消费视角提示 -->
-    <view class="consumer-tip">
-      <text class="tip-text">消费者最关心：产地环境、种植/养殖方式、农药/饲料使用、检测报告</text>
-    </view>
-    
-    <!-- 表单容器 -->
-    <view class="form-container">
-      <!-- 产品基本信息 -->
-      <view class="form-section">
-        <view class="section-header">
-          <text class="section-title">基本信息</text>
-          <text class="section-desc">消费者必看</text>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">产品名称 <text class="required-mark">*</text></view>
-          <view class="item-content">
-           <!-- <picker @change="bindPickerChange" :range="commodityTempLis" :value="index">
-              <view class="picker-text">
-                {{commodityLis[index].commodity_name || '请选择产品'}}
-              </view>
-            </picker> -->
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">产品分类 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <picker @change="changeClassification" :range="CLASSIFICATION" :value="classificationIndex">
-              <view class="picker-text">
-                {{CLASSIFICATION[classificationIndex] || '请选择分类'}}
-              </view>
-            </picker>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">产地 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="location-picker" @click="openLocationPicker">
-              <text class="location-text">{{TraceabilityInfo.Students || '点击选择产地'}}</text>
-              <icon type="location" size="16" color="#36a3ff" v-if="TraceabilityInfo.Students"></icon>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">生产日期 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <uni-datetime-picker type="date" :clear-icon="false"
-              v-model="TraceabilityInfo.productionDate" return-type="timestamp" 
-              class="date-picker" placeholder="选择生产日期" />
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">批次号</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('batchNumber')">
-              <text class="input-text">{{TraceabilityInfo.batchNumber || '点击输入批次号'}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      
-      <!-- 种植类详情 -->
-      <view class="form-section" v-if="classificationIndex === 0">
-        <view class="section-header">
-          <text class="section-title">种植信息</text>
-          <text class="section-desc">消费者最关心农药使用</text>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">农药名称 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('pesticideName')">
-              <text class="input-text">{{TraceabilityInfo.pesticideName || '点击输入农药名称'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">农药使用次数</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('pesticideTimes')">
-              <text class="input-text">{{TraceabilityInfo.pesticideTimes || '点击输入使用次数'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">最后施药日期</view>
-          <view class="item-content">
-            <uni-datetime-picker type="date" :clear-icon="false"
-              v-model="TraceabilityInfo.lastPesticideDate" return-type="timestamp" 
-              class="date-picker" placeholder="选择日期" />
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">农残检测报告 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="upload-container">
-              <view class="upload-box" v-for="(item, index) in pesticideCertImages" :key="index">
-                <image :src="item" mode="aspectFill" class="upload-image"></image>
-                <view class="delete-btn" @click="deleteCertificate(index, 'pesticide')">
-                  <icon type="cancel" size="16" color="#fff"></icon>
-                </view>
-              </view>
-              <view class="upload-box add-box" @click="choosePesticideCertificate">
-                <icon type="camera" size="24" color="#999"></icon>
-                <text class="upload-text">上传报告</text>
-              </view>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">灌溉水源</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('irrigationWater')">
-              <text class="input-text">{{TraceabilityInfo.irrigationWater || '点击输入灌溉水源'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">种植周期(天)</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('plantingCycle')">
-              <text class="input-text">{{TraceabilityInfo.plantingCycle || '点击输入种植周期'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">土壤类型</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('soilType')">
-              <text class="input-text">{{TraceabilityInfo.soilType || '点击输入土壤类型'}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      
-      <!-- 养殖类详情 -->
-      <view class="form-section" v-if="classificationIndex === 1">
-        <view class="section-header">
-          <text class="section-title">养殖信息</text>
-          <text class="section-desc">消费者最关心饲料与养殖环境</text>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">饲料名称 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('feedName')">
-              <text class="input-text">{{TraceabilityInfo.feedName || '点击输入饲料名称'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">饲料来源 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('feedSource')">
-              <text class="input-text">{{TraceabilityInfo.feedSource || '点击输入饲料来源'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">饲料检测报告 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="upload-container">
-              <view class="upload-box" v-for="(item, index) in feedCertImages" :key="index">
-                <image :src="item" mode="aspectFill" class="upload-image"></image>
-                <view class="delete-btn" @click="deleteCertificate(index, 'feed')">
-                  <icon type="cancel" size="16" color="#fff"></icon>
-                </view>
-              </view>
-              <view class="upload-box add-box" @click="chooseFeedCertificate">
-                <icon type="camera" size="24" color="#999"></icon>
-                <text class="upload-text">上传报告</text>
-              </view>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">养殖周期(天)</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('breedingCycle')">
-              <text class="input-text">{{TraceabilityInfo.breedingCycle || '点击输入养殖周期'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">防疫记录</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('epidemicPrevention')">
-              <text class="input-text">{{TraceabilityInfo.epidemicPrevention || '点击输入防疫情况'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">养殖环境描述</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('breedingEnvironment')">
-              <text class="input-text">{{TraceabilityInfo.breedingEnvironment || '点击输入环境描述'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">养殖方式</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('breedingMethod')">
-              <text class="input-text">{{TraceabilityInfo.breedingMethod || '点击输入养殖方式'}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-      
-      <!-- 加工类详情 -->
-      <view class="form-section" v-if="classificationIndex === 2">
-        <view class="section-header">
-          <text class="section-title">加工信息</text>
-          <text class="section-desc">消费者最关心添加剂与卫生情况</text>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">加工原料 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('processingMaterials')">
-              <text class="input-text">{{TraceabilityInfo.processingMaterials || '点击输入加工原料'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">食品添加剂</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('foodAdditives')">
-              <text class="input-text">{{TraceabilityInfo.foodAdditives || '点击输入添加剂信息'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">加工工艺</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('processingTechnology')">
-              <text class="input-text">{{TraceabilityInfo.processingTechnology || '点击输入加工工艺'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">加工环境检测</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('processingEnvironment')">
-              <text class="input-text">{{TraceabilityInfo.processingEnvironment || '点击输入检测结果'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">加工设备编号</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('processingEquipment')">
-              <text class="input-text">{{TraceabilityInfo.processingEquipment || '点击输入设备编号'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">加工卫生许可证</view>
-          <view class="item-content">
-            <view class="upload-container">
-              <view class="upload-box" v-for="(item, index) in processingCertImages" :key="index">
-                <image :src="item" mode="aspectFill" class="upload-image"></image>
-                <view class="delete-btn" @click="deleteCertificate(index, 'processing')">
-                  <icon type="cancel" size="16" color="#fff"></icon>
-                </view>
-              </view>
-              <view class="upload-box add-box" @click="chooseProcessingCertificate">
-                <icon type="camera" size="24" color="#999"></icon>
-                <text class="upload-text">上传证书</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-      
-      <!-- 其他类详情 -->
-      <view class="form-section" v-if="classificationIndex === 3">
-        <view class="section-header">
-          <text class="section-title">产品信息</text>
-          <text class="section-desc">消费者最关心材质与安全性</text>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">产品材质 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('productMaterial')">
-              <text class="input-text">{{TraceabilityInfo.productMaterial || '点击输入产品材质'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">生产厂家 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('manufacturer')">
-              <text class="input-text">{{TraceabilityInfo.manufacturer || '点击输入生产厂家'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">生产地址 <text class="required-mark">*</text></view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('manufacturerAddress')">
-              <text class="input-text">{{TraceabilityInfo.manufacturerAddress || '点击输入生产地址'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">联系方式</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('manufacturerPhone')">
-              <text class="input-text">{{TraceabilityInfo.manufacturerPhone || '点击输入联系电话'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">产品认证</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('productCertification')">
-              <text class="input-text">{{TraceabilityInfo.productCertification || '点击输入认证信息'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">安全检测报告</view>
-          <view class="item-content">
-            <view class="upload-container">
-              <view class="upload-box" v-for="(item, index) in otherCertImages" :key="index">
-                <image :src="item" mode="aspectFill" class="upload-image"></image>
-                <view class="delete-btn" @click="deleteCertificate(index, 'other')">
-                  <icon type="cancel" size="16" color="#fff"></icon>
-                </view>
-              </view>
-              <view class="upload-box add-box" @click="chooseOtherCertificate">
-                <icon type="camera" size="24" color="#999"></icon>
-                <text class="upload-text">上传报告</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-      
-      <!-- 通用信息 -->
-      <view class="form-section">
-        <view class="section-header">
-          <text class="section-title">通用信息</text>
-          <text class="section-desc">消费者关注的附加信息</text>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">运输方式</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('transportMethod')">
-              <text class="input-text">{{TraceabilityInfo.transportMethod || '点击输入运输方式'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">储存条件</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('storageConditions')">
-              <text class="input-text">{{TraceabilityInfo.storageConditions || '点击输入储存条件'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">保质期(天)</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('shelfLife')">
-              <text class="input-text">{{TraceabilityInfo.shelfLife || '点击输入保质期'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">营养价值</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('nutritionValue')">
-              <text class="input-text">{{TraceabilityInfo.nutritionValue || '点击输入营养价值'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">食用方法</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('cookingMethod')">
-              <text class="input-text">{{TraceabilityInfo.cookingMethod || '点击输入食用方法'}}</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">溯源凭证</view>
-          <view class="item-content">
-            <view class="upload-container">
-              <view class="upload-box" v-for="(item, index) in certificateImages" :key="index">
-                <image :src="item" mode="aspectFill" class="upload-image"></image>
-                <view class="delete-btn" @click="deleteCertificate(index, 'general')">
-                  <icon type="cancel" size="16" color="#fff"></icon>
-                </view>
-              </view>
-              <view class="upload-box add-box" @click="chooseCertificateImage">
-                <icon type="camera" size="24" color="#999"></icon>
-                <text class="upload-text">上传凭证</text>
-              </view>
-            </view>
-          </view>
-        </view>
-        
-        <view class="form-item">
-          <view class="item-label">备注信息</view>
-          <view class="item-content">
-            <view class="input-field" @click="openPopup('notes')">
-              <text class="input-text">{{TraceabilityInfo.notes || '点击输入备注信息'}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-    
-    <!-- 提交按钮 -->
-    <view class="submit-container">
-      <button class="submit-button" @click="submit" :disabled="isSubmitting">
-        {{isSubmitting ? '提交中...' : '提交溯源信息'}}
-      </button>
-    </view>
-    
-    <!-- 底部提示 -->
-    <view class="footer-tip">
-      <text>注：<text class="required-mark">*</text> 为必填项，完整填写可提升消费者信任度</text>
-    </view>
-    
-    <!-- 弹出层 -->
-    <uni-popup ref="popup" type="bottom" border-radius="12rpx 12rpx 0 0">
-      <view class="popup-content">
-        <input v-model="currentInputValue" placeholder="请输入" class="popup-input"
-          @confirm="handleInputConfirm" @blur="handleInputBlur" />
-      </view>
-    </uni-popup>
-  </view>
+	<view class="traceability-tab-page">
+
+		<!-- Tab导航栏 -->
+		<view class="tab-nav">
+			<view class="tab-item" :class="{ active: activeTab === 0 }" @click="activeTab = 0">
+				<text>溯源信息</text>
+				<view class="tab-indicator" v-if="activeTab === 0"></view>
+			</view>
+			<view  v-if="type==1"  class="tab-item" :class="{ active: activeTab === 1 }" @click="activeTab = 1">
+				<text>图片上传</text>
+				<view class="tab-indicator" v-if="activeTab === 1"></view>
+			</view>
+		</view>
+
+		<!-- Tab内容区域 -->
+		<view class="tab-content">
+			<!-- 第一个Tab：溯源信息 -->
+			<view class="tab-panel" v-if="activeTab === 0">
+				<!-- 溯源介绍 -->
+				<view class="intro-card">
+					<view class="intro-icon">
+						<!-- <icon type="info" size="24" color="#1890FF"></icon> -->
+					</view>
+					<view class="intro-content">
+						<view class="intro-title">补充溯源信息，生意更旺！</view>
+						<view class="intro-points">
+							<view class="intro-point">• 买家看得到来源，买得更放心</view>
+							<view class="intro-point">• 平台优先推荐，曝光更多</view>
+							<view class="intro-point">• 农产品/生鲜专属标签，区别普通商品</view>
+						</view>
+					</view>
+				</view>
+
+				<view class="form-container">
+					<!-- 选中商品 -->
+					<view class="form-item">
+						<view class="item-label required">选中商品</view>
+						<view class="item-content">
+							<view class="picker-view">
+								{{goodsname}}
+								<!-- <icon type="arrowright" size="16" color="#999"></icon> -->
+							</view>
+						</view>
+					</view>
+
+					<!-- 基础信息模块 -->
+					<view class="form-item">
+						<view class="item-label required">基础信息</view>
+						<view class="item-content">
+							<textarea placeholder="输入产品基本信息:" maxlength="2000" style="padding: 10rpx; font-size: 38rpx;"
+								v-model="formData.content"></textarea>
+						</view>
+					</view>
+
+					<!-- 溯源信息描述 -->
+					<view class="form-item">
+						<view class="item-label required">溯源信息描述</view>
+						<view class="item-content">
+							<textarea
+								placeholder="输入溯源信息：1. 生产环节:产地、种植/生产方式、周期等2.质检情况:检测标准、结果、机构等3. 物流信息:仓储条件、运输方式等4. 其他:原料来源、工艺特点等..."
+								v-model="formData.fromcontent" maxlength="2000"
+								style="padding: 10rpx; font-size: 38rpx;"></textarea>
+							<view class="word-count">{{ formData.fromcontent.length || 0 }} / 2000</view>
+							<view class="info-hint">
+								<!-- <icon type="help" size="14" color="#1890FF"></icon> -->
+								<text>真实细节越丰富，买家信任度越高，平台推荐越多</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<!-- 第二个Tab：多图展示上传 -->
+			<view class="tab-panel" v-if="activeTab === 1">
+				<!-- 图片上传说明 -->
+				<view class="upload-guide-card">
+					<view class="guide-icon">
+						<!-- <icon type="lightbulb" size="24" color="#1890FF"></icon> -->
+					</view>
+					<view class="guide-content">
+						<view class="guide-title">上传优质图片，提升溯源可信度</view>
+						<view class="guide-points">
+							<view class="guide-point">• 清晰展示商品真实情况，避免模糊、歪斜</view>
+							<view class="guide-point">• 不同场景分类上传，方便买家了解全过程</view>
+							<view class="guide-point">• 最多可上传9张</view>
+						</view>
+					</view>
+				</view>
+
+				<!-- 多图上传主区域 -->
+				<view class="upload-container">
+					<!-- 图片网格布局 -->
+					<view class="image-grid">
+						<!-- 上传按钮 -->
+						<view class="upload-btn" @click="chooseImage" v-if="images.length < 9">
+							<!-- <icon type="camera" size="32" color="#1890FF"></icon> -->
+							<text>拍摄/选择</text>
+						</view>
+
+						<!-- 图片预览项 -->
+						<view class="image-item" v-for="img in images" :key="img.id">
+							<image :src="img.url" mode="aspectFill"></image>
+							<view class="image-overlay">
+								<uni-icons type="clear" size="20" color="#fff" class="delete-icon"
+									@click.stop="deleteImage(img.id)"></uni-icons>
+							</view>
+						</view>
+					</view>
+
+					<!-- 数量提示 -->
+					<view class="image-count">
+						已上传 {{ images.length }} / 9 张图片
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<button class="submit-btn" @click="submitForm" v-if="activeTab==0">
+			<text>提交溯源信息</text>
+		</button>
+	</view>
 </template>
 
 <script>
-  import { api } from '@/api/index.js'
-  
-  export default {
-    data() {
-      return {
-        TraceabilityInfo: {
-          Students: "", // 产地
-          productionDate: "", // 生产日期
-          batchNumber: "", // 批次号
-          // 种植类
-          pesticideName: "", // 农药名称
-          pesticideTimes: "", // 农药使用次数
-          lastPesticideDate: "", // 最后一次使用日期
-          irrigationWater: "", // 灌溉水源
-          plantingCycle: "", // 种植周期
-          soilType: "", // 土壤类型
-          // 养殖类
-          feedName: "", // 饲料名称
-          feedSource: "", // 饲料来源
-          breedingCycle: "", // 养殖周期
-          epidemicPrevention: "", // 防疫记录
-          breedingEnvironment: "", // 养殖环境描述
-          breedingMethod: "", // 养殖方式
-          // 加工类
-          processingMaterials: "", // 加工原料
-          foodAdditives: "", // 食品添加剂
-          processingTechnology: "", // 加工工艺
-          processingEnvironment: "", // 加工环境检测
-          processingEquipment: "", // 加工设备编号
-          // 其他类
-          productMaterial: "", // 产品材质
-          manufacturer: "", // 生产厂家
-          manufacturerAddress: "", // 生产地址
-          manufacturerPhone: "", // 联系电话
-          productCertification: "", // 产品认证
-          // 通用
-          transportMethod: "", // 运输方式
-          storageConditions: "", // 储存条件
-          shelfLife: "", // 保质期
-          nutritionValue: "", // 营养价值
-          cookingMethod: "", // 食用方法
-          notes: "" // 备注
-        },
-        CLASSIFICATION: ['种植', '养殖', '加工', '其他'],
-        classificationIndex: 0, // 产品分类索引
-        index: 0,
-        commodityLis: [], // 已上架的菜品
-        commodityTempLis: [], // 临时展示的上架菜品
-        currentInputValue: "", // 临时输入值
-        currentInputField: "",
-        isSubmitting: false, // 提交状态
-        // 证书图片
-        certificateImages: [], // 通用凭证图片
-        feedCertImages: [], // 饲料检测报告
-        pesticideCertImages: [], // 农残检测报告
-        processingCertImages: [], // 加工卫生许可证
-        otherCertImages: [] // 其他类安全检测报告
-      };
-    },
-    computed: {
-      // 表单完成率
-      formCompletionRate() {
-        const requiredFields = [
-          'Students', 'productionDate', 
-          {key: 'feedName', show: this.classificationIndex === 1},
-          {key: 'pesticideName', show: this.classificationIndex === 0},
-          {key: 'processingMaterials', show: this.classificationIndex === 2},
-          {key: 'productMaterial', show: this.classificationIndex === 3},
-          // 证书检查
-          {key: 'feedCertImages', show: this.classificationIndex === 1, check: () => this.feedCertImages.length > 0},
-          {key: 'pesticideCertImages', show: this.classificationIndex === 0, check: () => this.pesticideCertImages.length > 0},
-          {key: 'processingCertImages', show: this.classificationIndex === 2, check: () => this.processingCertImages.length > 0},
-          {key: 'otherCertImages', show: this.classificationIndex === 3, check: () => this.otherCertImages.length > 0}
-        ];
-        
-        let completed = 0;
-        let total = 0;
-        
-        requiredFields.forEach(field => {
-          if (field.show === undefined || field.show) {
-            total++;
-            if (field.check) {
-              completed += field.check() ? 1 : 0;
-            } else {
-              completed += this.TraceabilityInfo[field.key] ? 1 : 0;
-            }
-          }
-        });
-        
-        return Math.round((completed / total) * 100);
-      }
-    },
-    onLoad() {
-      this.loadCommodityList();
-    },
-    methods: {
-      // 加载商品列表
-      loadCommodityList() {
-        api.myShoplist({
-          isshow: 1
-        }).then((data) => {
-          this.commodityLis = data.data.listdata || [];
-          this.commodityTempLis = this.commodityLis.map((item) => item.commodity_name);
-        }).catch(err => {
-          console.error('加载商品列表失败', err);
-        });
-      },
-      
-      // 产品分类选择
-      changeClassification(e) {
-        this.classificationIndex = e.detail.value;
-      },
-      
-      // 打开地图选择地址
-      openLocationPicker() {
-        wx.chooseLocation({
-          success: (res) => {
-            this.TraceabilityInfo.Students = res.name + res.address;
-            wx.showToast({
-              title: '已选择地址',
-              icon: 'success',
-              duration: 1500
-            });
-          }
-        });
-      },
-      
-      // 选择各类证书图片
-      chooseFeedCertificate() {
-        wx.chooseImage({
-          count: 3 - this.feedCertImages.length,
-          success: (res) => {
-            this.feedCertImages = this.feedCertImages.concat(res.tempFilePaths);
-          }
-        });
-      },
-      
-      choosePesticideCertificate() {
-        wx.chooseImage({
-          count: 3 - this.pesticideCertImages.length,
-          success: (res) => {
-            this.pesticideCertImages = this.pesticideCertImages.concat(res.tempFilePaths);
-          }
-        });
-      },
-      
-      chooseProcessingCertificate() {
-        wx.chooseImage({
-          count: 3 - this.processingCertImages.length,
-          success: (res) => {
-            this.processingCertImages = this.processingCertImages.concat(res.tempFilePaths);
-          }
-        });
-      },
-      
-      chooseOtherCertificate() {
-        wx.chooseImage({
-          count: 3 - this.otherCertImages.length,
-          success: (res) => {
-            this.otherCertImages = this.otherCertImages.concat(res.tempFilePaths);
-          }
-        });
-      },
-      
-      chooseCertificateImage() {
-        wx.chooseImage({
-          count: 3 - this.certificateImages.length,
-          success: (res) => {
-            this.certificateImages = this.certificateImages.concat(res.tempFilePaths);
-          }
-        });
-      },
-      
-      // 删除证书图片
-      deleteCertificate(index, type) {
-        if (type === 'feed') {
-          this.feedCertImages.splice(index, 1);
-        } else if (type === 'pesticide') {
-          this.pesticideCertImages.splice(index, 1);
-        } else if (type === 'processing') {
-          this.processingCertImages.splice(index, 1);
-        } else if (type === 'other') {
-          this.otherCertImages.splice(index, 1);
-        } else {
-          this.certificateImages.splice(index, 1);
-        }
-      },
-      
-      // 提交表单
-      submit() {
-        // 基础验证
-        if (!this.TraceabilityInfo.Students) {
-          wx.showToast({ title: '请填写产地', icon: 'none' });
-          return;
-        }
-        
-        if (!this.TraceabilityInfo.productionDate) {
-          wx.showToast({ title: '请选择生产日期', icon: 'none' });
-          return;
-        }
-        
-        // 分类验证
-        if (this.classificationIndex === 1) {
-          if (!this.TraceabilityInfo.feedName) {
-            wx.showToast({ title: '请填写饲料名称', icon: 'none' });
-            return;
-          }
-          if (!this.TraceabilityInfo.feedSource) {
-            wx.showToast({ title: '请填写饲料来源', icon: 'none' });
-            return;
-          }
-          if (this.feedCertImages.length === 0) {
-            wx.showToast({ title: '请上传饲料检测报告', icon: 'none' });
-            return;
-          }
-        }
-        
-        if (this.classificationIndex === 0) {
-          if (!this.TraceabilityInfo.pesticideName) {
-            wx.showToast({ title: '请填写农药名称', icon: 'none' });
-            return;
-          }
-          if (this.pesticideCertImages.length === 0) {
-            wx.showToast({ title: '请上传农残检测报告', icon: 'none' });
-            return;
-          }
-        }
-        
-        if (this.classificationIndex === 2) {
-          if (!this.TraceabilityInfo.processingMaterials) {
-            wx.showToast({ title: '请填写加工原料', icon: 'none' });
-            return;
-          }
-          if (this.processingCertImages.length === 0) {
-            wx.showToast({ title: '请上传加工卫生许可证', icon: 'none' });
-            return;
-          }
-        }
-        
-        if (this.classificationIndex === 3) {
-          if (!this.TraceabilityInfo.productMaterial) {
-            wx.showToast({ title: '请填写产品材质', icon: 'none' });
-            return;
-          }
-          if (!this.TraceabilityInfo.manufacturer) {
-            wx.showToast({ title: '请填写生产厂家', icon: 'none' });
-            return;
-          }
-          if (!this.TraceabilityInfo.manufacturerAddress) {
-            wx.showToast({ title: '请填写生产地址', icon: 'none' });
-            return;
-          }
-          if (this.otherCertImages.length === 0) {
-            wx.showToast({ title: '请上传安全检测报告', icon: 'none' });
-            return;
-          }
-        }
-        
-        this.isSubmitting = true;
-        
-        // 构建参数并提交
-        const params = {
-          ...this.TraceabilityInfo,
-          commodity_id: this.commodityLis[this.index].commodity_id,
-          classification: this.classificationIndex,
-          formCompletionRate: this.formCompletionRate
-        };
-        
-        // 上传图片
-        const uploadTasks = [];
-        
-        if (this.certificateImages.length > 0) {
-          uploadTasks.push(this.uploadImages(this.certificateImages, 'certificate'));
-        }
-        
-        if (this.classificationIndex === 0 && this.pesticideCertImages.length > 0) {
-          uploadTasks.push(this.uploadImages(this.pesticideCertImages, 'pesticide'));
-        }
-        
-        if (this.classificationIndex === 1 && this.feedCertImages.length > 0) {
-          uploadTasks.push(this.uploadImages(this.feedCertImages, 'feed'));
-        }
-        
-        if (this.classificationIndex === 2 && this.processingCertImages.length > 0) {
-          uploadTasks.push(this.uploadImages(this.processingCertImages, 'processing'));
-        }
-        
-        if (this.classificationIndex === 3 && this.otherCertImages.length > 0) {
-          uploadTasks.push(this.uploadImages(this.otherCertImages, 'other'));
-        }
-        
-        // 等待所有图片上传完成后提交表单
-        Promise.all(uploadTasks).then(results => {
-          // 处理上传结果
-          results.forEach(result => {
-            if (result.type === 'certificate') {
-              params.certificateUrls = result.urls;
-            } else if (result.type === 'pesticide') {
-              params.pesticideCertUrls = result.urls;
-            } else if (result.type === 'feed') {
-              params.feedCertUrls = result.urls;
-            } else if (result.type === 'processing') {
-              params.processingCertUrls = result.urls;
-            } else if (result.type === 'other') {
-              params.otherCertUrls = result.urls;
-            }
-          });
-          
-          // 提交表单数据
-          api.submitTraceabilityInfo(params).then(res => {
-            wx.showToast({
-              title: '提交成功',
-              icon: 'success',
-              duration: 2000
-            });
-            
-            // 返回上一页
-            setTimeout(() => {
-              wx.navigateBack();
-            }, 2000);
-          }).catch(err => {
-            wx.showToast({
-              title: '提交失败',
-              icon: 'none',
-              duration: 2000
-            });
-            console.error('提交失败', err);
-          }).finally(() => {
-            this.isSubmitting = false;
-          });
-        }).catch(err => {
-          wx.showToast({
-            title: '图片上传失败',
-            icon: 'none',
-            duration: 2000
-          });
-          console.error('图片上传失败', err);
-          this.isSubmitting = false;
-        });
-      },
-      
-      // 上传图片
-      uploadImages(filePaths, type) {
-        return new Promise((resolve, reject) => {
-          const urls = [];
-          let uploadedCount = 0;
-          
-          filePaths.forEach((filePath, index) => {
-            wx.uploadFile({
-              url: 'https://your-api-domain.com/upload', // 替换为实际的上传接口
-              filePath: filePath,
-              name: 'file',
-              formData: {
-                type: type
-              },
-              success: (res) => {
-                const data = JSON.parse(res.data);
-                if (data.code === 0) {
-                  urls.push(data.data.url);
-                } else {
-                  reject(new Error(`图片上传失败: ${data.msg}`));
-                }
-              },
-              fail: (err) => {
-                reject(err);
-              },
-              complete: () => {
-                uploadedCount++;
-                if (uploadedCount === filePaths.length) {
-                  resolve({ type: type, urls: urls });
-                }
-              }
-            });
-          });
-        });
-      },
-      
-      // 打开弹出层
-      openPopup(field) {
-        this.currentInputField = field;
-        this.currentInputValue = this.TraceabilityInfo[field] || '';
-        this.$refs.popup.open();
-      },
-      
-      // 处理输入确认
-      handleInputConfirm() {
-        if (this.currentInputField) {
-          this.TraceabilityInfo[this.currentInputField] = this.currentInputValue;
-        }
-        this.$refs.popup.close();
-      }
-    }
-  };
+	import {
+		api
+	} from '@/api/index.js'
+	export default {
+		onLoad(option) {
+			try {
+				// console.log(option.type)
+				if (option.type) {
+					this.type = Number(option.type)
+				}
+			} catch {
+
+			}
+			this.id = option.id
+			this.goodsname = option.goodsname
+			this.formData.goods_id = Number(option.id)
+			this.uploadImageback()
+		},
+		data() {
+			return {
+				type: 1, // 状态为1是摊主，状态为2是农户
+				goodsname: null,
+				id: null,
+				activeTab: 0, // 0:溯源信息 1:图片上传
+				selectedSource: '',
+				sourceTypes: ['自家种植', '合作社供货', '批发市场进货', '产地直采'],
+
+				// 图片相关
+				categories: ['种植/养殖场景', '进货单据', '摊位实拍', '商品细节', '质检报告'],
+				activeCategory: 0,
+				images: [],
+				formData: {
+					content: null,
+					fromcontent: ''
+				}
+			};
+		},
+		methods: {
+
+			// 图片上传之后的回调
+			async uploadImageback() {
+				let data = await api.getManyImages({
+					goodsid: Number(this.id),
+					limit: 100,
+					page: 1
+				})
+
+				if (data.code == 200) {
+					console.log(data.data)
+					this.images = [...data.data]
+				}
+			},
+			// 货源类型选择变化
+			onSourceChange(e) {
+				this.selectedSource = this.sourceTypes[e.detail.value];
+			},
+
+
+			saveImage(path) {
+				return new Promise((res, rej) => {
+					uni.uploadFile({
+						url: 'https://image.xcbdsc.com/group1/upload',
+						name: 'file',
+						filePath: path,
+						formData: {
+							output: 'json2'
+						},
+						success: (reponse) => {
+							res(JSON.parse(reponse.data))
+						},
+						fail: (err) => {
+							rej(err)
+							uni.showToast({
+								title: '上传失败',
+								icon: 'error'
+							});
+						}
+					})
+				})
+			},
+			// 选择图片
+			chooseImage() {
+				uni.chooseImage({
+					count: 9 - this.images.length,
+					sizeType: ['original', 'compressed'],
+					sourceType: ['album', 'camera'],
+					success: (res) => {
+						const newImages = res.tempFilePaths.map(path => ({
+							url: path
+						}));
+						// this.images = [...this.images, ...newImages];
+						const imgUploadPromises = newImages.map(item => {
+							return this.saveImage(item.url)
+						})
+						Promise.all(imgUploadPromises).then(async (data) => {
+							// console.log(data)
+							data.forEach(item => {
+								api.manyImages({
+									goodsid: Number(this.id),
+									url: item.data.url
+								}).then((data) => {
+									this.images.push({
+										url: data.data.url,
+										id: data.data.id
+									})
+									console.log(this.images)
+								})
+							})
+						})
+					}
+				});
+			},
+
+			// 删除图片
+			deleteImage(id) {
+				uni.showModal({
+					title: '提示',
+					content: '确定要删除这张图片吗？',
+					success: (res) => {
+						if (res.confirm) {
+							api.delManyImages({
+								id: id
+							}).then((data) => {
+								this.uploadImageback()
+							})
+						}
+					}
+				});
+			},
+
+			// 提交表单
+			async submitForm() {
+				let get = null
+				if (this.type == 1) {
+					get = api.addTraceability
+				} else {
+					this.formData.id = this.formData.goods_id
+					delete this.formData.goods_id
+					get = api.updateDish
+				}
+				let data = await get(
+					this.formData
+				)
+				console.log(data)
+
+				// 模拟提交
+				uni.showLoading({
+					title: '提交中...'
+				});
+
+				setTimeout(() => {
+					uni.hideLoading();
+					uni.showToast({
+						title: '提交成功，等待审核',
+						icon: 'success',
+						duration: 2000
+					});
+
+					// 返回上一页
+					// setTimeout(() => {
+					// 	uni.navigateBack();
+					// }, 2000);
+				}, 1500);
+			}
+		}
+	};
 </script>
 
-<style>
-/* 页面整体样式 */
-.traceability-page {
-  padding: 30rpx;
-  background-color: #f5f7fa;
-  min-height: 100vh;
-}
+<style scoped>
+	/* 页面基础样式 */
+	.traceability-tab-page {
+		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		background-color: #f5f7fa;
+		min-height: 100vh;
+		padding-bottom: 80px;
+		/* 为底部按钮留出空间 */
+	}
 
-/* 顶部状态与标题 */
-.header-container {
-  margin-bottom: 30rpx;
-}
+	/* 导航栏 */
+	.navbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 48px;
+		padding: 0 16px;
+		background-color: #ffffff;
+		border-bottom: 1px solid #f0f0f0;
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+	}
 
-.progress-bar {
-  height: 12rpx;
-  background-color: #e5e9f2;
-  border-radius: 6rpx;
-  margin-bottom: 20rpx;
-  overflow: hidden;
-}
+	.nav-title {
+		font-size: 18px;
+		font-weight: 500;
+		color: #333333;
+	}
 
-.progress-value {
-  height: 100%;
-  background-color: #36a3ff;
-  border-radius: 6rpx;
-  transition: width 0.3s ease;
-}
+	.save-btn {
+		color: #1890FF;
+		font-size: 16px;
+		padding: 6px 10px;
+		border-radius: 4px;
+		transition: background-color 0.2s;
+	}
 
-.header-content {
-  background-color: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
-}
+	.save-btn:active {
+		background-color: #e6f7ff;
+	}
 
-.header-title {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10rpx;
-}
+	/* Tab导航 */
+	.tab-nav {
+		display: flex;
+		height: 48px;
+		background-color: #ffffff;
+		border-bottom: 1px solid #f0f0f0;
+		z-index: 99;
+	}
 
-.header-subtitle {
-  font-size: 26rpx;
-  color: #666;
-}
+	.tab-item {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+	}
 
-/* 消费视角提示 */
-.consumer-tip {
-  background-color: #fffbeb;
-  border-radius: 12rpx;
-  padding: 20rpx 30rpx;
-  margin-bottom: 30rpx;
-}
+	.tab-item text {
+		font-size: 16px;
+		color: #666666;
+		transition: color 0.2s;
+	}
 
-.tip-text {
-  font-size: 26rpx;
-  color: #8c6d31;
-  line-height: 1.5;
-}
+	.tab-item.active text {
+		color: #1890FF;
+		font-weight: 500;
+	}
 
-/* 表单容器 */
-.form-container {
-  background-color: #fff;
-  border-radius: 16rpx;
-  padding: 30rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
-}
+	.tab-indicator {
+		width: 30px;
+		height: 3px;
+		background-color: #1890FF;
+		border-radius: 3px;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 
-/* 表单分区 */
-.form-section {
-  margin-bottom: 40rpx;
-}
+	/* Tab内容区域 */
+	.tab-content {
+		flex: 1;
+	}
 
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 20rpx;
-  border-bottom: 1rpx solid #eee;
-  margin-bottom: 30rpx;
-}
+	.tab-panel {
+		width: 100%;
+	}
 
-.section-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-}
+	/* 溯源信息Tab样式（复用之前的样式） */
+	.intro-card {
+		background-color: #e6f7ff;
+		border-radius: 10px;
+		padding: 16px;
+		margin: 16px;
+		display: flex;
+		align-items: flex-start;
+		border-left: 4px solid #1890FF;
+		box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+	}
 
-.section-desc {
-  font-size: 24rpx;
-  color: #999;
-  padding: 4rpx 12rpx;
-  background-color: #f5f7fa;
-  border-radius: 8rpx;
-}
+	.intro-icon {
+		margin-right: 12px;
+		margin-top: 2px;
+		color: #1890FF;
+	}
 
-/* 表单项目 */
-.form-item {
-  margin-bottom: 30rpx;
-}
+	.intro-title {
+		font-size: 16px;
+		color: #1890FF;
+		font-weight: 500;
+		margin-bottom: 8px;
+	}
 
-.item-label {
-  font-size: 28rpx;
-  color: #333;
-  margin-bottom: 16rpx;
-  display: flex;
-  align-items: center;
-}
+	.intro-points {
+		font-size: 14px;
+		color: #0050b3;
+		line-height: 1.7;
+	}
 
-.required-mark {
-  color: #ff4d4f;
-  margin-left: 4rpx;
-}
+	.form-container {
+		padding: 0 16px;
+	}
 
-.item-content {
-  position: relative;
-}
+	.form-item {
+		margin-bottom: 16px;
+		background-color: #ffffff;
+		border-radius: 10px;
+		overflow: hidden;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+	}
 
-/* 选择器样式 */
-.picker-text {
-  padding: 24rpx 0;
-  border-bottom: 1rpx solid #eee;
-  font-size: 28rpx;
-  color: #666;
-  position: relative;
-}
+	.item-label {
+		padding: 14px 16px;
+		font-size: 15px;
+		color: #333333;
+		border-bottom: 1px solid #f5f5f5;
+		display: flex;
+		align-items: center;
+	}
 
-.picker-text::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24rpx;
-  height: 24rpx;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-}
+	.required::before {
+		content: '*';
+		color: #ff4d4f;
+		margin-right: 4px;
+	}
 
-/* 位置选择器 */
-.location-picker {
-  padding: 24rpx 0;
-  border-bottom: 1rpx solid #eee;
-  font-size: 28rpx;
-  color: #666;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+	.item-content {
+		padding: 16px;
+	}
 
-.location-text {
-  flex: 1;
-}
+	.picker-view {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 12px 14px;
+		border: 1px solid #e5e5e5;
+		border-radius: 6px;
+		font-size: 15px;
+		color: #333333;
+		background-color: #fafafa;
+		transition: all 0.2s;
+	}
 
-/* 输入字段 */
-.input-field {
-  padding: 24rpx 0;
-  border-bottom: 1rpx solid #eee;
-  font-size: 28rpx;
-  color: #666;
-  position: relative;
-}
+	/* 信息区域样式 */
+	.info-section {
+		background-color: #fafbfd;
+		border-radius: 8px;
+		padding: 14px;
+		margin-bottom: 12px;
+		border: 1px solid #f0f5ff;
+	}
 
-.input-field::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24rpx;
-  height: 24rpx;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-}
+	.info-section.first-section {
+		margin-top: 5px;
+	}
 
-/* 上传容器 */
-.upload-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20rpx;
-}
+	.section-subtitle {
+		font-size: 14px;
+		color: #1890FF;
+		font-weight: 500;
+		margin-bottom: 12px;
+		padding-left: 4px;
+		border-left: 3px solid #1890FF;
+	}
 
-.upload-box {
-  width: calc(33.33% - 14rpx);
-  height: 200rpx;
-  border-radius: 12rpx;
-  position: relative;
-  overflow: hidden;
-  background-color: #f5f7fa;
-  border: 1rpx dashed #ddd;
-}
+	.info-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 14px;
+	}
 
-.upload-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+	.info-item {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
 
-.delete-btn {
-  position: absolute;
-  top: 8rpx;
-  right: 8rpx;
-  width: 32rpx;
-  height: 32rpx;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+	.info-label {
+		font-size: 13px;
+		color: #666666;
+		font-weight: 500;
+	}
 
-.add-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
+	.info-input input,
+	.info-input .picker-view {
+		width: 100%;
+		padding: 11px 12px;
+		border: 1px solid #e5e5e5;
+		border-radius: 6px;
+		font-size: 14px;
+		color: #333333;
+		background-color: #ffffff;
+		transition: all 0.2s;
+	}
 
-.upload-text {
-  margin-top: 10rpx;
-  font-size: 24rpx;
-  color: #999;
-}
+	textarea {
+		width: 100%;
+		padding: 14px;
+		border: 1px solid #e5e5e5;
+		border-radius: 8px;
+		font-size: 15px;
+		color: #333333;
+		min-height: 160px;
+		resize: vertical;
+		box-sizing: border-box;
+		line-height: 1.7;
+		background-color: #fafafa;
+	}
 
-/* 提交按钮 */
-.submit-container {
-  margin: 40rpx 0;
-}
+	.word-count {
+		text-align: right;
+		font-size: 12px;
+		color: #999999;
+		margin-top: 8px;
+	}
 
-.submit-button {
-  width: 100%;
-  height: 90rpx;
-  background-color: #36a3ff;
-  color: #fff;
-  border-radius: 12rpx;
-  font-size: 32rpx;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  box-shadow: 0 8rpx 24rpx rgba(54, 163, 255, 0.3);
-  transition: all 0.3s ease;
-}
+	.info-hint {
+		display: flex;
+		align-items: center;
+		font-size: 13px;
+		color: #1890FF;
+		margin-top: 8px;
+		padding-top: 8px;
+		border-top: 1px dashed #e6f7ff;
+	}
 
-.submit-button:active {
-  background-color: #1890ff;
-  box-shadow: 0 4rpx 12rpx rgba(54, 163, 255, 0.3);
-}
+	/* 图片上传Tab样式 */
+	.upload-guide-card {
+		background-color: #e6f7ff;
+		border-radius: 10px;
+		padding: 14px 16px;
+		margin: 12px 16px;
+		display: flex;
+		align-items: flex-start;
+	}
 
-.submit-button:disabled {
-  background-color: #e6f7ff;
-  color: #36a3ff;
-  box-shadow: none;
-  cursor: not-allowed;
-}
+	.guide-icon {
+		margin-right: 10px;
+		margin-top: 2px;
+		color: #1890FF;
+	}
 
-/* 底部提示 */
-.footer-tip {
-  font-size: 24rpx;
-  color: #999;
-  text-align: center;
-  margin-bottom: 40rpx;
-}
+	.guide-title {
+		font-size: 15px;
+		color: #1890FF;
+		font-weight: 500;
+		margin-bottom: 6px;
+	}
 
-/* 弹出层样式 */
-.popup-content {
-  padding: 40rpx 30rpx;
-  background-color: #fff;
-  width: 100%;
-  box-sizing: border-box;
-}
+	.guide-points {
+		font-size: 13px;
+		color: #0050b3;
+		line-height: 1.6;
+	}
 
-.popup-input {
-  width: 100%;
-  height: 88rpx;
-  border: none;
-  border-bottom: 1rpx solid #eee;
-  font-size: 32rpx;
-  color: #333;
-  outline: none;
-}
+	.image-category {
+		padding: 0 16px;
+		background-color: #ffffff;
+	}
+
+	.category-scroll {
+		white-space: nowrap;
+		padding: 12px 0;
+	}
+
+	.category-item {
+		display: inline-block;
+		padding: 6px 14px;
+		margin-right: 10px;
+		font-size: 14px;
+		border-radius: 20px;
+		background-color: #f5f5f5;
+		color: #666666;
+		transition: all 0.2s;
+	}
+
+	.category-item.active {
+		background-color: #1890FF;
+		color: #ffffff;
+	}
+
+	.upload-container {
+		padding: 16px;
+	}
+
+	.image-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 12px;
+		margin-bottom: 16px;
+	}
+
+	.upload-btn {
+		width: 100%;
+		aspect-ratio: 1/1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border: 2px dashed #e5e5e5;
+		border-radius: 8px;
+		color: #1890FF;
+		font-size: 14px;
+		background-color: #fafafa;
+		transition: all 0.2s;
+	}
+
+	.upload-btn icon {
+		margin-bottom: 8px;
+	}
+
+	.image-item {
+		width: 100%;
+		aspect-ratio: 1/1;
+		position: relative;
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	}
+
+	.image-item image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.image-overlay {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		padding: 8px;
+	}
+
+	.image-tag {
+		color: #ffffff;
+		font-size: 12px;
+		background-color: rgba(24, 144, 255, 0.8);
+		padding: 2px 6px;
+		border-radius: 3px;
+	}
+
+	.delete-icon {
+		background-color: rgba(255, 77, 79, 0.9);
+		border-radius: 50%;
+		width: 28px;
+		height: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.image-count {
+		font-size: 14px;
+		color: #666666;
+		text-align: center;
+		padding: 8px 0;
+	}
+
+	.required-hint {
+		color: #ff4d4f;
+		font-size: 13px;
+	}
+
+	.submit-btn {
+		width: calc(100% - 32px);
+		height: 50px;
+		background-color: #1890FF;
+		color: #ffffff;
+		border: none;
+		border-radius: 10px;
+		font-size: 17px;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+		transition: all 0.2s;
+	}
+
+
+
+	/* 响应式调整 */
+	@media (max-width: 375px) {
+		.info-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.image-grid {
+			gap: 10px;
+		}
+	}
 </style>

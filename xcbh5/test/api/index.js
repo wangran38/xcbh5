@@ -32,6 +32,7 @@ export {getSocket}
 
 // 创建白名单，默认所有接口都需要传token，白名单中的接口不需要传token
 const whiteList = [
+	// '/api/goods/get/info',   // 查看溯源信息
 	'/api/cglist',
 	'/api/citytree',
 	'/api/citylist',
@@ -163,11 +164,12 @@ export const api = {
 		})
 	},
 	// 用户注册接口
-	register(phone, psw, psw1) {
+	register(phone, psw, psw1,fromid) {
 		return fetch('/api/user/rs', 'POST', {
 			phone,
 			psw,
-			psw1
+			psw1,
+			fromid
 		});
 	},
 	//用户登录接口
@@ -396,10 +398,7 @@ export const api = {
 		return fetch('/api/user/getorderinfo', 'POST', data);
 	},
 	
-	// 添加溯源信息
-	addTraceability(data){
-		return fetch('/api/goods/addinfo', 'POST', data);
-	},
+
 	// 查看溯源信息
 	lookTraceability(data){
 		return fetch('/api/goods/getinfo', 'POST', data);
@@ -439,7 +438,7 @@ export const api = {
 	addinfos(data){
 		return fetch('/api/farmers/goods/addinfos', 'POST', data);
 	},
-	// 菜品生命周期
+	// 菜品朋友圈数据
 	goodsinfoList(data){
 		return fetch('/api/farmers/goodsinfo/list', 'POST', data);
 	},
@@ -541,9 +540,35 @@ export const api = {
 	searchResolution(data){
 		return fetch('/api/get/lnglat', 'POST', data);
 	},
+	// 预买菜品下单
+	prePurchaseOrder(data){
+		return fetch('/api/user/addorderfarmer', 'POST', data);
+	},
 	
+	manyImages(data){
+		return fetch('/api/shop/add/img', 'POST', data);
+	},
+	getManyImages(data){
+		return fetch('/api/shop/get/img/list', 'POST', data);
+	},
 	
-	
+	delManyImages(data){
+		return fetch('/api/shop/del/img', 'POST', data);
+	},
+	// 添加溯源信息
+	addTraceability(data){
+		return fetch('/api/goods/addinfo', 'POST', data);
+	},
+	// 获取溯源信息
+	traceabilityInfo(data){
+		return fetch('/api/goods/get/info', 'POST', data);
+	},
+	getqrcode(data){
+		return fetch('/wx/getqrcode', 'POST', data);
+	},
+	fromuserlist(data){
+		return fetch('/api/user/fromuserlist', 'POST', data);
+	}
 
 }
 export default {

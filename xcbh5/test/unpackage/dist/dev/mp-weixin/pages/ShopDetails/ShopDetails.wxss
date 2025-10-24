@@ -274,6 +274,69 @@
 .wxParse .audio, .wxParse .uni-audio-default {
   display: block;
 }
+ .uni-list-item__extra-text {
+  font-size: 28rpx;
+}
+.detail-collapse {
+  background-color: white;
+  margin-bottom: 30rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+.dishes {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 180rpx;
+}
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10rpx 0;
+  background-color: white;
+  padding: 10rpx;
+  border-radius: 20rpx;
+}
+.search-input {
+  flex: 0.9;
+  height: 75rpx !important;
+  border-radius: 20rpx !important;
+  padding-left: 20rpx !important;
+  font-size: 24rpx !important;
+}
+.search-btn-group {
+  display: flex;
+  gap: 10rpx;
+}
+.save {
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 34rpx;
+  height: 75rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 20rpx;
+  background-color: #007aff;
+  margin: 5rpx;
+}
+.save::after {
+  border: none;
+}
+.reset-btn {
+  background-color: #ff7675;
+}
+.dish-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.Detail {
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.5s eace;
+}
 .complaint-btn {
   position: absolute;
   left: 10rpx;
@@ -414,11 +477,6 @@
   flex-direction: column;
   /* margin-top: 20rpx; */
   margin-bottom: 180rpx;
-}
-.dishes > text {
-  color: black;
-  font-size: 30rpx;
-  font-weight: 600;
 }
 .dishes > .type {
   margin-top: 20rpx;

@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniIcons: function () {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 788))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 820))
     },
   }
 } catch (e) {
@@ -271,6 +271,13 @@ var _useUpload = __webpack_require__(/*! ../../hooks/useUpload.js */ 108);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -307,6 +314,13 @@ var _default = {
     }))();
   },
   methods: {
+    routerPush: function routerPush(path) {
+      try {
+        uni.navigateTo({
+          url: path
+        });
+      } catch (_unused) {}
+    },
     GotowholesaleNavigation: function GotowholesaleNavigation() {
       uni.navigateTo({
         url: '/subPackages/Wholesale/wholesaleNavigation/wholesaleNavigation'

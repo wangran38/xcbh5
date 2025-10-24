@@ -58,7 +58,7 @@
 	justify-content: flex-start;
 	align-items: center;
 	margin-bottom: 30rpx;
-	box-shadow: 5rpx 5rpx  5rpx rgba(0, 0, 0, .3);
+	box-shadow: 5rpx 5rpx 5rpx rgba(0, 0, 0, .3);
 	border-radius: 5rpx;
 }
 .type-image {
@@ -218,7 +218,7 @@
 	justify-content: space-between;
 	min-width: 100rpx;
 }
-.unit{
+.unit {
 	font-size: 28rpx;
 }
 .shurucon {

@@ -3,7 +3,7 @@
 		<uni-transition ref="ani" custom-class="transition" mode-class="fade" :styles="styles" :show="true">
 			<view class="card">
 				<view class="bigTitle publicMargin">注册成功,获得大礼包</view>
-				<view class="smaillTitle publicMargin">获得由"乡愁宝"官方送出的大礼包</view>
+				<view class="smaillTitle publicMargin">获得由"农链天下"官方送出的大礼包</view>
 				<view class="money publicMargin">
 					<uni-icons fontFamily="CustomFont" :size="26" color="yellow">{{'&#xe673;'}}</uni-icons>
 					<view style="color: #f36018;">

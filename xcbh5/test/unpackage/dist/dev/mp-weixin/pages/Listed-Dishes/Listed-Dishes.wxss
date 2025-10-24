@@ -48,23 +48,22 @@
 	color: black;
 	font-size: 30rpx;
 	font-weight: 600;
-	/* display: flex; */
-	/* flex-direction: column; */
-	/* background-color: bisque; */
-	/* justify-content: space-around; */
+	/* 		display: flex;
+	flex-direction: column;
+	justify-content: space-around; */
 	margin-left: 20rpx;
-	/* 将子元素放置在容器的顶部和底部 */
 }
 .function {
 	display: flex;
 	height: 100%;
-	width:150rpx;
-	/* margin-left: auto; */
+	width: 150rpx;
 	margin-right: 0;
 	justify-content: end;
 	align-items: center;
 }
 .rigicon {
+	margin: 5rpx;
+	padding: 18rpx;
 	height: 70rpx;
 	width: 110rpx;
 	background-color: #007aff;
@@ -74,8 +73,10 @@
 	border-radius: 30rpx;
 }
 .disabled {
-  background-color: #d3d3d3; /* 灰色背景 */
-  cursor: not-allowed; /* 更改鼠标样式为禁用状态 */
+	background-color: #d3d3d3;
+	/* 灰色背景 */
+	cursor: not-allowed;
+	/* 更改鼠标样式为禁用状态 */
 }
 .loading {
 	text-align: center;

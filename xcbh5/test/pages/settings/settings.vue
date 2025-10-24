@@ -48,7 +48,7 @@
 				</view>
 			</view>
 
-			<button type="warn" @click="logout">退出登录</button>
+			<button type="warn" @click="logout" style="width:700rpx">退出登录</button>
 		</scroll-view>
 	</view>
 </template>

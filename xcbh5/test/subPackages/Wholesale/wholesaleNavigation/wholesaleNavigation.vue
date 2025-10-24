@@ -13,7 +13,7 @@
           <uni-icons type="shop-filled" size="48" color="#fff" />
           <view class="card-content">
             <text class="card-title">我的供应</text>
-            <text class="card-stats">已发布{{ supplyCount }}个商品</text>
+            <!-- <text class="card-stats">已发布{{ supplyCount }}个商品</text> -->
           </view>
           <uni-icons type="right" size="28" color="#fff" />
         </view>
@@ -25,7 +25,7 @@
           <uni-icons type="cart-filled" size="48" color="#fff" />
           <view class="card-content">
             <text class="card-title">我的采购</text>
-            <text class="card-stats">进行中{{ purchaseCount }}个订单</text>
+            <!-- <text class="card-stats">进行中{{ purchaseCount }}个订单</text> -->
           </view>
           <uni-icons type="right" size="28" color="#fff" />
         </view>

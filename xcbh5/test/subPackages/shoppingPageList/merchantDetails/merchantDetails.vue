@@ -1,7 +1,24 @@
 <template>
 	<view class="container">
-
-			<!-- 基础信息 -->
+			<view class="detail-panel">
+<!-- 				<view class="panel-header" @click="toggleDetail">
+					<text class="panel-title">商品详情</text>
+					<uni-icons 
+						type="down" 
+						size="18" 
+						color="#999" 
+						:class="{ 'rotate': showDetail }"></uni-icons>
+				</view> -->
+				<view class="panel-content" v-if="showDetail">
+					<image :src="product.detailImage || '/static/images/detail-placeholder.png'" mode="widthFix" class="detail-image"></image>
+					<view class="detail-text">
+						<view class="detail-section" v-for="(section, index) in (product.details || [])" :key="index">
+							<text class="detail-section-title">{{ section.title || '商品说明' }}</text>
+							<text class="detail-section-content">{{ section.content || '暂无详细描述' }}</text>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view class="info-card">
 				<view class="info-item">
 					<uni-icons type="person" size="18" color="#7A9D7E" />
@@ -46,8 +63,8 @@
 						<text class="goods-title">{{ item.goodsname }}</text>
 
 						<view class="price-row">
-							<text class="presale-price">¥{{ item.presaleprice }}</text>
-							<text class="original-price">¥{{ item.price }}</text>
+							<text class="presale-price">¥{{ item.price   }}</text>
+							<text class="original-price">¥{{ item.presaleprice }}</text>
 						</view>
 
 						<view class="progress-row">
@@ -106,7 +123,8 @@
 					page: 1,
 					limit: 10
 				},
-				isLogin:true
+				isLogin:true,
+				showDetail:false
 			}
 		},
 
@@ -126,6 +144,10 @@
 			}
 		},
 		methods: {
+			// 展开/收起商品详情
+			toggleDetail() {
+				this.showDetail = !this.showDetail
+			},
 			gotoGoods(id){
 				uni.navigateTo({
 					url:`/pages/dynamics/dynamics?id=${id}`

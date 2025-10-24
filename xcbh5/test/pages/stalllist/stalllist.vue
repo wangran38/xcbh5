@@ -28,7 +28,6 @@
 
 				<!-- 在这里添加你的表单内容 -->
 				<view class="popup-content">
-					<!-- 表单或其他内容 -->
 
 					<view class="content">
 						<view class="cuisine">

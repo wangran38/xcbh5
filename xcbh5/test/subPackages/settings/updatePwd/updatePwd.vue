@@ -47,7 +47,7 @@
 			</view>
 
 			<!-- 提交按钮 -->
-			<button class="submit-btn" :class="{ disabled: !formValid }" :disabled="!formValid" @click="handleSubmit">
+			<button class="submit-btn" :class="{ disabled: !formValid }"  @click="handleSubmit">
 				确认重置
 			</button>
 		</view>
@@ -182,7 +182,7 @@
 			},
 
 			async handleSubmit() {
-				if (!this.formValid) return;
+				// if (!this.formValid) return;
 
 				let res = await api.editPwd({
 					phone: this.formData.phone,

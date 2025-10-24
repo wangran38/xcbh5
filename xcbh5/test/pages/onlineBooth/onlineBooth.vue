@@ -309,10 +309,10 @@
 					let res = await api.searchResolution({
 						'address': this.userInfo.location
 					})
-					if (!res.error){
+					if (!res.error) {
 						this.userInfo.lng = res.lng
 						this.userInfo.lat = res.lat
-					}else{
+					} else {
 						uni.showToast({
 							icon: 'error',
 							title: '详细地址有误,获取不到经纬度'
@@ -322,7 +322,7 @@
 					}
 
 
-					
+
 
 				}
 

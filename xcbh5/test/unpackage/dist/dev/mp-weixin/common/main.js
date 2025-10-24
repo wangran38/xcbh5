@@ -123,8 +123,9 @@ var _default = {
       failCallback: function failCallback() {}
     };
     uni.getSetting({
+      withSubscriptions: true,
       success: function success(res) {
-        if (!res.authSetting['scope.subscribeMessage']) {
+        if (!res.subscriptionsSetting.mainSwitch) {
           // 显示订阅消息引导弹窗
           uni.showModal({
             title: options.title,

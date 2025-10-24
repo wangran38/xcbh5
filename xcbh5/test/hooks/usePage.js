@@ -36,6 +36,7 @@ export default {
 				this.pageLoading = false;
 			}
 		},
+		// 这个方法会被重写
 		async fetchData(params) {
 			// throw new Error('fetchData 方法未实现');
 		},

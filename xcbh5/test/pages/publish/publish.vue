@@ -13,9 +13,8 @@
 					</view>
 
 					<view class="function">
-						<view class="rigicon" @click="edit(item)">修改</view>
-						<view class="rigicon"  style="background-color: #67c23a" @click="shelves(item)">上架</view>
-						<view class="rigicon" style="background-color: #f56c6c" @click="removeItem(item)">删除</view>
+						<view class="rigicon" @click="operation(item)">操作</view>
+
 					</view>
 				</view>
 				<view v-if="pageLoading" class="loading">加载中...</view>
@@ -23,9 +22,28 @@
 			</view>
 
 		</scroll-view>
-		
+
 		<view class="butt" @click="goTorelePage">
 			点击新增菜品
+		</view>
+
+		<view v-if="showEditPopup2" class="popup-overlay" @click="closePopup">
+			<view style="background-color: white; width: 300rpx; height: 600rpx; border-radius: 5%; position: relative;"
+				@click.stop>
+				<view
+					style="position: absolute; right: 15rpx; top: 10rpx;background-color: red;color: white; padding: 5rpx;"
+					@click="closePopup">关闭</view>
+				<view class="btns"
+					style="display: flex; align-items: center; height: 100%; justify-content: center; flex-wrap: wrap;">
+					<view class="rigicon" style="margin-top: 50rpx;color: white;" @click="edit">修改</view>
+					<view class="rigicon" style="background-color: #67c23a;color: white;" @click="shelves">上架
+					</view>
+					<view class="rigicon" style="background-color: #f56c6c;color: white;" @click="removeItem">删除
+					</view>
+					<view class="rigicon" style="background-color: #5daaa8;color: white;" @click="routerPush">补充溯源
+					</view>
+				</view>
+			</view>
 		</view>
 		<!-- 编辑弹出层 -->
 		<view v-if="showEditPopup" class="popup-overlay" @click="closePopup">
@@ -71,7 +89,6 @@
 				<!-- 在这里添加你的表单内容 -->
 				<view class="popup-content">
 					<!-- 表单或其他内容 -->
-
 					<view class="content">
 						<view class="cuisine">
 							<view class="title">选择摊位</view>
@@ -90,7 +107,7 @@
 								<view class="unit">{{unit?unit:'单位'}}</view>
 								<view class="icon"><uni-icons :type="iconStatus ? 'up':'down'" size="20"></uni-icons>
 								</view>
-								
+
 							</view>
 							<view class="items" v-show="isShowItems">
 								<view class="item" v-for="pop in candidates" @click="selectItem(pop)">
@@ -129,19 +146,21 @@
 				imageUploaded: false,
 				// imglogo: '',
 				showEditPopup1: false,
+				showEditPopup2: false,
 				pickerRange1: [],
 				selectedCategoryIndex1: 0,
 				itemDescription: '', // 上架时的详细说明
 				itemPrice: '', // 上架时的价格
 				marketList: [], // 存储摊位列表
-				candidates: ['斤','瓶','桶','个'],
+				candidates: ['斤', '瓶', '桶', '个'],
 				candidate2: ['元'],
 				unit: '',
 				unit2: '',
 				tijiaoPrice: '',
 				isloaded: false,
 				iconStatus: true,
-				isShowItems: false
+				isShowItems: false,
+				tempItem:null
 			}
 		},
 		mixins: [usePage],
@@ -153,27 +172,37 @@
 		},
 
 		methods: {
-			async removeItem(item){
+			operation(item){
+				this.showEditPopup2 = true
+				this.tempItem = item
+			},
+			routerPush(){
+				// console.log(this.tempItem)
+				uni.navigateTo({
+					url:`/subPackages/aHouseholder/Traceability/Traceability?id=${this.tempItem.id}&goodsname=${this.tempItem.goodsname}`
+				})
+			},
+			async removeItem() {
 				let requestsData = {
-					id:item.id,
-					isshow:2
+					id: this.tempItem.id,
+					isshow: 2
 				}
-				console.log(item,requestsData)
 				let res = await api.editgoods(requestsData)
-				if (res.code == 200){
+				if (res.code == 200) {
 					uni.showToast({
-						title:'删除成功',
-						icon:'success'
+						title: '删除成功',
+						icon: 'success'
 					})
 					// 重新加载数据
 					this.reloadData()
-				}else{
+					this.closePopup()
+				} else {
 					uni.showToast({
-						title:'删除失败',
-						icon:'error'
+						title: '删除失败',
+						icon: 'error'
 					})
 				}
-				
+
 			},
 			// 打开选择单位
 			clicKexampleBody() {
@@ -245,14 +274,14 @@
 					url: '/pages/release/release'
 				});
 			},
-			edit(item) {
+			edit() {
 				this.currentItem = {
-					...item
+					...this.tempItem
 				};
 				this.fetchCategories(); // 获取分类数据
 				this.showEditPopup = true; // 显示弹出层
 				// 调用获取菜品详情的方法
-				this.fetchCommodityDetails(item.id);
+				this.fetchCommodityDetails(this.tempItem.id);
 				// 检查用户是否选择了有效的分类（跳过第一个默认项）
 			},
 			fetchCommodityDetails(id) {
@@ -281,18 +310,18 @@
 						// this.isImageSelected = true; // 更新图片选择状态
 						const tempFilePaths = res.tempFilePaths;
 						if (tempFilePaths.length > 0) {
-							console.log(66676,res.tempFiles[0]);
+							console.log(66676, res.tempFiles[0]);
 							const {
 								upload,
 								request
 							} = useUpload({
 								uploadPath: '/group1/upload',
 								tempFilePaths: tempFilePaths[0],
-								file:res.tempFiles[0]
+								file: res.tempFiles[0]
 							})
 
 							upload().then((res) => {
-								res  = JSON.parse(res)
+								res = JSON.parse(res)
 								this.currentItem.imglogo = res.data.url;
 								// console.log('更新后的图片路径:', this.currentItem.imglogo);
 								// this.isImageSelected = true;
@@ -313,9 +342,9 @@
 				});
 			},
 
-			shelves(item) {
+			shelves() {
 				this.currentItem = {
-					...item
+					...this.tempItem
 				};
 				console.log(this.currentItem)
 				this.showEditPopup1 = true; // 显示弹出层
@@ -324,7 +353,7 @@
 			closePopup() {
 				this.showEditPopup = false; // 隐藏弹出层
 				this.showEditPopup1 = false;
-				
+				this.showEditPopup2 = false
 				// 清空值
 				this.itemPrice = ''
 			},
@@ -485,7 +514,7 @@
 		justify-content: flex-start;
 		align-items: center;
 		margin-bottom: 30rpx;
-		box-shadow: 5rpx 5rpx  5rpx rgba(0, 0, 0, .3);
+		box-shadow: 5rpx 5rpx 5rpx rgba(0, 0, 0, .3);
 		border-radius: 5rpx;
 	}
 
@@ -666,8 +695,8 @@
 		justify-content: space-between;
 		min-width: 100rpx;
 	}
-	
-	.unit{
+
+	.unit {
 		font-size: 28rpx;
 	}
 

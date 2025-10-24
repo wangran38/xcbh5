@@ -8,7 +8,7 @@
 		<view class="content-wrapper">
 			<!-- 标题 -->
 			<view class="header">
-				<text class="title">乡愁宝大市场</text>
+				<text class="title">农链天下</text>
 				<text class="subtitle">请登录您的账号</text>
 			</view>
 
@@ -23,10 +23,14 @@
 				<!-- 密码输入 -->
 				<view class="input-group">
 					<uni-icons type="locked" size="24" color="#409EFF"></uni-icons>
-					<input class="form-input" :type="showPassword ? 'text':'password'" v-model="form.password"
-						placeholder="密码" />
-<!-- 					<uni-icons :type="showPassword ? 'eye-slash' : 'eye'" size="24" color="#999"
-						@tap="togglePassword" /> -->
+<!-- 					<input class="form-input"  v-model="form.password"
+						placeholder="密码" /> -->
+					<input class="form-input" v-show="showPassword" type="password" :value="form.password"
+						placeholder="密码" maxlength="11"  @input="e => form.password = e.detail.value"/>
+					<input class="form-input" v-show="!showPassword"  type="text" :value="form.password" placeholder="密码"
+						maxlength="11" @input="e => form.password = e.detail.value"/>
+					<uni-icons :type="showPassword ? 'eye' : 'eye-slash'" size="24" color="#999"
+						@click="showPassword = !showPassword" />
 				</view>
 
 				<button class="login-btn" :class="{ 'active': formValid}" @click="login">

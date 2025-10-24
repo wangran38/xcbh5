@@ -215,6 +215,11 @@ var _default = {
         }, _callee);
       }))();
     },
+    goToRoute: function goToRoute(path) {
+      uni.navigateTo({
+        url: path
+      });
+    },
     off: function off(itemId) {
       var _this = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {

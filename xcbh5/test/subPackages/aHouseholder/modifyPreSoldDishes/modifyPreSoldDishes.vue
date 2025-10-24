@@ -1,51 +1,34 @@
 <template>
 	<view class="container">
-		<!-- 商品名称展示区 -->
-		<view class="product-header">
-			<text class="product-name">{{formData.goodsname}}</text>
-			<view class="decorative-line"></view>
-		</view>
-
-		<!-- 表单主区域 -->
 		<view class="form-container">
-			<!-- 预售价 -->
 			<view class="form-item">
 				<view class="item-header">
-					<text class="label">预售价</text>
+					<text class="label">菜名</text>
 				</view>
 				<view class="input-group">
-					<text class="currency">¥</text>
-					<input type="number" v-model.number="formData.presaleprice" placeholder="请输入价格" class="price-input" />
+					<input type="text" v-model="currentItem.goodsname" placeholder="输入名称"
+						class="price-input" />
 				</view>
 			</view>
 
-			<!-- 库存 -->
-			<view class="form-item">
+			<view class="form-item" style="display: flex; justify-content: space-between; width: 130px;">
 				<view class="item-header">
-					<text class="label">预售库存</text>
+					<text class="label">分类</text>
 				</view>
-				<input type="number" v-model.number="formData.goodstotal" placeholder="请输入库存量" class="stock-input" />
+				<picker class="picker" :range="pickerRange" :value="selectedCategoryIndex" @change="onCategoryChange">
+					<view style="font-size: 25px;">{{ pickerRange[selectedCategoryIndex] }}</view>
+				</picker>
 			</view>
 
-			<!-- 单位选择 -->
-			<view class="form-item">
+			<view class="form-item" style="display: flex; justify-content: space-between; width: 400px;">
 				<view class="item-header">
-					<text class="label">商品单位</text>
+					<text class="label">图片</text>
 				</view>
-				<input type="text" v-model="formData.unit" placeholder="请输入单位" class="stock-input" />
-			</view>
-
-			<!-- 预售开关 -->
-			<view class="form-item switch-item">
-				<view class="item-header">
-					<text class="label">是否预售</text>
-					<switch :checked="formData.ispresale == 1 ? false:true" color="#7BCFA9" @change="changeSwitch"/>
-				</view>
-
+				<image class="cimg" :src="currentItem.imglogo" mode="aspectFit" @tap="uploadcuisine">
+				</image>
 			</view>
 		</view>
 
-		<!-- 提交按钮 -->
 		<view class="submit-container">
 			<button class="submit-btn" @click="submit">保存修改</button>
 		</view>
@@ -53,47 +36,117 @@
 </template>
 
 <script>
-	import {api} from '@/api/index.js'
-	import {myMixin} from '@/utils/public.js'
+	import {
+		api
+	} from '@/api/index.js'
+	import {
+		myMixin
+	} from '@/utils/public.js'
+	import {
+		useUpload
+	} from "@/hooks/useUpload"
 	export default {
 		data() {
 			return {
-				formData: {
-				}
+				formData: {},
+				pickerRange: [],
+				selectedCategoryIndex: 0,
+				currentItem: {},
 			}
 		},
-		mixins:[myMixin],
-		methods:{
-			submit(){
-				uni.showToast({
-					icon:'loading',
-					title:'正在修改....'
+		mixins: [myMixin],
+		methods: {
+			uploadcuisine() {
+				uni.chooseImage({
+					count: 1,
+					sizeType: ['original', 'compressed'],
+					sourceType: ['album', 'camera'],
+					success: (res) => {
+						// const tempFilePaths = res.tempFilePaths;
+						// this.uploadImage(tempFilePaths[0]);
+						// this.isImageSelected = true; // 更新图片选择状态
+						const tempFilePaths = res.tempFilePaths;
+						if (tempFilePaths.length > 0) {
+							console.log(66676, res.tempFiles[0]);
+							const {
+								upload,
+								request
+							} = useUpload({
+								uploadPath: '/group1/upload',
+								tempFilePaths: tempFilePaths[0],
+								file: res.tempFiles[0]
+							})
+
+							upload().then((res) => {
+								res = JSON.parse(res)
+								this.currentItem.imglogo = res.data.url;
+								// console.log('更新后的图片路径:', this.currentItem.imglogo);
+								// this.isImageSelected = true;
+								// this.imageUploaded = true; // 更新图片上传状态
+							})
+							// api.uploadImage(tempFilePaths[0])
+							// 	.then(data => {
+							// 		this.user.headimgurl = data.url; // 更新头像 URL
+							// 	})
+							// 	.catch(error => {
+							// 		uni.showToast({
+							// 			title: '上传失败',
+							// 			icon: 'none'
+							// 		});
+							// 	});
+						}
+					}
+				});
+			},
+
+			onCategoryChange(e) {
+				this.selectedCategoryIndex = e.detail.value;
+				this.currentItem.category_id = this.categories[this.selectedCategoryIndex].id;
+			},
+			fetchCategories() {
+				api.cglist().then(res => {
+					if (res.code === 200) {
+						// 获取分类数据
+						const categories = res.data.listdata.map(item => ({
+							id: item.id,
+							content: item.content
+						}));
+						// 存储分类数据
+						this.categories = categories;
+						// 初始化 picker 的范围数据，包括默认提示项
+						this.pickerRange = [...categories.map(category => category.content)];
+						console.log(this.pickerRange)
+					}
 				})
-				setTimeout(()=>{
+			},
+			submit() {
+				console.log(this.currentItem)
+				uni.showToast({
+					icon: 'loading',
+					title: '正在修改....'
+				})
+				setTimeout(() => {
 					api.updateDish({
-						id:this.formData.id,
-						presaleprice:this.formData.presaleprice,
-						unit:this.formData.unit,
-						goodstotal:this.formData.goodstotal,
-						ispresale:this.formData.ispresale,
-					}).then((data)=>{
-						if(data.code == 200){
+						id:this.currentItem.id,
+						goodsname:this.currentItem.goodsname,
+						imglogo:this.currentItem.imglogo,
+						category_id:this.currentItem.category_id,
+					}).then((data) => {
+						if (data.code == 200) {
 							this.customizeBack()
 						}
 					})
-				},2000)
+				}, 2000)
 			},
-			changeSwitch({detail}){
-				this.formData.ispresale = detail.value ? 2 : 1
-				console.log(this.formData.ispresale)
-			}
 		},
 		onLoad({
 			pramas
 		}) {
 			if (pramas) {
-				this.formData = JSON.parse(pramas)
+				this.currentItem = JSON.parse(pramas)
 			}
+			this.fetchCategories()
+			this.selectedCategoryIndex =  this.currentItem.category_id-1
 		},
 	}
 </script>

@@ -52,7 +52,11 @@
     "pages/myComplaint/myComplaint",
     "pages/test/test",
     "pages/complaintDetails/complaintDetails",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/commodityDetail/commodityDetail",
+    "pages/invitation/invitation",
+    "pages/earningsRecord/earningsRecord",
+    "pages/certification/certification"
   ],
   "subPackages": [
     {
