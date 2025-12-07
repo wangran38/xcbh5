@@ -7,7 +7,7 @@
 					<text class="ellipsis">{{item.commodity_name}}</text>
 					<uni-icons type="right" size="14" color="#ccc"></uni-icons>
 				</view>
-				<view @click="viewDetail" style="color: white; display: flex; align-items: center; justify-content: center; background-color: #ffd100; font-size:30rpx;padding: 30rpx; border-radius: 30rpx; font-weight: 400;">详情</view>
+				<view @click="viewDetail" style="color: black; display: flex; align-items: center; justify-content: center; background-color: #ffd100; font-size:30rpx;padding: 30rpx; border-radius: 30rpx; font-weight: 400;">详情</view>
 			</view>
 			<view class="one" @click.stop="goToSuyuan(item)">溯源</view>
 			<view class="price">
@@ -238,7 +238,7 @@
 		background-color: #ffd100;
 		
 		border-color: orange;
-		color: #fff;
+		color: black;
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		border-top-right-radius: 30rpx;

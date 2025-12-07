@@ -100,13 +100,14 @@
 			
 			toggleMenu() {
 				this.isShowItem = !this.isShowItem
-				console.log(this.isShowItem)
+				// console.log(this.isShowItem)
 				if (this.isDragging) return
 				this.isExpanded = !this.isExpanded
 			},
 
 			navigateTo(path) {
 				this.isExpanded = false
+				this.isShowItem = false
 				uni.navigateTo({
 					url: path
 				})

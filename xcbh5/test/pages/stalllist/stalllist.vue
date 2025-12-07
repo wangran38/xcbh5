@@ -389,7 +389,7 @@
 
 	.close-button {
 		position: absolute;
-		top: 5rpx;
+		top: 1rpx;
 		right: 5rpx;
 		font-size: 40rpx;
 		color: black;
@@ -431,6 +431,7 @@
 	}
 
 	.title {
+		width: 180rpx;
 		font-size: 35rpx;
 	}
 

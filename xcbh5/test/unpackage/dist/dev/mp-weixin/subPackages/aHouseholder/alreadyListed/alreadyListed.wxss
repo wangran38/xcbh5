@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -298,7 +298,7 @@
   transition: color 0.2s;
 }
 .category-tabs .tab-item.data-v-222333f2::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -392,4 +392,3 @@
   margin-top: 20rpx;
 }
 /* 多行省略 */
-

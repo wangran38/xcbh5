@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -378,7 +378,7 @@
   position: relative;
 }
 .category-nav .nav-item.data-v-49e5f192::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   width: 0;
@@ -556,4 +556,3 @@ to {
 .loading-state.data-v-49e5f192 {
   padding: 30rpx;
 }
-

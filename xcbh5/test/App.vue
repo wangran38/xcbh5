@@ -19,7 +19,7 @@
 				successCallback: () => {},
 				failCallback: () => {}
 			}
-
+			// #ifdef MP-WEIXIN
 			uni.getSetting({
 				withSubscriptions: true,
 				success: (res) => {
@@ -83,7 +83,9 @@
 					console.error('获取设置失败', err)
 				}
 			})
-
+			
+			
+			// #endif
 
 
 			const updateManager = uni.getUpdateManager()

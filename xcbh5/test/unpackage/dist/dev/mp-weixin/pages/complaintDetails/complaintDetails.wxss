@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -399,7 +399,7 @@
   padding-left: 40rpx;
 }
 .process-box .timeline.data-v-61f5cb34::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 14rpx;
   top: 24rpx;
@@ -438,4 +438,3 @@
   font-size: 24rpx;
   color: #ccc;
 }
-

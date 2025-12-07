@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -373,11 +373,11 @@
   border-radius: 32rpx;
   font-size: 24rpx;
 }
-.purchase-container .purchase-list .purchase-card .card-header .status-badge[class*="processing"].data-v-acd06004 {
+.purchase-container .purchase-list .purchase-card .card-header .status-badge[class*=processing].data-v-acd06004 {
   background: rgba(0, 200, 83, 0.08);
   color: #00c853;
 }
-.purchase-container .purchase-list .purchase-card .card-header .status-badge[class*="urgent"].data-v-acd06004 {
+.purchase-container .purchase-list .purchase-card .card-header .status-badge[class*=urgent].data-v-acd06004 {
   background: rgba(255, 68, 68, 0.08);
   color: #ff4444;
 }
@@ -485,4 +485,3 @@
     opacity: 0.6;
 }
 }
-

@@ -130,7 +130,7 @@ video.data-v-57945552::-webkit-media-controls-enclosure {
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -381,11 +381,11 @@ video.data-v-57945552::-webkit-media-controls-enclosure {
   position: relative;
   z-index: 1;
 }
-.product-selector.data-v-57945552 .uni-forms-item__label {
+.product-selector.data-v-57945552 :deep(.uni-forms-item__label) {
   font-size: 32rpx;
   color: #333;
 }
-.nature-select.data-v-57945552 .uni-select__input {
+.nature-select.data-v-57945552 :deep(.uni-select__input) {
   font-size: 28rpx;
   color: #333;
   background: #fff;
@@ -467,7 +467,7 @@ video.data-v-57945552::-webkit-media-controls-enclosure {
   overflow: hidden;
 }
 .nature-card .content-text.data-v-57945552:empty::before {
-  content: '点击记录生长情况';
+  content: "点击记录生长情况";
   color: #999;
 }
 .nature-card .status-tag.data-v-57945552 {
@@ -549,4 +549,3 @@ video.data-v-57945552::-webkit-media-controls-enclosure {
   font-size: 28rpx;
   margin-top: 30rpx;
 }
-

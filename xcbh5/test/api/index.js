@@ -1,8 +1,3 @@
-// 导入uni.request和其他需要的模块
-import {
-	request
-} from '@dcloudio/uni-app'
-
 // 定义基础URL
 const BASE_URL = 'https://api.xcbdsc.com'
 // const BASE_URL = 'http://192.168.0.111:8088'
@@ -221,9 +216,6 @@ export const api = {
 	getCommdityList(data) {
 		return fetch('/api/user/mygoods', 'POST', data)
 	},
-
-
-
 	// 获取摊位列表接口
 	getMyShops(data) {
 		return fetch('/api/shop/myshop', 'POST', data)
@@ -568,8 +560,32 @@ export const api = {
 	},
 	fromuserlist(data){
 		return fetch('/api/user/fromuserlist', 'POST', data);
+	},
+	// 代理入驻申请
+	agentApply(data){
+		return fetch('/api/agentuser/add', 'POST', data);
+	},
+	// 查看代理商信息
+	viewAgentInfo(data){
+		return fetch('/api/agentuser/info', 'POST', data);
+	},
+	
+	// 用户推广收益
+	userRevenue(data){
+		return fetch('/api/my/getusermoneylist', 'POST', data);
+	},
+	// 商家推广收益
+	merchantRevenue(data){
+		return fetch('/api/my/getshopusermoneylist', 'POST', data);
+	},
+	
+	// 市县代理商推广收益
+	cityAgentRevenue(data){
+		return fetch('/api/my/getcitymoneylist', 'POST', data);
 	}
-
+	
+	
+	
 }
 export default {
 	fetch,

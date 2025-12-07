@@ -11,9 +11,12 @@
           <uni-icons type="person-filled" size="60rpx"></uni-icons>
           <view>我是户主</view>
         </view>
+		<view class="mencheng householder" @click="goToAgent" data-bg-color="#ADD8E6">
+		  <uni-icons type="auth" size="60rpx"></uni-icons>
+		  <view>我是代理</view>
+		</view>
       </view>
     </view>
-    <!-- 以下是新增的示例部分，你可以按需替换或删除 -->
     <view class="description">
       <text>在这里，无论是摊主还是户主，都能享受到便捷的服务哦。摊主可以轻松管理自己的摊位商品，进行售卖等操作；</text>
     </view>
@@ -42,6 +45,23 @@
           })
         }
       },
+	  // 跳转至我的代理商
+	  goToAgent() {
+	    if (this.checkToken()) {
+	      uni.showModal({
+	        showCancel: false,
+	        content: '暂未登录,请前往登录',
+	      }).then(() => {
+	        uni.navigateTo({
+	          url: '/pages/login/login'
+	        })
+	      })
+	    } else {
+	      uni.navigateTo({
+	        url: '/pages/agent/agent'
+	      })
+	    }
+	  },
       // 跳转至我的户主
       goToAhouseholder() {
         if (this.checkToken()) {

@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -443,4 +443,3 @@
 .presale-section .goods-item .goods-info .countdown uni-icons {
   margin-right: 8rpx;
 }
-

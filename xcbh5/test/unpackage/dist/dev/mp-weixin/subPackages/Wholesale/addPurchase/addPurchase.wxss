@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -274,14 +274,14 @@
 .wxParse .audio, .wxParse .uni-audio-default {
   display: block;
 }
- .uni-forms-item__label {
+:deep(.uni-forms-item__label) {
   font-size: 30rpx;
   width: auto !important;
 }
- .uni-forms-item {
+:deep(.uni-forms-item) {
   align-items: center;
 }
- .distraction {
+:deep(.distraction) {
   font-size: 30rpx !important;
 }
 .purchase-container {
@@ -358,7 +358,7 @@
 .purchase-container .quantity-input .unit-select {
   flex: 1;
 }
-.purchase-container .quantity-input .unit-select .uni-select__input-text {
+.purchase-container .quantity-input .unit-select :deep(.uni-select__input-text) {
   font-size: 28rpx !important;
 }
 .purchase-container .compact-picker {
@@ -377,4 +377,3 @@
   background: #007AFF;
   box-shadow: 0 8rpx 24rpx rgba(0, 122, 255, 0.3);
 }
-

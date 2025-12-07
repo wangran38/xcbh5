@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -274,7 +274,7 @@
 .wxParse .audio, .wxParse .uni-audio-default {
   display: block;
 }
- .uni-list-item__extra-text {
+:deep(.uni-list-item__extra-text) {
   font-size: 28rpx;
 }
 .detail-collapse {
@@ -727,4 +727,3 @@
   width: 100rpx;
   background-color: #007aff;
 }
-

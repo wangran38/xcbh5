@@ -26,7 +26,7 @@
 							:style="{ height: '70rpx', fontSize: '22rpx' }" :right-text="isLogin ? shopDetails.contactphone : hidePhone(shopDetails.contactphone)"></uni-list-item>
 						<uni-list-item title="营业时间" :show-extra-icon="true"
 							:extra-icon="{color: '#007aff', size: '24', type: 'calendar-filled'}"
-							:style="{ height: '70rpx', fontSize: '22rpx' }" right-text="6:00-21:00"></uni-list-item>
+							:style="{ height: '70rpx', fontSize: '22rpx' }" right-text="6:00-21:00" ></uni-list-item>
 						<uni-list-item title="营业执照" :show-extra-icon="true"
 							:extra-icon="{color: '#007aff', size: '24', type: 'map-filled'}"
 							:style="{ height: '70rpx', fontSize: '22rpx' }"
@@ -313,7 +313,7 @@
 
 
 <style lang="scss">
-	/deep/ .uni-list-item__extra-text{
+	:deep(.uni-list-item__extra-text){
 		font-size: 28rpx;
 	}
 	// 2. 折叠详情：保留原边框，优化内边距

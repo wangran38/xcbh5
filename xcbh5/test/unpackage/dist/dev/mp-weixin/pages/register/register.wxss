@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -426,37 +426,30 @@ to {
 }
 }
 @-webkit-keyframes shake {
-0%,
-  100% {
+0%, 100% {
     -webkit-transform: translateX(0);
             transform: translateX(0);
 }
-20%,
-  60% {
+20%, 60% {
     -webkit-transform: translateX(-10rpx);
             transform: translateX(-10rpx);
 }
-40%,
-  80% {
+40%, 80% {
     -webkit-transform: translateX(10rpx);
             transform: translateX(10rpx);
 }
 }
 @keyframes shake {
-0%,
-  100% {
+0%, 100% {
     -webkit-transform: translateX(0);
             transform: translateX(0);
 }
-20%,
-  60% {
+20%, 60% {
     -webkit-transform: translateX(-10rpx);
             transform: translateX(-10rpx);
 }
-40%,
-  80% {
+40%, 80% {
     -webkit-transform: translateX(10rpx);
             transform: translateX(10rpx);
 }
 }
-

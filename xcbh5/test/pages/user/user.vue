@@ -102,6 +102,14 @@
 	    <uni-icons type="right" size="18" color="#999" />
 	  </view>
 	  
+	  <view class="function-item" @click="routerPush('/pages/earningsRecord/earningsRecord')">
+	    <view class="item-left">
+	      <uni-icons type="medal-filled" size="30" color="#2979FF" />
+	      <text class="title">我的收益</text>
+	    </view>
+	    <uni-icons type="right" size="18" color="#999" />
+	  </view>
+	  
     </view>
 	<button type="warn" @click="logout" style="margin: 20rpx;">退出登录</button>
   </view>

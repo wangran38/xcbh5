@@ -198,7 +198,7 @@
 			},
 			goToshoppingPageList(item) {
 				if (item.path) {
-					console.log(item.path)
+					// console.log(item.path)
 					uni.navigateTo({
 						url: item.path
 					})
@@ -335,7 +335,7 @@
 
 
 <style lang="scss">
-	/deep/ .uni-radio-input{
+	:deep(.uni-radio-input){
 		margin-left: 10rpx;
 		width: 25rpx;
 		height: 25rpx;

@@ -274,18 +274,18 @@
 
 <style lang="scss">
 
-	/deep/ .uni-forms-item__label {
+	:deep(.uni-forms-item__label) {
 		font-size: 30rpx;
 		width: auto !important;
 
 	}
 
-	/deep/ .uni-forms-item {
+	:deep(.uni-forms-item) {
 		align-items: center;
 		// background-color: red;
 	}
 
-	/deep/ .distraction {
+	:deep(.distraction) {
 		font-size: 30rpx !important;
 	}
 
@@ -374,7 +374,7 @@
 			.unit-select {
 				flex: 1;
 
-				/deep/ .uni-select__input-text {
+				:deep(.uni-select__input-text) {
 					font-size: 28rpx !important;
 				}
 			}

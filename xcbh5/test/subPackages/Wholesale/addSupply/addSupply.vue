@@ -339,7 +339,7 @@
 		justify-content: center;
 		align-items: center;
 	}
-	/deep/ .uni-card {
+	:deep(.uni-card) {
 		overflow: visible !important;
 	}
 

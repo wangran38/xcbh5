@@ -1,19 +1,17 @@
 <template>
   <view class="reward-page">
-    <!-- 顶部导航栏 -->
-    <view class="navbar">
+<!--    <view class="navbar">
       <text class="nav-title">邀请奖励记录</text>
-    </view>
+    </view> -->
 
-    <!-- 收益概览卡片 -->
     <view class="overview-card">
       <view class="overview-item">
-        <text class="overview-label">累计邀请奖励 (元)</text>
-        <text class="overview-value">¥ 0</text>
+        <text class="overview-label">累计邀请奖励 (积分)</text>
+        <text class="overview-value"> {{totalMoney.toFixed(2)}}</text>
       </view>
       <view class="overview-item">
-        <text class="overview-label">本月新增奖励 (元)</text>
-        <text class="overview-value today-value">¥ 0</text>
+        <text class="overview-label">本月新增奖励 (积分)</text>
+        <text class="overview-value today-value"> 0</text>
       </view>
     </view>
 
@@ -30,12 +28,11 @@
             <text class="icon-text">邀</text>
           </view>
           <view class="item-info">
-            <text class="item-title">{{ item.title }}</text>
-            <text class="item-time">{{ item.time }}</text>
-            <text class="item-from">来自：{{ item.invitee }}</text>
+            <text class="item-time">{{ initTime(item.createtime) }}</text>
+            <text class="item-from">来自：推广个人收益</text>
           </view>
         </view>
-        <text class="item-amount">+¥{{ item.amount.toFixed(2) }}</text>
+        <text class="item-amount">+¥{{ item.level6money.toFixed(2) }}</text>
       </view>
 
       <!-- 空状态提示 -->
@@ -48,36 +45,41 @@
 </template>
 
 <script>
+	import {myMixin} from '@/utils/public.js'
+	import {api} from '@/api/index.js'
 export default {
+	mixins:[myMixin],
   data() {
+
     return {
       rewardRecords: [
-        { 
-          title: '被邀请人消费返佣', 
-          amount: 35.50, 
-          time: '2024-09-22 15:35',
-          invitee: '张三'
-        },
-        { 
-          title: '被邀请人消费返佣', 
-          amount: 15.00, 
-          time: '2024-09-21 16:42',
-          invitee: '李四'
-        },
-        { 
-          title: '被邀请人消费返佣', 
-          amount: 48.00, 
-          time: '2024-09-20 10:15',
-          invitee: '王五'
-        },
-        { 
-          title: '被邀请人消费返佣', 
-          amount: 27.00, 
-          time: '2024-09-19 14:30',
-          invitee: '张三'
-        }
-      ]
+        // { 
+        //   title: '被邀请人消费返佣', 
+        //   amount: 35.50, 
+        //   time: '2024-09-22 15:35',
+        //   invitee: '张三'
+        // }
+      ],
+	  totalMoney:0,
+	  query:{
+		  page:1,
+		  limit:20
+	  }
     };
+  },
+  onLoad() {
+  	this.getdata()
+  },
+  methods:{
+	  async getdata(){
+		  let data = await api.userRevenue(this.query)
+		  // console.log(data)
+		  if (data.code == 200){
+			  this.totalMoney = data.data.totalMoney
+			  this.rewardRecords = [...this.rewardRecords,...data.data.listdata]
+			  console.log(data)
+		  }
+	  }
   }
 };
 </script>

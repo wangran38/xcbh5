@@ -332,7 +332,7 @@
 
 
 <style lang="scss" scoped>
-	/deep/.uni-date__x-input {
+	:deep(.uni-date__x-input) {
 		font-size: 28rpx;
 	}
 

@@ -50,13 +50,13 @@
     "pages/demo/demo",
     "pages/merchantComplaints/merchantComplaints",
     "pages/myComplaint/myComplaint",
-    "pages/test/test",
     "pages/complaintDetails/complaintDetails",
     "pages/settings/settings",
     "pages/commodityDetail/commodityDetail",
     "pages/invitation/invitation",
     "pages/earningsRecord/earningsRecord",
-    "pages/certification/certification"
+    "pages/certification/certification",
+    "pages/agent/agent"
   ],
   "subPackages": [
     {
@@ -64,6 +64,14 @@
       "pages": [
         "PaymentMethod/PaymentMethod",
         "collectOnDelivery/collectOnDelivery"
+      ]
+    },
+    {
+      "root": "subPackages/agent",
+      "pages": [
+        "cooperation/cooperation",
+        "datacenter/datacenter",
+        "AgentRevenue/AgentRevenue"
       ]
     },
     {

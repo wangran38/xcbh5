@@ -43,7 +43,7 @@
   -webkit-user-select: none;
           user-select: none;
   width: 100%;
-  font-family: Helvetica, "PingFangSC", 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+  font-family: Helvetica, "PingFangSC", "Microsoft Yahei", "微软雅黑", Arial, sans-serif;
   color: #333;
   line-height: 1.5;
   font-size: 1em;
@@ -283,7 +283,7 @@
   box-sizing: border-box;
   flex-direction: row;
   align-items: center;
-  transition: border-bottom-color .3s;
+  transition: border-bottom-color 0.3s;
 }
 .uni-collapse-item__title-wrap {
   width: 100%;
@@ -377,4 +377,3 @@
   transition-duration: 0.3s;
   transition-timing-function: ease;
 }
-

@@ -180,7 +180,7 @@
 
 <style lang="scss" scoped>
 	.complaint-container {
-		background: linear-gradient(180deg, #2979ff 0%, #FFFFFF 100%);
+		background: linear-gradient(180deg, #95baff 0%, #FFFFFF 100%);
 		min-height: 100vh; 
 		padding: 40rpx 30rpx;
 	}

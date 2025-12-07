@@ -556,14 +556,14 @@
 		position: relative;
 		z-index: 1;
 
-		/deep/ .uni-forms-item__label {
+		:deep(.uni-forms-item__label) {
 			font-size: 32rpx;
 			color: #333;
 		}
 	}
 
 	.nature-select {
-		/deep/ .uni-select__input {
+		:deep(.uni-select__input) {
 			font-size: 28rpx;
 			color: #333;
 			background: #fff;

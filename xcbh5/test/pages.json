@@ -17,6 +17,30 @@
 			]
 		},
 		{
+			"root": "subPackages/agent",
+			"pages": [{
+				"path" : "cooperation/cooperation",
+				"style" : 
+				{
+					"navigationBarTitleText" : "申请合作"
+				}
+			},
+			{
+				"path" : "datacenter/datacenter",
+				"style" : 
+				{
+					"navigationBarTitleText" : "数据中心"
+				}
+			},
+			{
+				"path": "AgentRevenue/AgentRevenue",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			}
+			]
+		},
+		{
 			"root": "subPackages/aHouseholder",
 			"pages": [{
 					"path": "additionalInformation/additionalInformation",
@@ -287,6 +311,12 @@
 		}
 	],
 	"pages": [
+		// {
+		// 	"path": "pages/test/test",
+		// 	"style": {
+		// 		"navigationBarTitleText": ""
+		// 	}
+		// },
 		{
 			"path": "pages/index1/index1",
 			"style": {
@@ -602,12 +632,7 @@
 				"navigationBarTitleText": "我的投诉"
 			}
 		},
-		{
-			"path": "pages/test/test",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
+		
 		{
 			"path": "pages/complaintDetails/complaintDetails",
 			"style": {
@@ -648,6 +673,13 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "认证"
+			}
+		},
+		{
+			"path" : "pages/agent/agent",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		}
 	],

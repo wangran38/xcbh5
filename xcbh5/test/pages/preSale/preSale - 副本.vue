@@ -394,7 +394,7 @@
 		}
 	}
 
-	/deep/ .uni-input-input {
+	:deep(.uni-input-input) {
 		font-size: 30rpx !important;
 	}
 
@@ -486,7 +486,7 @@
 				margin-right: 16rpx;
 			}
 
-			/deep/ .uni-easyinput__content {
+			:deep(.uni-easyinput__content) {
 				height: 96rpx !important;
 				line-height: 96rpx !important;
 				font-size: 48rpx !important;
