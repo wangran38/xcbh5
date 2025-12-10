@@ -3,12 +3,6 @@
 	export default {
 		onLaunch: function() {},
 		onShow() {
-			// 开启线上调试
-			// uni.setEnableDebug({
-			//     enableDebug: false
-			// })
-
-
 			const options = {
 				title: '开启消息通知',
 				content: '开启后可及时收到重要通知，是否前往设置开启？',
@@ -20,74 +14,6 @@
 				failCallback: () => {}
 			}
 			// #ifdef MP-WEIXIN
-			uni.getSetting({
-				withSubscriptions: true,
-				success: (res) => {
-					if (!res.subscriptionsSetting.mainSwitch) {
-						// 显示订阅消息引导弹窗
-						uni.showModal({
-							title: options.title,
-							content: options.content,
-							confirmText: options.confirmText,
-							cancelText: options.cancelText,
-							success: (res) => {
-								if (res.confirm) {
-									uni.openSetting({
-										success: (settingRes) => {
-											if (uni.getSystemInfoSync()
-												.platform === 'wechat') {
-												if (settingRes.authSetting[
-														'scope.subscribeMessage'
-													]) {
-													uni.showToast({
-														title: options
-															.successToast,
-														icon: 'success'
-													})
-													options.successCallback()
-												} else {
-													uni.showToast({
-														title: options
-															.failToast,
-														icon: 'none'
-													})
-													options.failCallback()
-												}
-											}
-										},
-										fail: (err) => {
-											console.error('打开设置失败', err)
-											options.failCallback()
-										}
-									})
-								} else {
-									uni.showToast({
-										title: '您可以随时在设置中开启通知',
-										icon: 'none'
-									})
-									options.failCallback()
-								}
-							},
-							fail: (err) => {
-								console.error('显示弹窗失败', err)
-								options.failCallback()
-							}
-						})
-
-
-					} else {
-
-					}
-				},
-				fail: (err) => {
-					console.error('获取设置失败', err)
-				}
-			})
-			
-			
-			// #endif
-
-
 			const updateManager = uni.getUpdateManager()
 			// 请求完新版本信息的回调
 			updateManager.onCheckForUpdate(res => {
@@ -111,6 +37,11 @@
 			updateManager.onUpdateFailed(res => {
 				console.error(res)
 			})
+
+
+			// #endif
+
+
 
 
 		},

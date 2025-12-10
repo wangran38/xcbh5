@@ -1,5 +1,3 @@
-// store/modules/cart.js
-
 import Decimal from 'decimal'
 
 const state = {
