@@ -296,8 +296,7 @@ var _default = {
   // },
   onLoad: function onLoad(query) {
     try {
-      var scene = decodeURIComponent(query.scene);
-      if (scene) {
+      if (query.scene) {
         this.form.fromid = scene;
       } else {
         this.form.fromid = 0;

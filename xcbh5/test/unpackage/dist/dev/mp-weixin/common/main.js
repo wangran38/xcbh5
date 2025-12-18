@@ -107,11 +107,6 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 var _default = {
   onLaunch: function onLaunch() {},
   onShow: function onShow() {
-    // 开启线上调试
-    // uni.setEnableDebug({
-    //     enableDebug: false
-    // })
-
     var options = {
       title: '开启消息通知',
       content: '开启后可及时收到重要通知，是否前往设置开启？',
@@ -122,60 +117,6 @@ var _default = {
       successCallback: function successCallback() {},
       failCallback: function failCallback() {}
     };
-    uni.getSetting({
-      withSubscriptions: true,
-      success: function success(res) {
-        if (!res.subscriptionsSetting.mainSwitch) {
-          // 显示订阅消息引导弹窗
-          uni.showModal({
-            title: options.title,
-            content: options.content,
-            confirmText: options.confirmText,
-            cancelText: options.cancelText,
-            success: function success(res) {
-              if (res.confirm) {
-                uni.openSetting({
-                  success: function success(settingRes) {
-                    if (uni.getSystemInfoSync().platform === 'wechat') {
-                      if (settingRes.authSetting['scope.subscribeMessage']) {
-                        uni.showToast({
-                          title: options.successToast,
-                          icon: 'success'
-                        });
-                        options.successCallback();
-                      } else {
-                        uni.showToast({
-                          title: options.failToast,
-                          icon: 'none'
-                        });
-                        options.failCallback();
-                      }
-                    }
-                  },
-                  fail: function fail(err) {
-                    console.error('打开设置失败', err);
-                    options.failCallback();
-                  }
-                });
-              } else {
-                uni.showToast({
-                  title: '您可以随时在设置中开启通知',
-                  icon: 'none'
-                });
-                options.failCallback();
-              }
-            },
-            fail: function fail(err) {
-              console.error('显示弹窗失败', err);
-              options.failCallback();
-            }
-          });
-        } else {}
-      },
-      fail: function fail(err) {
-        console.error('获取设置失败', err);
-      }
-    });
     var updateManager = uni.getUpdateManager();
     // 请求完新版本信息的回调
     updateManager.onCheckForUpdate(function (res) {

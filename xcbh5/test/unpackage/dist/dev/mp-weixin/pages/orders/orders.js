@@ -141,18 +141,22 @@ var render = function () {
   var l0 = _vm.__map(_vm.pageData, function (item, __i0__) {
     var $orig = _vm.__get_orig(item)
     var m0 = _vm.initTime(item.createtime)
+    var g1 = (item.payprice * 10).toFixed(2)
     return {
       $orig: $orig,
       m0: m0,
+      g1: g1,
     }
   })
-  var g1 = _vm.searData.length
+  var g2 = _vm.searData.length
   var l1 = _vm.__map(_vm.searData, function (item, __i2__) {
     var $orig = _vm.__get_orig(item)
     var m1 = _vm.initTime(item.createtime)
+    var g3 = (item.payprice * 10).toFixed(2)
     return {
       $orig: $orig,
       m1: m1,
+      g3: g3,
     }
   })
   _vm.$mp.data = Object.assign(
@@ -161,7 +165,7 @@ var render = function () {
       $root: {
         g0: g0,
         l0: l0,
-        g1: g1,
+        g2: g2,
         l1: l1,
       },
     }

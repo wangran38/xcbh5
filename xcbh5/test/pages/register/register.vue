@@ -102,8 +102,7 @@
 		onLoad(query) {
 			
 			try {
-				let scene = decodeURIComponent(query.scene);
-				if (scene) {
+				if (query.scene) {
 					this.form.fromid = scene
 				}else{
 					this.form.fromid = 0

@@ -42,7 +42,7 @@
 					<view class="paydetail">
 						<view v-if="item.payway === 1">积分支付 </view>
 						<view v-else>其他支付方式</view>
-						<view class="Payprice"> {{item.payprice * 10}}</view>
+						<view class="Payprice"> {{(item.payprice * 10).toFixed(2)}}</view>
 					</view>
 				</view>
 				<view class="butt">
@@ -76,7 +76,7 @@
 						<view class="paydetail">
 							<view v-if="item.payway === 1">积分支付 </view>
 							<view v-else>其他支付方式</view>
-							<view class="Payprice"> {{item.payprice * 10}}</view>
+							<view class="Payprice"> {{(item.payprice * 10).toFixed(2)}}</view>
 						</view>
 					</view>
 					<view class="butt">
