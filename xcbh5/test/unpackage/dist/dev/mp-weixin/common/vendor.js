@@ -67,7 +67,7 @@ module.exports = _nonIterableRest, module.exports.__esModule = true, module.expo
 
 /***/ }),
 
-/***/ 1000:
+/***/ 1007:
 /*!**********************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-forms/components/uni-forms/validate.js ***!
   \**********************************************************************************/
@@ -83,9 +83,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 46));
-var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ 1001));
-var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ 1002));
-var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ 1004));
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ 1008));
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ 1009));
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ 1011));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 48));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
@@ -759,7 +759,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1001:
+/***/ 1008:
 /*!*********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/inherits.js ***!
   \*********************************************************/
@@ -787,7 +787,7 @@ module.exports = _inherits, module.exports.__esModule = true, module.exports["de
 
 /***/ }),
 
-/***/ 1002:
+/***/ 1009:
 /*!**************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js ***!
   \**************************************************************************/
@@ -795,7 +795,7 @@ module.exports = _inherits, module.exports.__esModule = true, module.exports["de
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ 13)["default"];
-var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized.js */ 1003);
+var assertThisInitialized = __webpack_require__(/*! ./assertThisInitialized.js */ 1010);
 function _possibleConstructorReturn(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
@@ -808,7 +808,279 @@ module.exports = _possibleConstructorReturn, module.exports.__esModule = true, m
 
 /***/ }),
 
-/***/ 1003:
+/***/ 101:
+/*!**********************************************!*\
+  !*** E:/xcbh5/xcbh5/test/hooks/useUpload.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.compressPictures = void 0;
+exports.getPlatform = getPlatform;
+exports.useUpload = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 46));
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 48));
+var _index = _interopRequireWildcard(__webpack_require__(/*! @/api/index */ 49));
+var _compressorjs = _interopRequireDefault(__webpack_require__(/*! compressorjs */ 102));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+// 上传配置常量，
+var UPLOAD_CONFIG = {
+  // 不同平台的压缩质量配置
+  compressQuality: {
+    app: 60,
+    // App端压缩质量(0-100)
+    h5: 0.6,
+    // H5端压缩质量(0-1)
+    mpWeixin: 30 // 微信小程序压缩质量(0-100)
+  },
+
+  // 提示信息配置
+  messages: {
+    uploading: '上传中',
+    success: '上传成功',
+    fail: '上传失败',
+    compressFail: '图片压缩失败',
+    invalidFile: '无效的文件',
+    unsupportedPlatform: '不支持的平台'
+  }
+};
+
+/**
+ * 获取当前运行平台
+ * @returns {Number} 1:App, 2:H5, 3:微信小程序, 0:未知
+ */
+function getPlatform() {
+  return 3;
+  return 0;
+}
+
+/**
+ * 图片压缩处理，适配多平台
+ * @param {Object|String} file - 文件对象或文件路径
+ * @returns {Promise<Object|String>} 压缩后的文件对象或路径
+ */
+var compressPictures = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(file) {
+    var platform, fileSource;
+    return _regenerator.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (file) {
+              _context.next = 2;
+              break;
+            }
+            throw new Error(UPLOAD_CONFIG.messages.invalidFile);
+          case 2:
+            platform = getPlatform();
+            fileSource = file.path || file; // 统一获取文件源
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              switch (platform) {
+                case 1:
+                  // App端
+                  uni.compressImage({
+                    src: fileSource,
+                    quality: UPLOAD_CONFIG.compressQuality.app,
+                    success: function success(res) {
+                      return resolve(res.tempFilePath);
+                    },
+                    fail: function fail(err) {
+                      console.error('App图片压缩失败:', err);
+                      reject(new Error(UPLOAD_CONFIG.messages.compressFail));
+                    }
+                  });
+                  break;
+                case 2:
+                  // H5端
+                  new _compressorjs.default(file, {
+                    quality: UPLOAD_CONFIG.compressQuality.h5,
+                    convertSize: false,
+                    success: function success(result) {
+                      // 转换为标准File对象
+                      var compressedFile = new File([result], result.name || 'compressed-image.jpg', {
+                        type: result.type || 'image/jpeg'
+                      });
+                      resolve(compressedFile);
+                    },
+                    error: function error(err) {
+                      console.error('H5图片压缩失败:', err);
+                      reject(new Error(UPLOAD_CONFIG.messages.compressFail));
+                    }
+                  });
+                  break;
+                case 3:
+                  // 微信小程序端
+                  uni.compressImage({
+                    src: fileSource,
+                    quality: UPLOAD_CONFIG.compressQuality.mpWeixin,
+                    success: function success(res) {
+                      return resolve(res.tempFilePath);
+                    },
+                    fail: function fail(err) {
+                      console.error('小程序图片压缩失败:', err);
+                      reject(new Error(UPLOAD_CONFIG.messages.compressFail));
+                    }
+                  });
+                  break;
+                default:
+                  reject(new Error(UPLOAD_CONFIG.messages.unsupportedPlatform));
+              }
+            }));
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return function compressPictures(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/**
+ * 创建上传参数配置
+ * @param {Number} platform - 平台类型
+ * @param {String} uploadPath - 上传路径
+ * @param {Object|String} compressedFile - 压缩后的文件
+ * @returns {Object} 上传配置
+ */
+exports.compressPictures = compressPictures;
+var createUploadOptions = function createUploadOptions(platform, uploadPath, compressedFile) {
+  var baseOptions = {
+    url: "".concat(_index.default.UPLOAD_URL).concat(uploadPath),
+    name: 'file',
+    formData: {
+      output: 'json2'
+    }
+  };
+
+  // 根据平台添加不同的文件参数
+  if (platform === 2) {
+    // H5端使用file参数
+    return _objectSpread(_objectSpread({}, baseOptions), {}, {
+      file: compressedFile
+    });
+  } else {
+    // App和小程序端使用filePath参数
+    return _objectSpread(_objectSpread({}, baseOptions), {}, {
+      filePath: compressedFile
+    });
+  }
+};
+
+/**
+ * 图片上传Hook
+ * @param {Object} opts - 上传参数
+ * @param {String} opts.uploadPath - 上传接口路径
+ * @param {Object|String} opts.file - 待上传的文件对象或路径
+ * @returns {Object} 包含upload方法的对象
+ */
+var useUpload = function useUpload(opts) {
+  // 解构并校验必要参数
+  var uploadPath = opts.uploadPath,
+    file = opts.file;
+  if (!uploadPath || !file) {
+    throw new Error('缺少必要的上传参数(uploadPath或file)');
+  }
+
+  /**
+   * 执行上传操作
+   * @returns {Promise<Object>} 上传结果
+   */
+  var upload = /*#__PURE__*/function () {
+    var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+      var platform, compressedFile, uploadOptions;
+      return _regenerator.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              // 显示加载状态
+              uni.showLoading({
+                title: UPLOAD_CONFIG.messages.uploading,
+                mask: true
+              });
+              _context2.prev = 1;
+              platform = getPlatform();
+              if (!(platform === 0)) {
+                _context2.next = 5;
+                break;
+              }
+              throw new Error(UPLOAD_CONFIG.messages.unsupportedPlatform);
+            case 5:
+              _context2.next = 7;
+              return compressPictures(file);
+            case 7:
+              compressedFile = _context2.sent;
+              // 创建上传配置
+              uploadOptions = createUploadOptions(platform, uploadPath, compressedFile); // 执行上传
+              return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                uni.uploadFile(_objectSpread(_objectSpread({}, uploadOptions), {}, {
+                  success: function success(res) {
+                    // 处理返回数据，尝试解析JSON
+                    var resultData = res.data;
+                    try {
+                      resultData = res.data;
+                    } catch (e) {
+                      console.warn('上传返回数据不是JSON格式:', res.data);
+                    }
+                    uni.showToast({
+                      title: UPLOAD_CONFIG.messages.success
+                    });
+                    resolve(resultData);
+                  },
+                  fail: function fail(err) {
+                    console.error("\u5E73\u53F0[".concat(platform, "]\u4E0A\u4F20\u5931\u8D25:"), err);
+                    reject(new Error(UPLOAD_CONFIG.messages.fail));
+                  }
+                }));
+              }));
+            case 12:
+              _context2.prev = 12;
+              _context2.t0 = _context2["catch"](1);
+              uni.showToast({
+                title: _context2.t0.message || UPLOAD_CONFIG.messages.fail,
+                icon: 'error'
+              });
+              throw _context2.t0;
+            case 16:
+              _context2.prev = 16;
+              // 确保加载状态始终关闭
+              uni.hideLoading();
+              return _context2.finish(16);
+            case 19:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 12, 16, 19]]);
+    }));
+    return function upload() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+  return {
+    upload: upload
+  };
+};
+exports.useUpload = useUpload;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 1010:
 /*!**********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/assertThisInitialized.js ***!
   \**********************************************************************/
@@ -825,7 +1097,7 @@ module.exports = _assertThisInitialized, module.exports.__esModule = true, modul
 
 /***/ }),
 
-/***/ 1004:
+/***/ 1011:
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/getPrototypeOf.js ***!
   \***************************************************************/
@@ -842,7 +1114,7 @@ module.exports = _getPrototypeOf, module.exports.__esModule = true, module.expor
 
 /***/ }),
 
-/***/ 1005:
+/***/ 1012:
 /*!*******************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-forms/components/uni-forms/utils.js ***!
   \*******************************************************************************/
@@ -1175,278 +1447,6 @@ var isEqual = function isEqual(a, b) {
   }
 };
 exports.isEqual = isEqual;
-
-/***/ }),
-
-/***/ 101:
-/*!**********************************************!*\
-  !*** E:/xcbh5/xcbh5/test/hooks/useUpload.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.compressPictures = void 0;
-exports.getPlatform = getPlatform;
-exports.useUpload = void 0;
-var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 46));
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 48));
-var _index = _interopRequireWildcard(__webpack_require__(/*! @/api/index */ 49));
-var _compressorjs = _interopRequireDefault(__webpack_require__(/*! compressorjs */ 102));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-// 上传配置常量，
-var UPLOAD_CONFIG = {
-  // 不同平台的压缩质量配置
-  compressQuality: {
-    app: 60,
-    // App端压缩质量(0-100)
-    h5: 0.6,
-    // H5端压缩质量(0-1)
-    mpWeixin: 30 // 微信小程序压缩质量(0-100)
-  },
-
-  // 提示信息配置
-  messages: {
-    uploading: '上传中',
-    success: '上传成功',
-    fail: '上传失败',
-    compressFail: '图片压缩失败',
-    invalidFile: '无效的文件',
-    unsupportedPlatform: '不支持的平台'
-  }
-};
-
-/**
- * 获取当前运行平台
- * @returns {Number} 1:App, 2:H5, 3:微信小程序, 0:未知
- */
-function getPlatform() {
-  return 3;
-  return 0;
-}
-
-/**
- * 图片压缩处理，适配多平台
- * @param {Object|String} file - 文件对象或文件路径
- * @returns {Promise<Object|String>} 压缩后的文件对象或路径
- */
-var compressPictures = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(file) {
-    var platform, fileSource;
-    return _regenerator.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (file) {
-              _context.next = 2;
-              break;
-            }
-            throw new Error(UPLOAD_CONFIG.messages.invalidFile);
-          case 2:
-            platform = getPlatform();
-            fileSource = file.path || file; // 统一获取文件源
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              switch (platform) {
-                case 1:
-                  // App端
-                  uni.compressImage({
-                    src: fileSource,
-                    quality: UPLOAD_CONFIG.compressQuality.app,
-                    success: function success(res) {
-                      return resolve(res.tempFilePath);
-                    },
-                    fail: function fail(err) {
-                      console.error('App图片压缩失败:', err);
-                      reject(new Error(UPLOAD_CONFIG.messages.compressFail));
-                    }
-                  });
-                  break;
-                case 2:
-                  // H5端
-                  new _compressorjs.default(file, {
-                    quality: UPLOAD_CONFIG.compressQuality.h5,
-                    convertSize: false,
-                    success: function success(result) {
-                      // 转换为标准File对象
-                      var compressedFile = new File([result], result.name || 'compressed-image.jpg', {
-                        type: result.type || 'image/jpeg'
-                      });
-                      resolve(compressedFile);
-                    },
-                    error: function error(err) {
-                      console.error('H5图片压缩失败:', err);
-                      reject(new Error(UPLOAD_CONFIG.messages.compressFail));
-                    }
-                  });
-                  break;
-                case 3:
-                  // 微信小程序端
-                  uni.compressImage({
-                    src: fileSource,
-                    quality: UPLOAD_CONFIG.compressQuality.mpWeixin,
-                    success: function success(res) {
-                      return resolve(res.tempFilePath);
-                    },
-                    fail: function fail(err) {
-                      console.error('小程序图片压缩失败:', err);
-                      reject(new Error(UPLOAD_CONFIG.messages.compressFail));
-                    }
-                  });
-                  break;
-                default:
-                  reject(new Error(UPLOAD_CONFIG.messages.unsupportedPlatform));
-              }
-            }));
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return function compressPictures(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-/**
- * 创建上传参数配置
- * @param {Number} platform - 平台类型
- * @param {String} uploadPath - 上传路径
- * @param {Object|String} compressedFile - 压缩后的文件
- * @returns {Object} 上传配置
- */
-exports.compressPictures = compressPictures;
-var createUploadOptions = function createUploadOptions(platform, uploadPath, compressedFile) {
-  var baseOptions = {
-    url: "".concat(_index.default.UPLOAD_URL).concat(uploadPath),
-    name: 'file',
-    formData: {
-      output: 'json2'
-    }
-  };
-
-  // 根据平台添加不同的文件参数
-  if (platform === 2) {
-    // H5端使用file参数
-    return _objectSpread(_objectSpread({}, baseOptions), {}, {
-      file: compressedFile
-    });
-  } else {
-    // App和小程序端使用filePath参数
-    return _objectSpread(_objectSpread({}, baseOptions), {}, {
-      filePath: compressedFile
-    });
-  }
-};
-
-/**
- * 图片上传Hook
- * @param {Object} opts - 上传参数
- * @param {String} opts.uploadPath - 上传接口路径
- * @param {Object|String} opts.file - 待上传的文件对象或路径
- * @returns {Object} 包含upload方法的对象
- */
-var useUpload = function useUpload(opts) {
-  // 解构并校验必要参数
-  var uploadPath = opts.uploadPath,
-    file = opts.file;
-  if (!uploadPath || !file) {
-    throw new Error('缺少必要的上传参数(uploadPath或file)');
-  }
-
-  /**
-   * 执行上传操作
-   * @returns {Promise<Object>} 上传结果
-   */
-  var upload = /*#__PURE__*/function () {
-    var _ref2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-      var platform, compressedFile, uploadOptions;
-      return _regenerator.default.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              // 显示加载状态
-              uni.showLoading({
-                title: UPLOAD_CONFIG.messages.uploading,
-                mask: true
-              });
-              _context2.prev = 1;
-              platform = getPlatform();
-              if (!(platform === 0)) {
-                _context2.next = 5;
-                break;
-              }
-              throw new Error(UPLOAD_CONFIG.messages.unsupportedPlatform);
-            case 5:
-              _context2.next = 7;
-              return compressPictures(file);
-            case 7:
-              compressedFile = _context2.sent;
-              // 创建上传配置
-              uploadOptions = createUploadOptions(platform, uploadPath, compressedFile); // 执行上传
-              return _context2.abrupt("return", new Promise(function (resolve, reject) {
-                uni.uploadFile(_objectSpread(_objectSpread({}, uploadOptions), {}, {
-                  success: function success(res) {
-                    // 处理返回数据，尝试解析JSON
-                    var resultData = res.data;
-                    try {
-                      resultData = res.data;
-                    } catch (e) {
-                      console.warn('上传返回数据不是JSON格式:', res.data);
-                    }
-                    uni.showToast({
-                      title: UPLOAD_CONFIG.messages.success
-                    });
-                    resolve(resultData);
-                  },
-                  fail: function fail(err) {
-                    console.error("\u5E73\u53F0[".concat(platform, "]\u4E0A\u4F20\u5931\u8D25:"), err);
-                    reject(new Error(UPLOAD_CONFIG.messages.fail));
-                  }
-                }));
-              }));
-            case 12:
-              _context2.prev = 12;
-              _context2.t0 = _context2["catch"](1);
-              uni.showToast({
-                title: _context2.t0.message || UPLOAD_CONFIG.messages.fail,
-                icon: 'error'
-              });
-              throw _context2.t0;
-            case 16:
-              _context2.prev = 16;
-              // 确保加载状态始终关闭
-              uni.hideLoading();
-              return _context2.finish(16);
-            case 19:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[1, 12, 16, 19]]);
-    }));
-    return function upload() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-  return {
-    upload: upload
-  };
-};
-exports.useUpload = useUpload;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
@@ -2521,7 +2521,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = 
 
 /***/ }),
 
-/***/ 1020:
+/***/ 1027:
 /*!************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/uni-cloud/dist/index.js ***!
   \************************************************************************************/
@@ -2537,19 +2537,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.uniCloud = exports.default = exports.UniCloudError = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 46));
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ 1003));
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ 1010));
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 48));
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ 1001));
-var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ 1002));
-var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ 1004));
-var _wrapNativeSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/wrapNativeSuper */ 1021));
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ 1008));
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ 1009));
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ 1011));
+var _wrapNativeSuper2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/wrapNativeSuper */ 1028));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _pages = _interopRequireDefault(__webpack_require__(/*! @/pages.json */ 1023));
+var _pages = _interopRequireDefault(__webpack_require__(/*! @/pages.json */ 1030));
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e34) { throw _e34; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e35) { didErr = true; err = _e35; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
@@ -3060,7 +3060,7 @@ var b = "development" === "development",
   x = true;
 var N = "";
 try {
-  N = (__webpack_require__(/*! uni-stat-config */ 1024).default || __webpack_require__(/*! uni-stat-config */ 1024)).appid;
+  N = (__webpack_require__(/*! uni-stat-config */ 1031).default || __webpack_require__(/*! uni-stat-config */ 1031)).appid;
 } catch (e) {}
 var R,
   L = {};
@@ -10931,16 +10931,16 @@ exports.default = er;
 
 /***/ }),
 
-/***/ 1021:
+/***/ 1028:
 /*!****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/wrapNativeSuper.js ***!
   \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getPrototypeOf = __webpack_require__(/*! ./getPrototypeOf.js */ 1004);
+var getPrototypeOf = __webpack_require__(/*! ./getPrototypeOf.js */ 1011);
 var setPrototypeOf = __webpack_require__(/*! ./setPrototypeOf.js */ 16);
-var isNativeFunction = __webpack_require__(/*! ./isNativeFunction.js */ 1022);
+var isNativeFunction = __webpack_require__(/*! ./isNativeFunction.js */ 1029);
 var construct = __webpack_require__(/*! ./construct.js */ 15);
 function _wrapNativeSuper(Class) {
   var _cache = typeof Map === "function" ? new Map() : undefined;
@@ -10972,7 +10972,7 @@ module.exports = _wrapNativeSuper, module.exports.__esModule = true, module.expo
 
 /***/ }),
 
-/***/ 1022:
+/***/ 1029:
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/isNativeFunction.js ***!
   \*****************************************************************/
@@ -10990,7 +10990,7 @@ module.exports = _isNativeFunction, module.exports.__esModule = true, module.exp
 
 /***/ }),
 
-/***/ 1023:
+/***/ 1030:
 /*!*******************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/pages.json?{"type":"origin-pages-json"} ***!
   \*******************************************************************/
@@ -11588,7 +11588,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1024:
+/***/ 1031:
 /*!******************************************************!*\
   !*** E:/xcbh5/xcbh5/test/pages.json?{"type":"stat"} ***!
   \******************************************************/
@@ -11609,7 +11609,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1039:
+/***/ 1046:
 /*!*******************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-popup/components/uni-popup/popup.js ***!
   \*******************************************************************************/
@@ -11651,7 +11651,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1040:
+/***/ 1047:
 /*!************************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-popup/components/uni-popup/i18n/index.js ***!
   \************************************************************************************/
@@ -11666,9 +11666,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 1041));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 1042));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 1043));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 1048));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 1049));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 1050));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -11678,7 +11678,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1041:
+/***/ 1048:
 /*!***********************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-popup/components/uni-popup/i18n/en.json ***!
   \***********************************************************************************/
@@ -11689,7 +11689,7 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"cancel\",\"uni-popup.ok\":\
 
 /***/ }),
 
-/***/ 1042:
+/***/ 1049:
 /*!****************************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-popup/components/uni-popup/i18n/zh-Hans.json ***!
   \****************************************************************************************/
@@ -11700,7 +11700,7 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\
 
 /***/ }),
 
-/***/ 1043:
+/***/ 1050:
 /*!****************************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-popup/components/uni-popup/i18n/zh-Hant.json ***!
   \****************************************************************************************/
@@ -11711,7 +11711,7 @@ module.exports = JSON.parse("{\"uni-popup.cancel\":\"取消\",\"uni-popup.ok\":\
 
 /***/ }),
 
-/***/ 1079:
+/***/ 1086:
 /*!*********************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/components/gaoyia-parse/libs/html2json.js ***!
   \*********************************************************************/
@@ -11726,8 +11726,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 1080));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 1081));
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 1087));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 1088));
 /**
  * html2Json 改造来自: https://github.com/Jxck/html2json
  *
@@ -11960,7 +11960,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1080:
+/***/ 1087:
 /*!*********************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/components/gaoyia-parse/libs/wxDiscode.js ***!
   \*********************************************************************/
@@ -12179,7 +12179,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 1081:
+/***/ 1088:
 /*!**********************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/components/gaoyia-parse/libs/htmlparser.js ***!
   \**********************************************************************/
@@ -12547,7 +12547,7 @@ exports.myMixin = myMixin;
 
 /***/ }),
 
-/***/ 1113:
+/***/ 1120:
 /*!***************************************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
   \***************************************************************************************************/
@@ -24861,6 +24861,8 @@ var checkToken = function checkToken(url) {
     // 需要传token
     var token = uni.getStorageSync('token');
     return {
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
       'Content-Type': 'application/json',
       'Authorization': token
     };
@@ -26591,7 +26593,7 @@ function fixIosDateFormat(value) {
 
 /***/ }),
 
-/***/ 952:
+/***/ 959:
 /*!*******************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-qrcode/components/uv-qrcode/props.js ***!
   \*******************************************************************************/
@@ -26689,7 +26691,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 953:
+/***/ 960:
 /*!*************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js ***!
   \*************************************************************************/
@@ -26713,7 +26715,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 954:
+/***/ 961:
 /*!***********************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/mixin/mixin.js ***!
   \***********************************************************************/
@@ -26730,11 +26732,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var index = _interopRequireWildcard(__webpack_require__(/*! ../function/index.js */ 955));
-var test = _interopRequireWildcard(__webpack_require__(/*! ../function/test.js */ 956));
-var _route = _interopRequireDefault(__webpack_require__(/*! ../util/route.js */ 959));
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ../function/debounce.js */ 960));
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ../function/throttle.js */ 961));
+var index = _interopRequireWildcard(__webpack_require__(/*! ../function/index.js */ 962));
+var test = _interopRequireWildcard(__webpack_require__(/*! ../function/test.js */ 963));
+var _route = _interopRequireDefault(__webpack_require__(/*! ../util/route.js */ 966));
+var _debounce = _interopRequireDefault(__webpack_require__(/*! ../function/debounce.js */ 967));
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ../function/throttle.js */ 968));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -26915,7 +26917,7 @@ exports.default = _default2;
 
 /***/ }),
 
-/***/ 955:
+/***/ 962:
 /*!**************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/function/index.js ***!
   \**************************************************************************/
@@ -26961,8 +26963,8 @@ exports.trim = trim;
 exports.type2icon = type2icon;
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var _test = __webpack_require__(/*! ./test.js */ 956);
-var _digit = __webpack_require__(/*! ./digit.js */ 957);
+var _test = __webpack_require__(/*! ./test.js */ 963);
+var _digit = __webpack_require__(/*! ./digit.js */ 964);
 /**
  * @description 如果value小于min，取min；如果value大于max，取max
  * @param {number} min
@@ -27714,7 +27716,7 @@ function setConfig(_ref5) {
 
 /***/ }),
 
-/***/ 956:
+/***/ 963:
 /*!*************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/function/test.js ***!
   \*************************************************************************/
@@ -28015,7 +28017,7 @@ function regExp(o) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 964:
 /*!**************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/function/digit.js ***!
   \**************************************************************************/
@@ -28036,7 +28038,7 @@ exports.minus = minus;
 exports.plus = plus;
 exports.round = round;
 exports.times = times;
-var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 958));
+var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 965));
 var _boundaryCheckingState = true; // 是否进行越界检查的全局开关
 
 /**
@@ -28218,7 +28220,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 958:
+/***/ 965:
 /*!********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toArray.js ***!
   \********************************************************/
@@ -28236,7 +28238,7 @@ module.exports = _toArray, module.exports.__esModule = true, module.exports["def
 
 /***/ }),
 
-/***/ 959:
+/***/ 966:
 /*!**********************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/util/route.js ***!
   \**********************************************************************/
@@ -28255,7 +28257,7 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 48));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/index.js */ 955);
+var _index = __webpack_require__(/*! @/uni_modules/uv-ui-tools/libs/function/index.js */ 962);
 /**
  * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
  * 并且带有路由拦截功能
@@ -28429,7 +28431,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 960:
+/***/ 967:
 /*!*****************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/function/debounce.js ***!
   \*****************************************************************************/
@@ -28477,7 +28479,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 961:
+/***/ 968:
 /*!*****************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-ui-tools/libs/function/throttle.js ***!
   \*****************************************************************************/
@@ -28527,7 +28529,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 962:
+/***/ 969:
 /*!********************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-qrcode/components/uv-qrcode/qrcode.js ***!
   \********************************************************************************/
@@ -29784,7 +29786,7 @@ f.prototype = {
 
 /***/ }),
 
-/***/ 963:
+/***/ 970:
 /*!*******************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-qrcode/components/uv-qrcode/queue.js ***!
   \*******************************************************************************/
@@ -29841,7 +29843,7 @@ exports.queueLoadImage = queueLoadImage;
 
 /***/ }),
 
-/***/ 964:
+/***/ 971:
 /*!*******************************************************************************!*\
   !*** E:/xcbh5/xcbh5/test/uni_modules/uv-qrcode/components/uv-qrcode/cache.js ***!
   \*******************************************************************************/

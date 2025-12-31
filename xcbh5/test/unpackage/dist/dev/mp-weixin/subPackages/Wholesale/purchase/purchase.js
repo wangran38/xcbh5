@@ -280,11 +280,16 @@ var _public = __webpack_require__(/*! @/utils/public.js */ 111);
 //
 //
 //
-//
-//
-//
+var mButtonVue = function mButtonVue() {
+  __webpack_require__.e(/*! require.ensure | components/public/mButton/mButton */ "components/public/mButton/mButton").then((function () {
+    return resolve(__webpack_require__(/*! @/components/public/mButton/mButton.vue */ 914));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
   mixins: [_public.myMixin],
+  components: {
+    mButtonVue: mButtonVue
+  },
   data: function data() {
     return (0, _defineProperty2.default)({
       categories: [{
@@ -323,6 +328,7 @@ var _default = {
       loading: false,
       noMore: false,
       query: {
+        infotitle: null,
         area_id: null,
         stoptime: null,
         page: 1,
@@ -351,6 +357,19 @@ var _default = {
     this.loadData();
   },
   methods: {
+    handleSearch: function handleSearch(value) {
+      this.resetList();
+      this.query.infotitle = value;
+      this.loadData();
+    },
+    // 重置筛选
+    handleReset: function handleReset() {
+      this.searchText = '';
+      this.selectedCategoryIndex = 0;
+      this.selectedDistanceIndex = 0;
+      this.resetList();
+      this.loadData();
+    },
     // 加载数据
     loadData: function loadData() {
       var _this = this;
@@ -372,36 +391,21 @@ var _default = {
                 return _index.api.buyinfoList(_this.query);
               case 6:
                 data = _context.sent;
-                // const mockData = Array.from({length: 5}, (_, i) => ({
-                //   id: this.page * 10 + i,
-                //   title: `采购${['鸡蛋', '槟榔苗', '蜂蜜', '猪肉'][i%4]}`,
-                //   quantity: Math.floor(Math.random() * 1000),
-                //   unit: ['个', '枝', '斤', '斤'][i%4],
-                //   budget: (Math.random() * 500 + 50).toFixed(1),
-                //   deadline: this.generateDeadline(),
-                //   status: ['processing', 'urgent'][i%2],
-                //   statusText: ['招标中', '紧急采购'][i%2],
-                //   company: {
-                //     name: `企业${String.fromCharCode(65 + i%26)}`,
-                //     logo: `https://picsum.photos/40/40?c=${i}`,
-                //     verified: i%3 === 0
-                //   }
-                // }))
-
+                console.log(_this.query, "这是请求参数");
+                console.log(data.data.listdata, "这是响应数据");
                 _this.purchaseList = [].concat((0, _toConsumableArray2.default)(_this.purchaseList), (0, _toConsumableArray2.default)(data.data.listdata));
-                console.log(_this.purchaseList);
                 _this.page++;
                 _this.noMore = _this.page > 2;
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _this.loading = false;
-                return _context.finish(11);
-              case 14:
+                return _context.finish(12);
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3,, 11, 14]]);
+        }, _callee, null, [[3,, 12, 15]]);
       }))();
     },
     // 生成截止日期
@@ -425,7 +429,8 @@ var _default = {
       this.page = 1;
       this.purchaseList = [];
       this.noMore = false;
-      this.loadData();
+      this.query.infotitle = null;
+      // this.loadData()
     },
     // 查看详情
     viewDetail: function viewDetail(id) {

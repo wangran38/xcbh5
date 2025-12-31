@@ -1,14 +1,6 @@
 <template>
 	<view class="container">
 			<view class="detail-panel">
-<!-- 				<view class="panel-header" @click="toggleDetail">
-					<text class="panel-title">商品详情</text>
-					<uni-icons 
-						type="down" 
-						size="18" 
-						color="#999" 
-						:class="{ 'rotate': showDetail }"></uni-icons>
-				</view> -->
 				<view class="panel-content" v-if="showDetail">
 					<image :src="product.detailImage || '/static/images/detail-placeholder.png'" mode="widthFix" class="detail-image"></image>
 					<view class="detail-text">
@@ -43,7 +35,6 @@
 				
 			</view>
 			<map :latitude="merchantInfo.lat" :longitude="merchantInfo.lng" style="width: 100%;" :markers="merchantInfo.markers"></map>
-		</scroll-view>
 
 		<!-- 预售商品 -->
 		<view class="presale-section">

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "供应",
   "usingComponents": {
-    "uni-icons": "/uni_modules/uni-icons/components/uni-icons/uni-icons"
+    "uni-icons": "/uni_modules/uni-icons/components/uni-icons/uni-icons",
+    "m-button-vue": "/components/public/mButton/mButton"
   }
 }

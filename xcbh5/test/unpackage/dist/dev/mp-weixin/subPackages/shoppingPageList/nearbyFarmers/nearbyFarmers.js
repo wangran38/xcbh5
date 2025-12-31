@@ -302,7 +302,18 @@ var _public = __webpack_require__(/*! @/utils/public.js */ 111);
 //
 //
 //
+//
+//
+//
+var mButtonVue = function mButtonVue() {
+  __webpack_require__.e(/*! require.ensure | components/public/mButton/mButton */ "components/public/mButton/mButton").then((function () {
+    return resolve(__webpack_require__(/*! @/components/public/mButton/mButton.vue */ 914));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
+  components: {
+    mButtonVue: mButtonVue
+  },
   mixins: [_public.myMixin],
   data: function data() {
     return {

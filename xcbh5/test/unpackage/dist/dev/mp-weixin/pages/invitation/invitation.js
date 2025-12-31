@@ -110,7 +110,7 @@ try {
       return __webpack_require__.e(/*! import() | uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item */ "uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item.vue */ 872))
     },
     uniPopup: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 940))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-popup/components/uni-popup/uni-popup */ "uni_modules/uni-popup/components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-popup/components/uni-popup/uni-popup.vue */ 947))
     },
   }
 } catch (e) {
@@ -204,7 +204,7 @@ var _index = __webpack_require__(/*! @/api/index.js */ 49);
 var _public = __webpack_require__(/*! @/utils/public.js */ 111);
 var posterVue = function posterVue() {
   __webpack_require__.e(/*! require.ensure | components/poster */ "components/poster").then((function () {
-    return resolve(__webpack_require__(/*! @/components/poster.vue */ 1027));
+    return resolve(__webpack_require__(/*! @/components/poster.vue */ 1034));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

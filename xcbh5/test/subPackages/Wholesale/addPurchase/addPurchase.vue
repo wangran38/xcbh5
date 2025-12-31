@@ -3,7 +3,7 @@
 		<uni-forms ref="form">
 			<view class="section">
 				<uni-section title="采购明细" type="line"></uni-section>
-				<uni-forms-item label="商品名称" required name="infotitle">
+				<uni-forms-item label="商品名称" required name="infotitle" label-width="200">
 					<uni-easyinput v-model="formData.infotitle" placeholder="请输入商品名称" @focus="showGoodsPicker = true" />
 
 					<uni-popup ref="goodsPopup" type="dialog">
@@ -11,7 +11,7 @@
 					</uni-popup>
 				</uni-forms-item>
 
-				<uni-forms-item label="采购量" required name="quantity">
+				<uni-forms-item label="采购量" required name="quantity" label-width="200">
 					<view class="quantity-input">
 						<uni-easyinput type="number" v-model.number="formData.infonumber" placeholder="请输入数量" />
 						<uni-data-select v-model="formData.unit" :localdata="units" class="unit-select"
@@ -19,14 +19,14 @@
 					</view>
 				</uni-forms-item>
 
-				<uni-forms-item label="采购要求" name="requirements">
+				<uni-forms-item label="采购要求" name="requirements" label-width="200">
 					<uni-easyinput type="textarea" v-model="formData.content" placeholder="请输入规格、材质等要求"
 						:maxlength="500" />
 				</uni-forms-item>
 
 
 				<uni-forms-item  label="收货地址" required name="deliveryAddress"
-					class="range-picker">
+					class="range-picker" label-width="200">
 					<picker class="picker" mode="multiSelector" :range="multiArray" :value="multiIndex"
 						@change="bindMultiPickerChange" @columnchange="bindMultiPickerColumnChange">
 						<view style="font-size: 25rpx;">

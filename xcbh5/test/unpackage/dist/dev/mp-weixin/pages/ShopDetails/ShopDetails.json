@@ -6,9 +6,9 @@
     "uni-collapse-item": "/uni_modules/uni-collapse/components/uni-collapse-item/uni-collapse-item",
     "uni-list": "/uni_modules/uni-list/components/uni-list/uni-list",
     "uni-list-item": "/uni_modules/uni-list/components/uni-list-item/uni-list-item",
-    "uni-easyinput": "/uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput",
     "shop-item": "/components/shop-item/shop-item",
     "menu-bar-vue": "/components/menuBar",
-    "input-box-vue": "/components/inputBox"
+    "input-box-vue": "/components/inputBox",
+    "m-button-vue": "/components/public/mButton/mButton"
   }
 }

@@ -37,20 +37,10 @@
 					</uni-list>
 				</uni-collapse-item>
 			</uni-collapse>
-			<!-- 3. 菜品搜索区：还原原按钮风格，解决大小不一 -->
-			<view class="dishes">
-				<view class="search-bar">
-					<uni-easyinput type="text" :adjust-position="true" v-model="commodity_name" 
-						placeholder="请输入菜品名称" :clearable="false"
-						placeholder-style="{ color: '#999', fontSize: '24rpx' }"
-						class="search-input"></uni-easyinput>
-					<view class="search-btn-group">
-						<button class="save search-btn" @click="searchCommodity">搜索</button>
-						<button class="save reset-btn" @click="cancelSearch">清空</button>
-					</view>
-				</view>
 			
-				<!-- 4. 菜品列表：保留原卡片高度，优化排版 -->
+			
+			<view class="dishes">
+				<mButtonVue  :isShowbutton2="true" @btn1="searchCommodity"  @btn2="cancelSearch"  :placeholder="'请输入菜品名称'"></mButtonVue>
 				<view class="dish-list">
 					<view class="dish-card" v-for="item in pageData" :key="item.id">
 						<menuBarVue :item="item" class="count" @showKeyboard="Keyboard"></menuBarVue>
@@ -80,6 +70,7 @@
 	import shopItem from '@/components/shop-item/shop-item.vue'
 	import menuBarVue from '@/components/menuBar.vue';
 	import inputBoxVue from '@/components/inputBox.vue';
+	import mButtonVue from '@/components/public/mButton/mButton.vue'
 
 
 	import {
@@ -116,7 +107,8 @@
 		components: {
 			shopItem,
 			menuBarVue,
-			inputBoxVue
+			inputBoxVue,
+			mButtonVue
 		},
 		computed: {
 			...mapState('cart', ['carts']),
@@ -312,7 +304,7 @@
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 	:deep(.uni-list-item__extra-text){
 		font-size: 28rpx;
 	}

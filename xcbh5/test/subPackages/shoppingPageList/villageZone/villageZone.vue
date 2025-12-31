@@ -1,13 +1,13 @@
 <template>
 	<view class="container">
-<!-- 		<view class="particle-bg">
+		<!-- 		<view class="particle-bg">
 			<view v-for="i in 30" :key="i" class="particle" :style="{
         left: Math.random() * 100 + '%',
         top: Math.random() * 100 + '%',
         animationDelay: i * 0.2 + 's'
       }"></view>
 		</view> -->
-		<view style="display: flex; align-items: center;">
+		<!-- 		<view style="display: flex; align-items: center;">
 			<view class="search-bar">
 				<view style="display: flex;   align-items: center; border-radius: 20rpx;">
 					<view style="padding: 20rpx;"><uni-icons color="#999999" size="20" type="search" /></view>
@@ -22,27 +22,29 @@
 				style="background-color: red; color: white;width: 120rpx; height: 80rpx; line-height: 80rpx; text-align: center; border-radius: 10rpx;  margin: 0 10rpx 0 0;"
 				@click="stopSearch">
 				清空</view>
-		</view>
+		</view> -->
+		<mButtonVue :isShowbutton2="true" @btn1="startSearch" @btn2="stopSearch" :placeholder="'搜索菜品'">
+		</mButtonVue>
 
 
 		<view class="filter-group">
-		
+
 			<picker @change="categoryChange" :range="pricesort" range-key="label">
 				<view class="filter-btn">
-					<uni-icons type="tags" size="16" color="#3a7afe" /> 
+					<uni-icons type="tags" size="16" color="#3a7afe" />
 					<text class="btn-text">{{ pricesort[selectedCategoryIndex].label }}</text>
 					<uni-icons type="arrowdown" size="14" color="#3a7afe" />
 				</view>
 			</picker>
-			
-			<picker  :range="distances" range-key="label">
+
+			<picker :range="distances" range-key="label">
 				<view class="filter-btn">
 					<uni-icons type="tags" size="16" color="#3a7afe" />
 					<text class="btn-text">{{ distances[selectedCategoryIndex].label }}</text>
 					<uni-icons type="arrowdown" size="14" color="#3a7afe" />
 				</view>
 			</picker>
-		
+
 		</view>
 
 
@@ -122,12 +124,15 @@
 	import {
 		myMixin
 	} from '@/utils/public.js'
+	import mButtonVue from '@/components/public/mButton/mButton.vue'
 	export default {
+		components: {
+			mButtonVue
+		},
 		mixins: [myMixin],
 		data() {
 			return {
-				distances:[
-					{
+				distances: [{
 						label: '离我最近',
 						value: ''
 					},
@@ -137,16 +142,16 @@
 					},
 				],
 				pricesort: [{
-					label: '价格最高',
-					value: ''
-				},
-				{
-					label: '价格最少',
-					value: ''
-				},
+						label: '价格最高',
+						value: ''
+					},
+					{
+						label: '价格最少',
+						value: ''
+					},
 				],
-				selectedCategoryIndex:0,
-				
+				selectedCategoryIndex: 0,
+
 				selectedCategoryId: 0,
 				activeCategory: 0,
 				categories: [],
@@ -178,7 +183,8 @@
 				}
 			},
 			// 开始搜索
-			startSearch() {
+			startSearch(value) {
+				this.queryData.goodsname = value
 				this.queryData.category_id = null
 				this.noMore = false
 				this.goodsData = [] // 清空原来的数据
@@ -210,7 +216,9 @@
 			async fetchCategories() {
 				const response = await api.cglist()
 				console.log(response)
-				this.categories = [{title:'全部'},...response.data.listdata]
+				this.categories = [{
+					title: '全部'
+				}, ...response.data.listdata]
 				// console.log(this.categories)
 			},
 			async getGoodsData(isRefresh = false) {
@@ -277,12 +285,12 @@
 
 <style lang="scss" scoped>
 	.filter-group {
-		margin:10rpx;
+		margin: 10rpx;
 		display: flex;
 		gap: 30rpx;
 		align-items: center;
 	}
-	
+
 	.filter-btn {
 		display: flex;
 		align-items: center;
@@ -291,6 +299,7 @@
 		background: #f5f7fa;
 		border: 1rpx solid #e4e7ed;
 	}
+
 	.search-bar {
 
 		margin: 15rpx;

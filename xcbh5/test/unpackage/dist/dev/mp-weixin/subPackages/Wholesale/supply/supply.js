@@ -251,20 +251,15 @@ var _index = __webpack_require__(/*! @/api/index.js */ 49);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var mButtonVue = function mButtonVue() {
+  __webpack_require__.e(/*! require.ensure | components/public/mButton/mButton */ "components/public/mButton/mButton").then((function () {
+    return resolve(__webpack_require__(/*! @/components/public/mButton/mButton.vue */ 914));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
+  components: {
+    mButtonVue: mButtonVue
+  },
   data: function data() {
     return {
       // 搜索关键字
@@ -334,28 +329,30 @@ var _default = {
                 _this.noMore = true;
                 return _context.abrupt("return");
               case 11:
+                console.log(res);
                 _this.page++;
-                _context.next = 17;
+                _context.next = 18;
                 break;
-              case 14:
-                _context.prev = 14;
+              case 15:
+                _context.prev = 15;
                 _context.t0 = _context["catch"](3);
                 console.log(_context.t0);
-              case 17:
-                _context.prev = 17;
+              case 18:
+                _context.prev = 18;
                 _this.loading = false;
-                return _context.finish(17);
-              case 20:
+                return _context.finish(18);
+              case 21:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3, 14, 17, 20]]);
+        }, _callee, null, [[3, 15, 18, 21]]);
       }))();
     },
     // 处理搜索
-    handleSearch: function handleSearch() {
+    handleSearch: function handleSearch(value) {
       this.resetList();
+      this.queryData.selltitle = value;
       this.loadData();
     },
     // 重置筛选
@@ -375,6 +372,7 @@ var _default = {
       this.goodsList = [];
       this.page = 1;
       this.noMore = false;
+      this.queryData.selltitle = null;
     },
     // 联系商家
     contactNow: function contactNow() {

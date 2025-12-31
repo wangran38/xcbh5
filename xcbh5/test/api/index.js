@@ -51,6 +51,8 @@ const checkToken = (url) => {
 		// 需要传token
 		const token = uni.getStorageSync('token');
 		return {
+			'Cache-Control': 'no-cache',
+			'Pragma': 'no-cache',
 			'Content-Type': 'application/json',
 			'Authorization': token
 		}

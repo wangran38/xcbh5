@@ -2,7 +2,7 @@
 	<view class="container">
 		<!-- 搜索栏 -->
 		<view class="search-bar">
-			<view style="display: flex;">
+<!-- 			<view style="display: flex;">
 				<view
 					style="display: flex;  background-color: rgb(245, 245, 245); align-items: center; border-radius: 20rpx;">
 					<view style="padding: 20rpx;"><uni-icons color="#999999" size="20" type="search" /></view>
@@ -16,7 +16,8 @@
 					style="background-color: red; color: white;width: 120rpx; height: 80rpx; line-height: 80rpx; text-align: center; border-radius: 10rpx; margin: 10rpx;"
 					@click="stopSearch">
 					清空</view>
-			</view>
+			</view> -->
+			<mButtonVue  :isShowbutton2="true" @btn1="searchCommodity"  @btn2="cancelSearch"  :placeholder="'搜索农户姓名或地址'"></mButtonVue>
 			<view class="filter-group">
 
 				<picker @change="categoryChange" :range="categories" range-key="label">
@@ -34,9 +35,11 @@
 						<uni-icons type="arrowdown" size="14" color="#3a7afe" />
 					</view>
 				</picker>
-				
-				
-				<view @click="goToRouter('/subPackages/shoppingPageList/statisticsMap/statisticsMap')" style="position: absolute; right: 40rpx; background-color: #007aff; padding: 10rpx; color: white; border-radius: 10rpx;">地图查看</view>
+
+
+				<view @click="goToRouter('/subPackages/shoppingPageList/statisticsMap/statisticsMap')"
+					style="position: absolute; right: 40rpx; background-color: #007aff; padding: 10rpx; color: white; border-radius: 10rpx;">
+					地图查看</view>
 
 			</view>
 
@@ -117,8 +120,12 @@
 	import {
 		myMixin
 	} from '@/utils/public.js'
+	import mButtonVue from '@/components/public/mButton/mButton.vue'
 
 	export default {
+		components: {
+			mButtonVue
+		},
 		mixins: [myMixin],
 		data() {
 			return {
@@ -169,9 +176,9 @@
 		},
 		computed: {},
 		methods: {
-			goToRouter(url){
+			goToRouter(url) {
 				uni.navigateTo({
-					url:url
+					url: url
 				})
 			},
 			intiQuery() {

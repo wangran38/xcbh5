@@ -291,7 +291,7 @@ var _index = __webpack_require__(/*! ../../api/index.js */ 49);
 //
 var bCard = function bCard() {
   __webpack_require__.e(/*! require.ensure | components/bCard */ "components/bCard").then((function () {
-    return resolve(__webpack_require__(/*! ../../components/bCard.vue */ 967));
+    return resolve(__webpack_require__(/*! ../../components/bCard.vue */ 974));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

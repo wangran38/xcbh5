@@ -207,7 +207,7 @@ var _index = __webpack_require__(/*! @/api/index.js */ 49);
 //
 var fegionSelection = function fegionSelection() {
   __webpack_require__.e(/*! require.ensure | components/fegionSelection/fegionSelection */ "components/fegionSelection/fegionSelection").then((function () {
-    return resolve(__webpack_require__(/*! @/components/fegionSelection/fegionSelection.vue */ 1082));
+    return resolve(__webpack_require__(/*! @/components/fegionSelection/fegionSelection.vue */ 1089));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
